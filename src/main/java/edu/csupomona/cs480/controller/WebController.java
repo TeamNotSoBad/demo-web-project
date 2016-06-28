@@ -128,6 +128,18 @@ public class WebController {
 	List<User> listAllUsers() {
 		return userManager.listAllUsers();
 	}
+	
+	
+	
+	/**
+	 * This is a test method for part 3 of assignment 3.
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/cs480/testing", method = RequestMethod.GET)
+	String doSomething() {
+		return "something";
+	}
 
 	/*********** Web UI Test Utility **********/
 	/**
