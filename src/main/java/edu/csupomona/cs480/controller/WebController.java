@@ -45,7 +45,14 @@ public class WebController {
 	String templateMethod() {
 		return "This is a test message. Success!";
 	}
-
+	/**
+	 *  CS480 - Assignment 3 
+	 *  Kevin Liu
+	 */
+	@RequestMapping(value = "/cs480/WeAreNotThatBad", method = RequestMethod.GET)
+	String notThatBadMethod() {
+		return "We're not that bad";
+	}
 	/**
 	 * cs480 - Assignment 3
 	 * Method by Mark Ilog.
