@@ -52,7 +52,7 @@ public class WebController {
 	 */
 
 	@RequestMapping(value = "/cs480/marktest", method = RequestMethod.GET)
-	String templateMethod() {
+	String markMethod() {
 		return "Hello World";
 	}
 
