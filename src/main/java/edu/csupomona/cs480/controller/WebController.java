@@ -47,6 +47,16 @@ public class WebController {
 	}
 
 	/**
+	 * cs480 - Assignment 3
+	 * Method by Mark Ilog.
+	 */
+
+	@RequestMapping(value = "/cs480/marktest", method = RequestMethod.GET)
+	String templateMethod() {
+		return "Hello World";
+	}
+
+	/**
 	 * This is a simple example of how the HTTP API works.
 	 * It returns a String "OK" in the HTTP response.
 	 * To try it, run the web application locally,
