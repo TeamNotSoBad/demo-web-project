@@ -36,6 +36,15 @@ public class WebController {
 	 */
 	@Autowired
 	private UserManager userManager;
+	
+	/**
+	 * Cs480 - Assignment 3, part 3
+	 * Template Method by Henry Hu.
+	 */
+	@RequestMapping(value = "/cs480/temptest", method = RequestMethod.GET)
+	String templateMethod() {
+		return "This is a test message. Success!";
+	}
 
 	/**
 	 * This is a simple example of how the HTTP API works.
