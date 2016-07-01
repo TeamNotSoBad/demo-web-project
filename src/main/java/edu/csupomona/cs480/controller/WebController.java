@@ -4,6 +4,7 @@ import java.util.List;
 
 
 
+import com.amazonaws.*;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItem;
@@ -50,7 +51,7 @@ public class WebController {
 	String templateMethod() {
 		return "This is a test message. Success!";
 	}
-
+	
 	/**
 	 * Cs480 - Assignment 4, part 2 Prototype FileUpload Method by Henry Hu. The
 	 * following method is NOT COMPLETE. DO NOT RUN this method. The user will
@@ -69,6 +70,93 @@ public class WebController {
 		// FileCleanUp()
 		return "Testing the file upload classes";
 	}
+	
+	/**
+	 * Thomas Nguyen
+	 * Assignment 4 part 2
+	 * Please do not uncomment the awsTest method, currently missing some vital parts of aws
+	 * that allows for the use of instantiating ec2, s3, and simpleDB,
+	 * credantials for using aws will be listed here
+	 * 
+	 * User Name: "cs480"
+	 * Access Key ID: AKIAIZXE7Q3VB5L3EX4Q
+	 * Secret Access Key: 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
+	 */
+	
+//	public static void awsTest()throws Exception{
+//        try {
+//            DescribeAvailabilityZonesResult availabilityZonesResult = ec2.describeAvailabilityZones();
+//            System.out.println("You have access to " + availabilityZonesResult.getAvailabilityZones().size() +
+//                    " Availability Zones.");
+//
+//            DescribeInstancesResult describeInstancesRequest = ec2.describeInstances();
+//            List<Reservation> reservations = describeInstancesRequest.getReservations();
+//            Set<Instance> instances = new HashSet<Instance>();
+//
+//            for (Reservation reservation : reservations) {
+//                instances.addAll(reservation.getInstances());
+//            }
+//
+//            System.out.println("You have " + instances.size() + " Amazon EC2 instance(s) running.");
+//        } catch (AmazonServiceException ase) {
+//                System.out.println("Caught Exception: " + ase.getMessage());
+//                System.out.println("Reponse Status Code: " + ase.getStatusCode());
+//                System.out.println("Error Code: " + ase.getErrorCode());
+//                System.out.println("Request ID: " + ase.getRequestId());
+//        }
+//
+//        try {
+//            ListDomainsRequest sdbRequest = new ListDomainsRequest().withMaxNumberOfDomains(100);
+//            ListDomainsResult sdbResult = sdb.listDomains(sdbRequest);
+//
+//            int totalItems = 0;
+//            for (String domainName : sdbResult.getDomainNames()) {
+//                DomainMetadataRequest metadataRequest = new DomainMetadataRequest().withDomainName(domainName);
+//                DomainMetadataResult domainMetadata = sdb.domainMetadata(metadataRequest);
+//                totalItems += domainMetadata.getItemCount();
+//            }
+//
+//            System.out.println("You have " + sdbResult.getDomainNames().size() + " Amazon SimpleDB domain(s)" +
+//                    "containing a total of " + totalItems + " items.");
+//        } catch (AmazonServiceException ase) {
+//                System.out.println("Caught Exception: " + ase.getMessage());
+//                System.out.println("Reponse Status Code: " + ase.getStatusCode());
+//                System.out.println("Error Code: " + ase.getErrorCode());
+//                System.out.println("Request ID: " + ase.getRequestId());
+//        }
+//
+//        try {
+//            List<Bucket> buckets = s3.listBuckets();
+//
+//            long totalSize  = 0;
+//            int  totalItems = 0;
+//            for (Bucket bucket : buckets) {
+//
+//                ObjectListing objects = s3.listObjects(bucket.getName());
+//                do {
+//                    for (S3ObjectSummary objectSummary : objects.getObjectSummaries()) {
+//                        totalSize += objectSummary.getSize();
+//                        totalItems++;
+//                    }
+//                    objects = s3.listNextBatchOfObjects(objects);
+//                } while (objects.isTruncated());
+//            }
+//
+//            System.out.println("You have " + buckets.size() + " Amazon S3 bucket(s), " +
+//                    "containing " + totalItems + " objects with a total size of " + totalSize + " bytes.");
+//        } catch (AmazonServiceException ase) {
+//
+//            System.out.println("Error Message:    " + ase.getMessage());
+//            System.out.println("HTTP Status Code: " + ase.getStatusCode());
+//            System.out.println("AWS Error Code:   " + ase.getErrorCode());
+//            System.out.println("Error Type:       " + ase.getErrorType());
+//            System.out.println("Request ID:       " + ase.getRequestId());
+//        } catch (AmazonClientException ace) {
+//        	
+//            System.out.println("Error Message: " + ace.getMessage());
+//        }
+//    }
+		
 	
 	
 	/**
