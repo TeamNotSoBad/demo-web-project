@@ -1,6 +1,12 @@
 package edu.csupomona.cs480.controller;
 
 import java.util.List;
+import java.io.IOException;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.apache.commons.io.*;
 import org.apache.commons.math.fraction.*;
 import org.apache.commons.fileupload.FileItem;
@@ -87,6 +93,40 @@ public class WebController {
 		Fraction f = new Fraction(3.4);
 		return f.toString();
 	}
+	/**
+	*  CS 480 Assignment 4, part 2
+	*  jsoup test
+	*  Mark Ilog
+	*/
+	@RequestMapping(value = "/cs480/jsoupTest", method = RequestMethod.GET)
+        String jsoupTest() throws Exception {
+        Document doc;
+        try {
+     
+            String something = "";
+            // need http protocol
+            doc = Jsoup.connect("http://google.com").get();
+     
+            // get page title
+            something = something + "Title: " + doc.title() + "\n";
+     
+            // get all links
+            Elements links = doc.select("a[href]");
+            for (Element link : links) {
+     
+                // get the value from href attribute
+                something = something + "\nlink : " + link.attr("href");
+                something = something + "\ntext : " + link.text();
+ 
+                return something;
+            }
+     
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "broken";
+        }
+        return "broken";
+    }
 	/**
 	 * cs480 - Assignment 3
 	 * Method by Mark Ilog.
