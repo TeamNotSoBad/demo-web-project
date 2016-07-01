@@ -2,6 +2,9 @@ package edu.csupomona.cs480.controller;
 
 import java.util.List;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +39,7 @@ public class WebController {
 	 */
 	@Autowired
 	private UserManager userManager;
-	
+
 	/**
 	 * Cs480 - Assignment 3, part 3
 	 * Template Method by Henry Hu.
@@ -45,6 +48,26 @@ public class WebController {
 	String templateMethod() {
 		return "This is a test message. Success!";
 	}
+	
+	/**
+	 * Cs480 - Assignment 4, part 2
+	 * Prototype FileUpload Method by Henry Hu.
+	 * The following method is NOT COMPLETE. DO NOT RUN this method.
+	 * The user will provide a DiskFileItem which is a compacted upload file as an object.
+	 * The write method will write the uploaded file into the disk, our server.
+	 * @throws Exception 
+	 */
+	@RequestMapping(value = "/cs480/user/filespace/upload", method = RequestMethod.GET)
+	String fileUploadMethod() throws Exception {
+		
+		//parseUploadRequest()
+		//processUploadedItemsList()
+		//------Make the DiskFileItem object--------
+		//dfi.write(dfi.getStoreLocation());
+		//FileCleanUp()
+		return "Testing the file upload classes";
+	}
+	
 	/**
 	 *  CS480 - Assignment 3 
 	 *  Kevin Liu
