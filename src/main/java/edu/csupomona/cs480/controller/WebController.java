@@ -1,7 +1,8 @@
 package edu.csupomona.cs480.controller;
 
 import java.util.List;
-
+import org.apache.commons.io.*;
+import org.apache.commons.math.fraction.*;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItem;
@@ -75,6 +76,16 @@ public class WebController {
 	@RequestMapping(value = "/cs480/WeAreNotThatBad", method = RequestMethod.GET)
 	String notThatBadMethod() {
 		return "We're not that bad";
+	}
+	
+	/**
+	 * CS480 - Assignment 4
+	 * Kevin Liu 
+	 */
+	@RequestMapping(value = "/print_test", method = RequestMethod.GET)
+		String printer() throws Exception{
+		Fraction f = new Fraction(3.4);
+		return f.toString();
 	}
 	/**
 	 * cs480 - Assignment 3
