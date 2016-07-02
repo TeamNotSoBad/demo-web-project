@@ -1,21 +1,17 @@
 package edu.csupomona.cs480.controller;
 
 import java.util.List;
-<<<<<<< HEAD
 
 
 
 import com.amazonaws.*;
-=======
 import java.io.IOException;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.apache.commons.io.*;
 import org.apache.commons.math.fraction.*;
->>>>>>> origin/master
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItem;
@@ -87,11 +83,7 @@ public class WebController {
 	 * Assignment 4 part 2
 	 * Please do not uncomment the awsTest method, currently missing some vital parts of aws
 	 * that allows for the use of instantiating ec2, s3, and simpleDB,
-	 * credantials for using aws will be listed here
 	 * 
-	 * User Name: "cs480"
-	 * Access Key ID: AKIAIZXE7Q3VB5L3EX4Q
-	 * Secret Access Key: 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
 	 */
 	
 //	public static void awsTest()throws Exception{
