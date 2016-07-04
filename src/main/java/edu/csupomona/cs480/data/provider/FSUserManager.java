@@ -67,6 +67,23 @@ public class FSUserManager implements UserManager {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * replaces the locally stored file with a file stored
+	 * on amazon
+	 * @param downloaded
+	 * @return 
+	 */
+	@Override
+	public void downloadeddUserMap(File downloaded) {
+		UserMap userMap = null;
+			try {
+				userMap = JSON.readValue(downloaded, UserMap.class);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		persistUserMap(userMap);
+	}
 
 	@Override
 	public User getUser(String userId) {

@@ -1,8 +1,10 @@
 package edu.csupomona.cs480.data.provider;
 
+import java.io.File;
 import java.util.List;
 
 import edu.csupomona.cs480.data.User;
+import edu.csupomona.cs480.data.UserMap;
 
 public interface UserManager {
 
@@ -43,5 +45,7 @@ public interface UserManager {
 	 * @return
 	 */
 	public List<User> listAllUsers();
+
+	void downloadeddUserMap(File downloaded);
 
 }

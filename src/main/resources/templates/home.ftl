@@ -18,6 +18,14 @@
             <li><a href="http://api.jquery.com/jquery.ajax/">JQuery - AJAX</a></li>
         </ul>
     </div>
+    
+    <form action="http://localhost:8080/cs480/login">
+    	<input type="submit" value="Log In">
+	</form>
+	
+	<form action="http://localhost:8080/cs480/register">
+    	<input type="submit" value="Register">
+	</form>
 
     <hr>
 
