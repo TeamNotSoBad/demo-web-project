@@ -278,10 +278,7 @@ public class WebController {
 			@PathVariable("userId") String id,
 			@RequestParam("name") String name,
 			@RequestParam(value = "major", required = false) String major) {
-		User user = new User();
-		user.setId(id);
-		user.setMajor(major);
-		user.setName(name);
+		User user = new User(id, name, major);
 		userManager.updateUser(user);
 		return user;
 	}
