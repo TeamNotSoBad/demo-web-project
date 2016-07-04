@@ -1,6 +1,8 @@
 package edu.csupomona.cs480.data;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.TreeMap;
 
 
 /**
@@ -16,7 +18,24 @@ public class User {
     private String major;
     /** The timestamp when the user is being created */
     private String creationTime = new Date(System.currentTimeMillis()).toString();
-
+    
+    private TreeMap friends;
+    
+    public User(){
+    }
+    
+    public User(String id, String name, String major){
+    	friends = new TreeMap <String,String>();
+    	this.id = id;
+    	this.name = name;
+    	this.major = major;
+    }
+    public void addFriend(String id){
+    	friends.put(id, id);
+    }
+    public void removeFriend(String id){
+    	friends.remove(id, id);
+    }
     public String getId() {
         return id;
     }
@@ -29,7 +48,7 @@ public class User {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(String name){
 		this.name = name;
 	}
 
