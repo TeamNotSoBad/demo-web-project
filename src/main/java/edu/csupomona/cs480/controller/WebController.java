@@ -7,6 +7,8 @@ import java.util.Set;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.AWSCredentialsProviderChain;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
@@ -64,7 +66,8 @@ import edu.csupomona.cs480.util.ResourceResolver;
 @RestController
 public class WebController extends WebMvcConfigurerAdapter {
 	
-	AWSCredentials credentials = null;
+	AWSCredentialsProvider getThis = new AWSCredentialsProviderChain();
+	AWSCredentials credentials = (AWSCredentials) getThis;
 	AmazonEC2Client ec2 = new AmazonEC2Client(credentials);
     AmazonS3Client s3  = new AmazonS3Client(credentials);
     AmazonSimpleDBClient sdb = new AmazonSimpleDBClient(credentials);
@@ -87,6 +90,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 	@RequestMapping(value = "/cs480/temptest", method = RequestMethod.GET)
 	String templateMethod() {
 		return "This is a test message. Success!";
+		
 	}
 	
 	/**
@@ -384,9 +388,6 @@ public class WebController extends WebMvcConfigurerAdapter {
 	}
 	
 	
-	
-
-
 	/*********** Web UI Test Utility **********/
 	/**
 	 * This method provide a simple web UI for you to test the different
