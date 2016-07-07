@@ -97,6 +97,7 @@ public class UserSearchTool {
 			for(String course: currentUserCourses) {
 				if (user.getCourses().contains(course)) {
 					hasCommonCourse = true;
+					break;
 				}
 			}
 			
