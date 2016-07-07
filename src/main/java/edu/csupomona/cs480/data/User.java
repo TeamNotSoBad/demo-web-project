@@ -20,43 +20,14 @@ public class User {
     /** The timestamp when the user is being created */
     private String creationTime = new Date(System.currentTimeMillis()).toString();
     
-    private TreeMap friends;
+    private HashSet<String> courses;    
     
-    private HashSet<String> courses;
-    
-    public User(){
-    }
-    
-    public User(String id, String name, String major){
-    	friends = new TreeMap <String,String>();
-    	this.id = id;
-    	this.name = name;
-    	this.major = major;
-    }
-    public void addFriend(String id){
-    	friends.put(id, id);
-    }
-    public void removeFriend(String id){
-    	friends.remove(id, id);
-    }
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-	private String id;
-	/** The unique user Id */
-	private String name;
-	/** The unique user Id */
-	private String major;
-	/** The timestamp when the user is being created */
-	private String creationTime = new Date(System.currentTimeMillis()).toString();
-
 	private HashMap friends;
+	
 	private HashMap blackList;
+	
 	private ArrayList mail;
+	
 	private ArrayList sent;
 
 	public User() {
