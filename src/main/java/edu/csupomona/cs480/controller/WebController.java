@@ -9,12 +9,14 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSCredentialsProviderChain;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.ObjectListing;
@@ -65,12 +67,6 @@ import edu.csupomona.cs480.util.ResourceResolver;
 
 @RestController
 public class WebController extends WebMvcConfigurerAdapter {
-	
-	AWSCredentialsProvider getThis = new AWSCredentialsProviderChain();
-	AWSCredentials credentials = (AWSCredentials) getThis;
-	AmazonEC2Client ec2 = new AmazonEC2Client(credentials);
-    AmazonS3Client s3  = new AmazonS3Client(credentials);
-    AmazonSimpleDBClient sdb = new AmazonSimpleDBClient(credentials);
 
 	/**
 	 * When the class instance is annotated with
@@ -369,22 +365,19 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 * know the name of the file that stores all the users, so I'm
 	 * using the resource resolver thing
 	 */
-	@RequestMapping(value = "/cs480/uploadUserMap", method = RequestMethod.POST)
-	void upload(){
-		AWSCredentials credentials = null;
-		AmazonS3Client s3c = new AmazonS3Client(credentials);
-		s3c.putObject("cs480usermap", "usermap", ResourceResolver.getUserFile());
+	@RequestMapping(value = "/cs480/upload", method = RequestMethod.POST)
+	String upload(){
+		userManager.uploadMap();
+		return "redirect:/";
 	}
 	
 	/**
 	 * Downloads the file that contains all users
 	 */
-	@RequestMapping(value = "/cs480/downloadUserMap", method = RequestMethod.GET)
-	void download(){
-		AWSCredentials credentials = null;
-		AmazonS3Client s3c = new AmazonS3Client(credentials);
-		Object downloaded = s3c.getObject("cs480usermap", "usermap");
-		userManager.downloadeddUserMap((File)downloaded);
+	@RequestMapping(value = "/cs480/download", method = RequestMethod.GET)
+	String download(){
+		userManager.downloadMap();
+		return "redirect:/";
 	}
 	
 	

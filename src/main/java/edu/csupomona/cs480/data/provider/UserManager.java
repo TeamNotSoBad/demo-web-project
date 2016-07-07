@@ -48,4 +48,8 @@ public interface UserManager {
 
 	void downloadeddUserMap(File downloaded);
 
+	void uploadMap();
+
+	void downloadMap();
+
 }
