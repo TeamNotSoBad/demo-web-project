@@ -2,6 +2,7 @@ package edu.csupomona.cs480.data;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.TreeMap;
 
 
@@ -20,6 +21,8 @@ public class User {
     private String creationTime = new Date(System.currentTimeMillis()).toString();
     
     private TreeMap friends;
+    
+    private HashSet<String> courses;
     
     public User(){
     }
@@ -66,5 +69,13 @@ public class User {
 
 	public void setCreationTime(String creationTime) {
 		this.creationTime = creationTime;
+	}
+
+	public HashSet<String> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(HashSet<String> courses) {
+		this.courses = courses;
 	}
 }
