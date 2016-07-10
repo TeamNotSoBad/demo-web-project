@@ -155,4 +155,10 @@ public class FSUserManager implements UserManager {
 		return new ArrayList<User>(userMap.values());
 	}
 
+	@Override
+	public void downloadeddUserMap(File downloaded) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

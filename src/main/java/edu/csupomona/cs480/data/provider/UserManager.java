@@ -46,8 +46,6 @@ public interface UserManager {
 	 */
 	public List<User> listAllUsers();
 
-	void downloadeddUserMap(File downloaded);
-
 	void uploadMap();
 
 	void downloadMap();
