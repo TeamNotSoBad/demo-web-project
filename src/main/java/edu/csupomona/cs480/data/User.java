@@ -20,6 +20,8 @@ public class User {
     /** The timestamp when the user is being created */
     private String creationTime = new Date(System.currentTimeMillis()).toString();
     
+    private String password;
+    
     private HashSet<String> courses;    
     
 	private HashMap friends;
@@ -77,6 +79,14 @@ public class User {
 
 	public void setMajor(String major) {
 		this.major = major;
+	}
+	
+	public String getPassword(){
+		return password;
+	}
+	
+	public String setPassword(){
+		this.password = password;
 	}
 
 	public String getCreationTime() {
