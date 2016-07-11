@@ -19,10 +19,10 @@ function addUser() {
 					},
 					success : function(result) {
 					alert("Valid User");
-					window.location.replace("http://localhost:8080/edit/" + userName);
+					window.location.replace("http://broncostudy.com/edit/" + userName);
 					},
 					error: function (jqXHR, exception) {
-					alert("Invalid User");
+					alert("Invalid Info");
 					}
 				}
 				);

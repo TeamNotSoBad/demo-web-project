@@ -55,7 +55,7 @@
 <body>    
     
     <div class = "hero-unit"> 
-           <center> <h1><font color = #000000>Welcome to Study Buddy Finder</font></h1></center>
+           <center> <h1><font color = #000000>Welcome to Broncostudy!</font></h1></center>
     </div>
            
     <center><img src="http://imgur.com/2jQYmP7.png" alt="logo"></center><br><br><br>
@@ -78,8 +78,10 @@
 
 	<br><br>
 	<div class = "sign_up">
-	<a href="http://localhost:8080/signup">Sign Up For A Study Buddy Account Now!</a>
+	<a href="http://broncostudy.com/signup">Sign Up For A Study Buddy Account Now!</a>
     </div>    
+    <br><br><br><br>    
+    <center> <h7><font color = #000000>By Mark Ilog, Henry Hu, Kevin Liu, Thomas Nguyen</font></h7></center>
 </body>
 
 </html>
