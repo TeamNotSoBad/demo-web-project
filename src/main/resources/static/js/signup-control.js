@@ -22,7 +22,7 @@ function addUser() {
 					window.location.replace("http://broncostudy.com/edit/" + userName);
 					},
 					error: function (jqXHR, exception) {
-					alert("Invalid User");
+					alert("Invalid Info");
 					}
 				}
 				);
