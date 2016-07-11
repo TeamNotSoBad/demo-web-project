@@ -5,6 +5,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.csupomona.cs480.data.User;
@@ -69,20 +77,56 @@ public class FSUserManager implements UserManager {
 	}
 	
 	/**
-	 * replaces the locally stored file with a file stored
-	 * on amazon
-	 * @param downloaded
-	 * @return 
+	 * Created this method to see if the file is properly uploaded, because the 
+	 * method in web controller created the bucket, but nothing was in it.
 	 */
+	
 	@Override
-	public void downloadeddUserMap(File downloaded) {
-		UserMap userMap = null;
-			try {
-				userMap = JSON.readValue(downloaded, UserMap.class);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		persistUserMap(userMap);
+	public void uploadMap(){
+		AWSCredentials credentials =  new ProfileCredentialsProvider("default").getCredentials();
+		AmazonS3 s3c = new AmazonS3Client(credentials);
+		File temp = ResourceResolver.getUserFile();
+		s3c.putObject("cs480usermap", "user-map.json", temp);
+		
+	}
+	
+	/**
+	 * Still working on the downloadMap because the object that is downloaded comes as a s3object
+	 * and not a File
+	 */
+	
+	@Override
+	public void downloadMap(){
+		AWSCredentials credentials =  new ProfileCredentialsProvider("default").getCredentials();
+		AmazonS3 s3c = new AmazonS3Client(credentials);
+		S3Object temp = s3c.getObject("cs480usermap","user-map.json");
+		S3ObjectInputStream usermapstream = temp.getObjectContent();
+		try {
+			JSON.writeValue(ResourceResolver.getUserFile(), usermapstream);
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			temp.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			usermapstream.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override

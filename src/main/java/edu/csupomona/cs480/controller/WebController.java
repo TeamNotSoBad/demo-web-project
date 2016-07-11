@@ -9,12 +9,14 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSCredentialsProviderChain;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.services.ec2.AmazonEC2;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.DescribeAvailabilityZonesResult;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import com.amazonaws.services.ec2.model.Instance;
 import com.amazonaws.services.ec2.model.Reservation;
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.ObjectListing;
@@ -65,12 +67,6 @@ import edu.csupomona.cs480.util.ResourceResolver;
 
 @RestController
 public class WebController extends WebMvcConfigurerAdapter {
-	
-	AWSCredentialsProvider getThis = new AWSCredentialsProviderChain();
-	AWSCredentials credentials = (AWSCredentials) getThis;
-	AmazonEC2Client ec2 = new AmazonEC2Client(credentials);
-    AmazonS3Client s3  = new AmazonS3Client(credentials);
-    AmazonSimpleDBClient sdb = new AmazonSimpleDBClient(credentials);
 
 	/**
 	 * When the class instance is annotated with
@@ -288,11 +284,11 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 * Try it in your web browser:
 	 * 	http://localhost:8080/cs480/user/user101
 	 */
-	@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.GET)
+	/**@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.GET)
 	User getUser(@PathVariable("userId") String userId) {
 		User user = userManager.getUser(userId);
 		return user;
-	}
+	}*/
 
 	/**
 	 * This is an example of sending an HTTP POST request to
@@ -312,7 +308,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 * @param major
 	 * @return
 	 */
-	@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.POST)
+	/**@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.POST)
 	User updateUser(
 			@PathVariable("userId") String id,
 			@RequestParam("name") String name,
@@ -327,64 +323,61 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 *
 	 * @param userId
 	 */
-	@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.DELETE)
+	/**@RequestMapping(value = "/cs480/user/{userId}", method = RequestMethod.DELETE)
 	void deleteUser(
 			@PathVariable("userId") String userId) {
 		userManager.deleteUser(userId);
-	}
+	}*/
 
 	/**
 	 * This API lists all the users in the current database.
 	 *
 	 * @return
 	 */
-	@RequestMapping(value = "/cs480/users/list", method = RequestMethod.GET)
+	/**@RequestMapping(value = "/cs480/users/list", method = RequestMethod.GET)
 	List<User> listAllUsers() {
 		return userManager.listAllUsers();
-	}
+	}*/
 	
 	/**
 	 * This is a test method for part 3 of assignment 3.
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/cs480/testing", method = RequestMethod.GET)
+	/**@RequestMapping(value = "/cs480/testing", method = RequestMethod.GET)
 	String doSomething() {
 		return "something";
-	}
+	}*/
 	
 	
 	/**
 	 * Trying to implement a login page
 	 * Currently not working as clicking the login button leads to an error 
 	 */
-	@RequestMapping(value = "/cs480/login", method = RequestMethod.GET)
+	/**@RequestMapping(value = "/cs480/login", method = RequestMethod.GET)
 	ModelAndView addViewControllers() {
 		ModelAndView modelAndView = new ModelAndView("login");
         return modelAndView;
-	}
+	}*/
 	
 	/**
 	 * Uploads the file that contains all the users, but I don't
 	 * know the name of the file that stores all the users, so I'm
 	 * using the resource resolver thing
 	 */
-	@RequestMapping(value = "/cs480/uploadUserMap", method = RequestMethod.POST)
-	void upload(){
-		AWSCredentials credentials = null;
-		AmazonS3Client s3c = new AmazonS3Client(credentials);
-		s3c.putObject("cs480usermap", "usermap", ResourceResolver.getUserFile());
+	@RequestMapping(value = "/cs480/upload", method = RequestMethod.POST)
+	String upload(){
+		userManager.uploadMap();
+		return "redirect:/";
 	}
 	
 	/**
 	 * Downloads the file that contains all users
 	 */
-	@RequestMapping(value = "/cs480/downloadUserMap", method = RequestMethod.GET)
-	void download(){
-		AWSCredentials credentials = null;
-		AmazonS3Client s3c = new AmazonS3Client(credentials);
-		Object downloaded = s3c.getObject("cs480usermap", "usermap");
-		userManager.downloadeddUserMap((File)downloaded);
+	@RequestMapping(value = "/cs480/download", method = RequestMethod.GET)
+	String download(){
+		userManager.downloadMap();
+		return "redirect:/";
 	}
 	
 	
@@ -393,11 +386,82 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 * This method provide a simple web UI for you to test the different
 	 * functionalities used in this web service.
 	 */
-	@RequestMapping(value = "/cs480/home", method = RequestMethod.GET)
+	/**@RequestMapping(value = "/cs480/home", method = RequestMethod.GET)
 	ModelAndView getUserHomepage() {
 		ModelAndView modelAndView = new ModelAndView("home");
 		modelAndView.addObject("users", listAllUsers());
 		return modelAndView;
+	}*/
+	
+	/***
+	 *Testing actual pages
+	 *
+	 */
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	ModelAndView getLogin() {
+		ModelAndView modelAndView = new ModelAndView("login");
+		return modelAndView;
 	}
+	
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	ModelAndView getSearch() {
+		ModelAndView modelAndView = new ModelAndView("search");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/edit/{userName}", method = RequestMethod.GET)
+	ModelAndView getEdit(@PathVariable("userName") String userName) {
+		User user = userManager.getUser(userName);
+		ModelAndView modelAndView = new ModelAndView("edit");
+		modelAndView.addObject("user", user);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	ModelAndView getSignUp() {
+		ModelAndView modelAndView = new ModelAndView("signup");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/user/{userName}", method = RequestMethod.POST)
+	User updateUser(
+			@PathVariable("userName") String username,
+			@RequestParam("userMajor") String usermajor,
+			@RequestParam("userPW") String userpassword) {
+		User user = new User();
+		user.setName(username);
+		user.setMajor(usermajor);
+		user.setPassword(userpassword);
+		userManager.updateUser(user);
+		return user;
+	}
+	
+	
+	
+	@RequestMapping(value = "/user/{userName}", method = RequestMethod.GET)
+	ModelAndView getUser(@PathVariable("userName") String userName) {
+		User user = userManager.getUser(userName);
+		ModelAndView modelAndView = new ModelAndView("user");
+		modelAndView.addObject("user", user);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/user/{userName}", method = RequestMethod.DELETE)
+	void deleteUser(
+			@PathVariable("userName") String name) {
+		userManager.deleteUser(name);
+	}
+	
+	@RequestMapping(value = "/users/list", method = RequestMethod.GET)
+	List<User> listAllUsers() {
+		return userManager.listAllUsers();
+	}
+	
+	
+	/***
+	 *Testing actual pages 
+	 * 
+	 */
 
 }

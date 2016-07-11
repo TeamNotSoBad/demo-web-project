@@ -5,95 +5,102 @@ import java.util.HashSet;
 
 /**
  * This class is an object used to process user objects from the UserMap class.
- * A single search function allows parameter for search by ID, Name, Major, and classes taken. 
- * A list of qualifying user searched results is provided by the search method.
+ * A single search function allows parameter for search by ID, Name, Major, and
+ * classes taken. A list of qualifying user searched results is provided by the
+ * search method.
+ * 
  * @author HH
  *
  */
 public class UserSearchTool {
-	
+
 	private ArrayList<User> listOfUsers;
 	private UserMap mapOfUsers;
-	
+
 	public UserSearchTool(UserMap users) {
 		listOfUsers = new ArrayList<User>(users.values());
 		mapOfUsers = users;
 	}
-	
+
 	/**
 	 * For a single user
+	 * 
 	 * @return
 	 */
 	public ArrayList<User> searchByID(String id) {
 		ArrayList<User> searchedUsers = new ArrayList<User>();
 
 		User singleUser = mapOfUsers.get(id);
-		
+
 		if (singleUser != null) {
 			searchedUsers.add(singleUser);
 		}
-		
+
 		return searchedUsers;
 	}
 
 	/**
 	 * For multiple users of the selected major.
+	 * 
 	 * @return
 	 */
 	public ArrayList<User> searchByMajor(String major) {
 		ArrayList<User> searchedUsers = new ArrayList<User>();
-		for(User user: listOfUsers) {
+		for (User user : listOfUsers) {
 			if ((major.equals(user.getMajor()))) {
 				searchedUsers.add(user);
 			}
-		}		
+		}
 		return searchedUsers;
 	}
 
 	/**
-	 * For multiple users of matching name. May later implement last and first name search.
-	 * If a user has part of the searched name, will be applicable.
+	 * For multiple users of matching name. May later implement last and first
+	 * name search. If a user has part of the searched name, will be applicable.
+	 * 
 	 * @param name
 	 * @return
 	 */
 	public ArrayList<User> searchByName(String name) {
 		ArrayList<User> searchedUsers = new ArrayList<User>();
-		for(User user: listOfUsers) {
+		for (User user : listOfUsers) {
 			if ((user.getName().contains(name))) {
 				searchedUsers.add(user);
 			}
 		}
 		return searchedUsers;
 	}
-	
+
 	/**
 	 * Method to search the user base if they contain one specific course.
+	 * 
 	 * @param course
 	 * @return
 	 */
 	public ArrayList<User> searchByCourse(String course) {
 		ArrayList<User> searchedUsers = new ArrayList<User>();
-		
-		for(User user: listOfUsers) {
-			
+
+		for (User user : listOfUsers) {
+
 			if (user.getCourses().contains(course)) {
 				searchedUsers.add(user);
 			}
 		}
-		
+
 		return searchedUsers;
 	}
-	
+
 	/**
-	 * Method to find users that share at least one course with the current user.
-	 * Excludes the user self.
+	 * Method to find users that share at least one course with the current
+	 * user. Excludes the user self.
+	 * 
 	 * @return
 	 */
 	public ArrayList<User> searchByCommonCourses(User currentUser) {
 		ArrayList<User> searchedUsers = new ArrayList<User>();
 		HashSet<String> currentUserCourses = currentUser.getCourses();
-		
-		for(User user: listOfUsers) {
+
+		for (User user : listOfUsers) {
 
 			if (!user.equals(currentUser)) {
 
@@ -102,6 +109,7 @@ public class UserSearchTool {
 				for (String course : currentUserCourses) {
 					if (user.getCourses().contains(course)) {
 						hasCommonCourse = true;
+						break;
 					}
 				}
 
@@ -109,9 +117,7 @@ public class UserSearchTool {
 					searchedUsers.add(user);
 				}
 			}
-
 		}
-		
 		return searchedUsers;
 	}
 }
