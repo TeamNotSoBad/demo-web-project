@@ -52,13 +52,14 @@ public class UserSearchTool {
 
 	/**
 	 * For multiple users of matching name. May later implement last and first name search.
+	 * If a user has part of the searched name, will be applicable.
 	 * @param name
 	 * @return
 	 */
 	public ArrayList<User> searchByName(String name) {
 		ArrayList<User> searchedUsers = new ArrayList<User>();
 		for(User user: listOfUsers) {
-			if ((name.equals(user.getName()))) {
+			if ((user.getName().contains(name))) {
 				searchedUsers.add(user);
 			}
 		}
@@ -74,6 +75,7 @@ public class UserSearchTool {
 		ArrayList<User> searchedUsers = new ArrayList<User>();
 		
 		for(User user: listOfUsers) {
+			
 			if (user.getCourses().contains(course)) {
 				searchedUsers.add(user);
 			}
@@ -84,6 +86,7 @@ public class UserSearchTool {
 	
 	/**
 	 * Method to find users that share at least one course with the current user.
+	 * Excludes the user self.
 	 * @return
 	 */
 	public ArrayList<User> searchByCommonCourses(User currentUser) {
@@ -91,19 +94,22 @@ public class UserSearchTool {
 		HashSet<String> currentUserCourses = currentUser.getCourses();
 		
 		for(User user: listOfUsers) {
-			
-			boolean hasCommonCourse = false;
-			
-			for(String course: currentUserCourses) {
-				if (user.getCourses().contains(course)) {
-					hasCommonCourse = true;
+
+			if (!user.equals(currentUser)) {
+
+				boolean hasCommonCourse = false;
+
+				for (String course : currentUserCourses) {
+					if (user.getCourses().contains(course)) {
+						hasCommonCourse = true;
+					}
+				}
+
+				if (hasCommonCourse == true) {
+					searchedUsers.add(user);
 				}
 			}
-			
-			if (hasCommonCourse == true) {
-				searchedUsers.add(user);
-			}
-			
+
 		}
 		
 		return searchedUsers;
