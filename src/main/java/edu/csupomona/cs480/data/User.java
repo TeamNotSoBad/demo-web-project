@@ -29,22 +29,22 @@ public class User {
 
 	private HashMap blackList;
 
-	private HashMap<String, ArrayList> mail;
+	private HashMap<String, ArrayList> conversation;
 
-	private HashMap<String, ArrayList> sent;
+
 
 	public User() {
 		friends = new HashMap<String, String>();
 		blackList = new HashMap<String, String>();
-		mail = new HashMap<String, ArrayList>();
-		sent = new HashMap<String, ArrayList>();
+		conversation = new HashMap<String, ArrayList>();
+		
 	}
 
 	public User(String id, String name, String major) {
 		friends = new HashMap<String, String>();
 		blackList = new HashMap<String, String>();
-		mail = new HashMap<String, ArrayList>();
-		sent = new HashMap<String, ArrayList>();
+		conversation = new HashMap<String, ArrayList>();
+	
 		this.id = id;
 		this.name = name;
 		this.major = major;
@@ -116,12 +116,12 @@ public class User {
 
 		Message msg = new Message(id, messageBody);
 
-		if (!mail.containsKey(id)) {
+		if (!conversation.containsKey(id)) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
 			chatLog.add(msg);
-			mail.put(id, chatLog);
+			conversation.put(id, chatLog);
 		} else {
-			mail.get(id).add(msg);
+			conversation.get(id).add(msg);
 		}
 
 		return true;
@@ -131,12 +131,12 @@ public class User {
 		if (blackList.containsKey(msg.getId())) {
 			return false;
 		}
-		if (!mail.containsKey(msg.getId())) {
+		if (!conversation.containsKey(msg.getId())) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
 			chatLog.add(msg);
-			mail.put(msg.getId(), chatLog);
+			conversation.put(msg.getId(), chatLog);
 		} else {
-			mail.get(msg.getId()).add(msg);
+			conversation.get(msg.getId()).add(msg);
 		}
 		return true;
 	}
@@ -152,12 +152,12 @@ public class User {
 		Message msg = new Message(id, messageBody);
 		recipient.sendMail(msg);
 
-		if (!sent.containsKey(recipient.id)) {
+		if (!conversation.containsKey(recipient.id)) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
 			chatLog.add(msg);
-			sent.put(recipient.id, chatLog);
+			conversation.put(recipient.id, chatLog);
 		} else {
-			sent.get(recipient.id).add(msg);
+			conversation.get(recipient.id).add(msg);
 		}
 
 		return true;
@@ -169,30 +169,24 @@ public class User {
 		}
 		recipient.sendMail(msg);
 
-		if (!sent.containsKey(recipient.id)) {
+		if (!conversation.containsKey(recipient.id)) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
 			chatLog.add(msg);
-			sent.put(recipient.id, chatLog);
+			conversation.put(recipient.id, chatLog);
 		} else {
-			sent.get(recipient.id).add(msg);
+			conversation.get(recipient.id).add(msg);
 		}
 
 		return true;
 	}
 
-	public ArrayList conversation(String id) {
-		ArrayList<Message> conversation = new ArrayList<Message>();
-		ArrayList<Message> outgoing = new ArrayList<Message>();
-		ArrayList<Message> incoming = new ArrayList<Message>();
-		Message[] conv = new Message[1];
-		if (sent.containsKey(id)) {
-			conversation.addAll(sent.get(id));
+	public ArrayList <Message> conversation(String id) {
+		if(conversation.containsKey(id)){
+			return conversation.get(id);
 		}
-		if (mail.containsKey(id)) {
-			conversation.addAll(mail.get(id));
+		else{
+			return new ArrayList<Message>();
 		}
-		conv = conversation.toArray(conv);
-		Arrays.sort(conv);
-		return conversation;
+		
 	}
 }
