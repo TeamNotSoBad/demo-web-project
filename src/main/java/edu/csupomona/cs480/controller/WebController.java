@@ -1,5 +1,6 @@
 package edu.csupomona.cs480.controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -435,6 +436,14 @@ public class WebController extends WebMvcConfigurerAdapter {
 		user.setPassword(userpassword);
 		userManager.updateUser(user);
 		return user;
+	}
+	
+	@RequestMapping(value = "/search/by-id/{clientID}", method = RequestMethod.POST)
+	
+	ArrayList searchByID(@PathVariable ("clientId") String clientID){
+		ArrayList<User> result = new ArrayList<User>();
+		result.add(userManager.getUser(clientID));
+		return result;
 	}
 	
 	

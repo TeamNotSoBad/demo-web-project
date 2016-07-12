@@ -1,10 +1,8 @@
 package edu.csupomona.cs480.data;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.TreeMap;
 import java.util.HashMap;
 
 /**
@@ -24,26 +22,36 @@ public class User {
 	private String password;
 
 	private HashSet<String> courses;
-
-	private HashMap friends;
-
-	private HashMap blackList;
-
-	private HashMap<String, ArrayList> conversation;
+	/**
+	 * friends is a HashMap that 
+	 */
+	private HashSet<String> friends;
+	/**
+	 *  blackList is a HashSet that uses a user's id as it's key/value.
+	 *  people on the blackList will have all messages ignored.
+	 */
+	private HashSet<String> blackList;
+	/** 
+	 * conversations stores all of the different conversations from this user to another.
+	 * A conversation is a list of messages sent in chronological order
+	 */
+	private HashMap<String, ArrayList> conversations;
 
 
 
 	public User() {
-		friends = new HashMap<String, String>();
-		blackList = new HashMap<String, String>();
-		conversation = new HashMap<String, ArrayList>();
 		
+		friends = new HashSet<String>();
+		blackList = new HashSet<String>();
+		conversations = new HashMap<String, ArrayList>();
+
 	}
 
 	public User(String id, String name, String major) {
-		friends = new HashMap<String, String>();
-		blackList = new HashMap<String, String>();
-		conversation = new HashMap<String, ArrayList>();
+		
+		friends = new HashSet<String>();
+		blackList = new HashSet<String>();
+		conversations = new HashMap<String, ArrayList>();
 	
 		this.id = id;
 		this.name = name;
@@ -51,11 +59,19 @@ public class User {
 	}
 
 	public void addFriend(String id) {
-		friends.put(id, id);
+		friends.add(id);
 	}
 
 	public void removeFriend(String id) {
-		friends.remove(id, id);
+		friends.remove(id);
+	}
+	
+	public void addBlackList(String id) {
+		blackList.add(id);
+	}
+
+	public void removeBlackList(String id) {
+		blackList.remove(id);
 	}
 
 	public String getId() {
@@ -110,33 +126,33 @@ public class User {
 	 * this method will be used to write mail to this instance of user
 	 */
 	public boolean sendMail(String id, String messageBody) {
-		if (blackList.containsKey(id)) {
+		if (blackList.contains(id)) {
 			return false;
 		}
 
 		Message msg = new Message(id, messageBody);
 
-		if (!conversation.containsKey(id)) {
+		if (!conversations.containsKey(id)) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
 			chatLog.add(msg);
-			conversation.put(id, chatLog);
+			conversations.put(id, chatLog);
 		} else {
-			conversation.get(id).add(msg);
+			conversations.get(id).add(msg);
 		}
 
 		return true;
 	}
 
 	public boolean sendMail(Message msg) {
-		if (blackList.containsKey(msg.getId())) {
+		if (blackList.contains(msg.getId())) {
 			return false;
 		}
-		if (!conversation.containsKey(msg.getId())) {
+		if (!conversations.containsKey(msg.getId())) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
 			chatLog.add(msg);
-			conversation.put(msg.getId(), chatLog);
+			conversations.put(msg.getId(), chatLog);
 		} else {
-			conversation.get(msg.getId()).add(msg);
+			conversations.get(msg.getId()).add(msg);
 		}
 		return true;
 	}
@@ -145,44 +161,44 @@ public class User {
 	 * This instance of user will send mail to an instance of another user.
 	 */
 	public boolean writeMail(User recipient, String messageBody) {
-		if (recipient.blackList.containsKey(id)) {
+		if (recipient.blackList.contains(id)) {
 			return false;
 		}
 
 		Message msg = new Message(id, messageBody);
 		recipient.sendMail(msg);
 
-		if (!conversation.containsKey(recipient.id)) {
+		if (!conversations.containsKey(recipient.id)) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
 			chatLog.add(msg);
-			conversation.put(recipient.id, chatLog);
+			conversations.put(recipient.id, chatLog);
 		} else {
-			conversation.get(recipient.id).add(msg);
+			conversations.get(recipient.id).add(msg);
 		}
 
 		return true;
 	}
 
 	public boolean writeMail(User recipient, Message msg) {
-		if (recipient.blackList.containsKey(id)) {
+		if (recipient.blackList.contains(id)) {
 			return false;
 		}
 		recipient.sendMail(msg);
 
-		if (!conversation.containsKey(recipient.id)) {
+		if (!conversations.containsKey(recipient.id)) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
 			chatLog.add(msg);
-			conversation.put(recipient.id, chatLog);
+			conversations.put(recipient.id, chatLog);
 		} else {
-			conversation.get(recipient.id).add(msg);
+			conversations.get(recipient.id).add(msg);
 		}
 
 		return true;
 	}
 
 	public ArrayList <Message> conversation(String id) {
-		if(conversation.containsKey(id)){
-			return conversation.get(id);
+		if(conversations.containsKey(id)){
+			return conversations.get(id);
 		}
 		else{
 			return new ArrayList<Message>();

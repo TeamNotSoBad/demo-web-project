@@ -1,5 +1,5 @@
 package edu.csupomona.cs480.data.provider;
-
+import edu.csupomona.cs480.data.UserSearchTool;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class FSUserManager implements UserManager {
 	 *
 	 */
 	private static final ObjectMapper JSON = new ObjectMapper();
-
+	private UserSearchTool userSearchTool;
 	/**
 	 * Load the user map from the local file.
 	 *
