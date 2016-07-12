@@ -437,8 +437,6 @@ public class WebController extends WebMvcConfigurerAdapter {
 		return user;
 	}
 	
-	
-	
 	@RequestMapping(value = "/user/{userName}", method = RequestMethod.GET)
 	ModelAndView getUser(@PathVariable("userName") String userName) {
 		User user = userManager.getUser(userName);
