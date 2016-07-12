@@ -16,10 +16,12 @@ public class UserSearchTool {
 
 	private ArrayList<User> listOfUsers;
 	private UserMap mapOfUsers;
+	private GroupMap mapOfGroups;
 
-	public UserSearchTool(UserMap users) {
+	public UserSearchTool(UserMap users, GroupMap groups) {
 		listOfUsers = new ArrayList<User>(users.values());
 		mapOfUsers = users;
+		mapOfGroups = groups;
 	}
 
 	/**
@@ -114,6 +116,28 @@ public class UserSearchTool {
 				}
 
 				if (hasCommonCourse == true) {
+					searchedUsers.add(user);
+				}
+			}
+		}
+		return searchedUsers;
+	}
+	
+	/**
+	 * Retrieves all users from the master groupMap object.
+	 * Given a groupID, this method will generate the list of the group's members.
+	 * @param groupID
+	 * @return
+	 */
+	public ArrayList<User> searchByGroupID(String groupID) {
+		ArrayList<User> searchedUsers = new ArrayList<User>();
+		Group result = mapOfGroups.get(groupID);
+		
+		if(result != null) {
+			HashSet<String> membersID = result.getMembersID();
+			for(String member: membersID) {
+				User user = mapOfUsers.get(member);
+				if(user != null) {
 					searchedUsers.add(user);
 				}
 			}

@@ -21,6 +21,8 @@ public class User {
 
 	private String password;
 
+	private HashSet<String> groups;
+	
 	private HashSet<String> courses;
 	/**
 	 * friends is a HashMap that 
@@ -44,7 +46,7 @@ public class User {
 		friends = new HashSet<String>();
 		blackList = new HashSet<String>();
 		conversations = new HashMap<String, ArrayList>();
-
+		groups = new HashSet<String>();
 	}
 
 	public User(String id, String name, String major) {
@@ -204,5 +206,16 @@ public class User {
 			return new ArrayList<Message>();
 		}
 		
+	}
+
+	public HashSet<String> getGroups() {
+		return groups;
+	}
+
+	public void joinGroup(String newGroupID) {
+		groups.add(newGroupID);
+	}
+	public void leaveGroup(String newGroupID) {
+		groups.remove(newGroupID);
 	}
 }

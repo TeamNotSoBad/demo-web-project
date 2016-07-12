@@ -6,6 +6,7 @@ import java.util.HashSet;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import edu.csupomona.cs480.data.GroupMap;
 import edu.csupomona.cs480.data.User;
 import edu.csupomona.cs480.data.UserMap;
 import edu.csupomona.cs480.data.UserSearchTool;
@@ -19,6 +20,7 @@ public class UserSearchToolTest {
 	@BeforeClass
 	public static void initialize() {
 		UserMap userMap = new UserMap();
+		GroupMap groupMap = new GroupMap();
 		listOfResults = new ArrayList<User>();
 
 		User user1 = new User("001", "kevin", "Computer Science");
@@ -60,7 +62,7 @@ public class UserSearchToolTest {
 		listOfAllUsers.add(user3);
 		listOfAllUsers.add(user4);
 
-		userST = new UserSearchTool(userMap);
+		userST = new UserSearchTool(userMap, groupMap);
 	}
 
 	@Test
