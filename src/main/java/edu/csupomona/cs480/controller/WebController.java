@@ -438,6 +438,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 		return user;
 	}
 	
+
 	@RequestMapping(value = "/search/by-id/{clientID}", method = RequestMethod.POST)
 	
 	ArrayList searchByID(@PathVariable ("clientId") String clientID){
@@ -448,6 +449,8 @@ public class WebController extends WebMvcConfigurerAdapter {
 	
 	
 	
+
+
 	@RequestMapping(value = "/user/{userName}", method = RequestMethod.GET)
 	ModelAndView getUser(@PathVariable("userName") String userName) {
 		User user = userManager.getUser(userName);

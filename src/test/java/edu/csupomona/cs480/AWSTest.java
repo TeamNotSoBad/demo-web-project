@@ -34,8 +34,6 @@ public class AWSTest extends TestCase {
 	 */
 	
 	public void testAWSGetObject() throws IOException{
-		AWSCredentials credentials =  new ProfileCredentialsProvider("default").getCredentials();
-		AmazonS3 s3c = new AmazonS3Client(credentials);
 		File temp = ResourceResolver.getUserFile();
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	    ObjectOutputStream oos = new ObjectOutputStream(baos);
