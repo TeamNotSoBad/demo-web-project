@@ -23,10 +23,10 @@ public class UserSearchToolTest {
 		GroupMap groupMap = new GroupMap();
 		listOfResults = new ArrayList<User>();
 
-		User user1 = new User("001", "kevin", "Computer Science");
-		User user2 = new User("002", "bob", "Computer Science");
-		User user3 = new User("003", "mark", "Physics");
-		User user4 = new User("004", "markZero", "English");
+		User user1 = new User("001", "kevin", "l", "Computer Science");
+		User user2 = new User("002", "bob", "somename", "Computer Science");
+		User user3 = new User("003", "mark", "man", "Physics");
+		User user4 = new User("004", "markZero", "hi", "English");
 
 		HashSet<String> courses1 = new HashSet<String>();
 		HashSet<String> courses2 = new HashSet<String>();
@@ -132,36 +132,36 @@ public class UserSearchToolTest {
 	@Test
 	public void testSearchByName() {
 		// Test case true if not empty.
-		listOfResults = userST.searchByName("kevin");
+		listOfResults = userST.searchByLastName("kevin");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByName("mark");
+		listOfResults = userST.searchByLastName("mark");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByName("bob");
+		listOfResults = userST.searchByLastName("bob");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByName("markZero");
+		listOfResults = userST.searchByLastName("markZero");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
 		// Fail Test Cases. Fail if list is not empty.
-		listOfResults = userST.searchByName("KEVIN");
+		listOfResults = userST.searchByLastName("KEVIN");
 		if (!listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByName("kevin mark");
+		listOfResults = userST.searchByLastName("kevin mark");
 		if (!listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
 		// This test checks if a user can be found if containing substring name
-		listOfResults = userST.searchByName("mark");
+		listOfResults = userST.searchByLastName("mark");
 		boolean doesResultExist = false;
 		for (User user : listOfResults) {
-			if (user.getName().equals("markZero")) {
+			if (user.getLastName().equals("markZero")) {
 				doesResultExist = true;
 			}
 		}
@@ -225,7 +225,7 @@ public class UserSearchToolTest {
 			throw new RuntimeException();
 		}
 		// Fail Test Cases. Fail if user5 has a common classmate.
-		User user5 = new User("005", "loner", "English");
+		User user5 = new User("005", "loner", "lonley", "English");
 		HashSet<String> courses5 = new HashSet<String>();
 		courses5.add("ENG99");
 		courses5.add("CS420");

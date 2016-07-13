@@ -63,10 +63,27 @@ public class UserSearchTool {
 	 * @param name
 	 * @return
 	 */
-	public ArrayList<User> searchByName(String name) {
+	public ArrayList<User> searchByLastName(String name) {
 		ArrayList<User> searchedUsers = new ArrayList<User>();
 		for (User user : listOfUsers) {
-			if ((user.getName().contains(name))) {
+			if ((user.getLastName().contains(name))) {
+				searchedUsers.add(user);
+			}
+		}
+		return searchedUsers;
+	}
+	
+	/**
+	 * For multiple users of matching name. May later implement last and first
+	 * name search. If a user has part of the searched name, will be applicable.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public ArrayList<User> searchByFirstName(String name) {
+		ArrayList<User> searchedUsers = new ArrayList<User>();
+		for (User user : listOfUsers) {
+			if ((user.getFirstName().contains(name))) {
 				searchedUsers.add(user);
 			}
 		}

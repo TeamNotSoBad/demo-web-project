@@ -13,7 +13,9 @@ public class User {
 	/** The unique user Id */
 	private String id;
 	/** The unique user Id */
-	private String name;
+	private String lastName;
+	/** The unique user Id */
+	private String firstName;
 	/** The unique user Id */
 	private String major;
 	/** The timestamp when the user is being created */
@@ -49,14 +51,15 @@ public class User {
 		groups = new HashSet<String>();
 	}
 
-	public User(String id, String name, String major) {
+	public User(String id, String lastName, String firstName, String major) {
 		
 		friends = new HashSet<String>();
 		blackList = new HashSet<String>();
 		conversations = new HashMap<String, ArrayList>();
 	
 		this.id = id;
-		this.name = name;
+		this.lastName = lastName;
+		this.firstName = firstName;
 		this.major = major;
 	}
 
@@ -84,12 +87,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setLastName(String name) {
+		this.lastName = name;
 	}
 
 	public String getMajor() {
@@ -217,5 +220,13 @@ public class User {
 	}
 	public void leaveGroup(String newGroupID) {
 		groups.remove(newGroupID);
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 }

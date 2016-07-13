@@ -427,11 +427,13 @@ public class WebController extends WebMvcConfigurerAdapter {
 	
 	@RequestMapping(value = "/user/{userName}", method = RequestMethod.POST)
 	User updateUser(
-			@PathVariable("userName") String username,
+			@PathVariable("userLastName") String userLastName,
+			@PathVariable("userFirstName") String userFirstName,
 			@RequestParam("userMajor") String usermajor,
 			@RequestParam("userPW") String userpassword) {
 		User user = new User();
-		user.setName(username);
+		user.setLastName(userLastName);
+		user.setFirstName(userFirstName);
 		user.setMajor(usermajor);
 		user.setPassword(userpassword);
 		userManager.updateUser(user);
