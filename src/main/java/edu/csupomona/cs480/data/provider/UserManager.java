@@ -49,5 +49,7 @@ public interface UserManager {
 	void uploadMap();
 
 	void downloadMap();
+	
+	public String getLocalMapTest();
 
 }

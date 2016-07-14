@@ -61,6 +61,20 @@ public class FSUserManager implements UserManager {
 		}
 		return userMap;
 	}
+	
+	/**
+	 * This method is to test whether or not the json map is found in
+	 * the linux environment
+	 */
+	public String getLocalMapTest(){
+		UserMap userMap = null;
+		File userFile = ResourceResolver.getUserFile();
+		if (userFile.exists()) {
+			return "File was found";
+		} else {
+			return "Does not Exist";
+		}
+	}
 
 	/**
 	 * Save and persist the user map in the local file.
