@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 /**
  * The groupMap class holds all mappings to groups in the data base.
- * Individual groups can be found and the IDs of its members. No two groups
+ * Individual groups can be found and the instances of its members. No two groups
  * may have the same groupID.
  * @author HH
  *
