@@ -399,6 +399,11 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 *
 	 */
 	
+	@RequestMapping(value = "testjson", method = RequestMethod.GET)
+	String testjson(){
+		return userManager.getLocalMapTest();
+	}
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	ModelAndView getLogin() {
 		ModelAndView modelAndView = new ModelAndView("login");
