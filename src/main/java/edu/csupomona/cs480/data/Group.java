@@ -138,6 +138,8 @@ public class Group {
 	
 	/**
 	 * A user may not be added to the member set if already in a higher level set.
+	 * A toggle on the MarkedForDeletion is made to ensure the first time a member
+	 * is added, a true flag will be set back to false.
 	 * @param user
 	 * @return
 	 */
@@ -147,6 +149,7 @@ public class Group {
 		} else {
 			if (members.add(user) == true) {
 				user.joinGroup(groupID);
+				toggleMarkedForDeletion();
 				return true;
 			} else {
 				return false;
