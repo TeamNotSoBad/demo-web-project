@@ -49,5 +49,8 @@ public interface UserManager {
 	void uploadMap();
 
 	void downloadMap();
+	
+	public List<User> getId(String id);
+	
 
 }

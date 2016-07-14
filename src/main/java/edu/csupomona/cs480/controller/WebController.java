@@ -411,9 +411,9 @@ public class WebController extends WebMvcConfigurerAdapter {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/edit/{userName}", method = RequestMethod.GET)
-	ModelAndView getEdit(@PathVariable("userName") String userName) {
-		User user = userManager.getUser(userName);
+	@RequestMapping(value = "/edit/{userId}", method = RequestMethod.GET)
+	ModelAndView getEdit(@PathVariable("userId") String userId) {
+		User user = userManager.getUser(userId);
 		ModelAndView modelAndView = new ModelAndView("edit");
 		modelAndView.addObject("user", user);
 		return modelAndView;
@@ -425,15 +425,17 @@ public class WebController extends WebMvcConfigurerAdapter {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/user/{userName}", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/{userId}", method = RequestMethod.POST)
 	User updateUser(
-			@PathVariable("userLastName") String userLastName,
-			@PathVariable("userFirstName") String userFirstName,
+			@PathVariable("userId") String userId,
+			@RequestParam("userLast") String userLast,
+			@RequestParam("userFirst") String userFirst,
 			@RequestParam("userMajor") String usermajor,
 			@RequestParam("userPW") String userpassword) {
 		User user = new User();
-		user.setLastName(userLastName);
-		user.setFirstName(userFirstName);
+		user.setId(userId);
+		user.setLastName(userLast);
+		user.setFirstName(userFirst);
 		user.setMajor(usermajor);
 		user.setPassword(userpassword);
 		userManager.updateUser(user);
@@ -441,14 +443,17 @@ public class WebController extends WebMvcConfigurerAdapter {
 	}
 	
 
-	@RequestMapping(value = "/search/by-id/{clientID}", method = RequestMethod.POST)
-	
-	ArrayList searchByID(@PathVariable ("clientId") String clientID){
-		ArrayList<User> result = new ArrayList<User>();
-		result.add(userManager.getUser(clientID));
-		return result;
+	@RequestMapping(value = "/search/id/{userId}", method = RequestMethod.GET)	
+	List<User> searchById(@PathVariable("userId") String userId){
+		return userManager.getId(userId);
 	}
 	
+	@RequestMapping(value = "/results/id/{userId}", method = RequestMethod.GET)
+	ModelAndView getSearchById(@PathVariable("userId") String userId) {
+		ModelAndView modelAndView = new ModelAndView("results");
+		modelAndView.addObject("users", searchById(userId));
+		return modelAndView;
+	}
 	
 	
 

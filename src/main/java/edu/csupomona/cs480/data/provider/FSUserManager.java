@@ -154,5 +154,13 @@ public class FSUserManager implements UserManager {
 		UserMap userMap = getUserMap();
 		return new ArrayList<User>(userMap.values());
 	}
+	
+	@Override
+	public List<User> getId(String userId){
+		List<User> result = new ArrayList<User>();
+		result.add(getUser(userId));
+		return result;
+	}
+	
 
 }

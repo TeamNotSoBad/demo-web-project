@@ -91,8 +91,16 @@ public class User {
 		return lastName;
 	}
 
-	public void setLastName(String name) {
-		this.lastName = name;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getMajor() {
@@ -220,13 +228,5 @@ public class User {
 	}
 	public void leaveGroup(String newGroupID) {
 		groups.remove(newGroupID);
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
 	}
 }
