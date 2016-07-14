@@ -56,6 +56,7 @@ public class User {
 		friends = new HashSet<String>();
 		blackList = new HashSet<String>();
 		conversations = new HashMap<String, ArrayList>();
+		groups = new HashSet<String>();
 	
 		this.id = id;
 		this.lastName = lastName;

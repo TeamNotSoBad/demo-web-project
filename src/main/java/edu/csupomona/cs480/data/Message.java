@@ -16,7 +16,7 @@ public class Message{
 	String getId(){
 		return id;
 	}
-	String getMsg(){
+	public String getMsg(){
 		return message;
 	}
 	Date getTime(){

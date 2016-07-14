@@ -24,10 +24,10 @@ public class ManagerTest extends TestCase{
 
 		FSUserManager usermanager = new FSUserManager();
 
-		User user1 = new User("1337", "Mark", "CS");
-		User user2 = new User("9166", "Geoff", "Math");
-		User user3 = new User("2912", "Tom", "ME");
-		User user4 = new User("2132", "Lina", "PH");
+		User user1 = new User("1337", "Mark", "firstName", "CS");
+		User user2 = new User("9166", "Geoff", "firstName", "Math");
+		User user3 = new User("2912", "Tom", "firstName", "ME");
+		User user4 = new User("2132", "Lina", "firstName", "PH");
 
 		usermanager.updateUser(user1);
 		usermanager.updateUser(user2);
