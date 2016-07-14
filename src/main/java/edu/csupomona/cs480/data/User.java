@@ -48,7 +48,8 @@ public class User {
 	 * A conversation is a list of messages sent in chronological order
 	 */
 	private HashMap<String, ArrayList> conversations;
-
+	
+	
 	public User() {
 		friends = new HashSet<String>();
 		blackList = new HashSet<String>();
@@ -56,6 +57,7 @@ public class User {
 		groups = new HashSet<String>();
 	}
 
+	
 	public User(String id, String lastName, String firstName, String major) {
 		friends = new HashSet<String>();
 		blackList = new HashSet<String>();
@@ -110,6 +112,10 @@ public class User {
 
 	public String getPassword() {
 		return password;
+	}
+	
+	public boolean authenticate(String password){
+		return password == this.password;
 	}
 
 	public void setPassword(String password) {
@@ -168,7 +174,7 @@ public class User {
 	}
 
 	/**
-	 * This instance of user will send mail to an instance of another user.
+	 * This instance of user will send mail to an instance of another user, on this users behalf.
 	 */
 	public boolean writeMail(User recipient, String messageBody) {
 		if (recipient.blackList.contains(id)) {
@@ -223,6 +229,7 @@ public class User {
 	public void joinGroup(String newGroupID) {
 		groups.add(newGroupID);
 	}
+	
 	public void leaveGroup(String newGroupID) {
 		groups.remove(newGroupID);
 	}

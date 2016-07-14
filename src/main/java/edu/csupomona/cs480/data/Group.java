@@ -1,5 +1,6 @@
 package edu.csupomona.cs480.data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -44,6 +45,13 @@ public class Group {
 		return groupID;
 	}
 	
+	public void sendGroupMessage(UserMap uMap, String userID, String msg){
+		ArrayList<String> groupMembers = new ArrayList<String> (membersID);
+		
+		for(int i = 0; i < groupMembers.size(); i++){
+			uMap.get(groupMembers.get(i)).sendMail(groupID, msg + "\n -" + userID);
+		}
+	}
 	/**
 	 * This method should only be called by the GroupMap object.
 	 * @param groupID
