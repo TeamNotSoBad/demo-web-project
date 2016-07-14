@@ -36,6 +36,10 @@ public class GroupMap extends HashMap<String, Group> {
 		if (containsKey(groupID) == true) {
 			Group group = get(groupID);
 			if (group.isMarkedForDeletion() == true) {
+				User owner = group.getOwner();
+				group.setOwner(null);
+				group.removeAdministrator(owner);
+				group.removeMember(owner);
 				return super.remove(groupID);
 			}
 		}
