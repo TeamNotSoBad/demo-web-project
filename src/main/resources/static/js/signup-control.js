@@ -1,25 +1,28 @@
 function addUser() {
 
-	var userName = $('#input_name').val();
+	var userId = $('#input_id').val();
+	var userFirst = $('#input_first').val();
+	var userLast = $('#input_last').val();
 	var userMajor = $('#input_major').val();
 	var userPW = $('#input_password').val();
 	var userConfirmPW = $('#input_confirmpw').val();
 	var compare = userPW.localeCompare(userConfirmPW);
 	
 	
-	if (userName && compare != -1) {
+	if (userId && userFirst && userLast && userMajor && userPW && userConfirmPW && compare === 0) {
 		$.ajax(
 				{
 					type : "POST",
-					url  : "/user/" + userName,
+					url  : "/user/" + userId,
 					data : {
-						"userName" : userName,
+						"userFirst" : userFirst,
+						"userLast" : userLast,
 						"userMajor" : userMajor,
 						"userPW" : userPW
 					},
 					success : function(result) {
 					alert("Valid User");
-					window.location.replace("http://broncostudy.com/edit/" + userName);
+					window.location.href = "http://broncostudy.com/edit/" + userId;
 					},
 					error: function (jqXHR, exception) {
 					alert("Invalid Info");
@@ -27,7 +30,7 @@ function addUser() {
 				}
 				);
 	} 
-	else if(compare == -1){
+	else if(compare != 0){
 		alert("Passwords do not match");
 	}
 	else {

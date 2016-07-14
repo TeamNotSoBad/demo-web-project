@@ -1,22 +1,18 @@
-
 function search(){
-	var clientID = $('#userid').val();
-	$a.jax(
+	var userId = $('#input_id').val();
+	
+	$.ajax(
 		{
 			type : "GET",
-			url : "/search/by-id/" + clientID,
+			url : "/search/id/" + userId,
 			data : {
 			},
 			success : function(result) {
-				window.location.replace("http://broncostudy.com/search/by-id/" + clientID);
+				window.location.href = "http://broncostudy.com/results/id/" + userId;
 			},
-			error : function(result){
-				alert("User ID doesn't exist");
+			error : function(exception){
+				alert("Invalid Input.");
 			}
-			
 		}
 	);
-}
-
-function sendMessage(){
 }

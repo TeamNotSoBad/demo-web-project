@@ -54,55 +54,35 @@
 <body>    
     
     <div class = "header">
-            <center><h1>Search Results</h1></center>
+            <center><h1>Search</h1></center>
     </div>
-        
-    <hr>
         
     <div class = "form-search">
             <form>
-  			Search For: <input type="text" name="userid">
-  			<button onclick="search()">Search</button>
+  			Search For: <input type="text" Placeholder = "ID" id="input_id">
+  			<input type = "button" value = "Search" onclick="search()">
   			</form>
     </div>
-    
-    <hr>
     
     <div class="container">
   <h2>Users Found:</h2>
   <table class="table table-hover">
-    <thead>
-      <tr>
-      	<th>Name</th>
-        <th>Major</th>
-        <th>Classes currently taking</th>
-        <th>Rating</th>
-        <th>Message this person</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>John</td>
-        <td>CS</td>
-        <td>CS480</td>
-        <td>5/5</th>
-        <th></th>
-      </tr>
-      <tr>
-        <td>Sam</td>
-        <td>Mechanical Engi.</td>
-        <td>Mat 216</td>
-        <td>3/5</th>
-        <th></th>
-      </tr>
-      <tr>
-        <td>Joanna</td>
-        <td>Math</td>
-        <td>Mat 370</td>
-        <td>4/5</th>
-        <th></th>
-      </tr>
-    </tbody>
+   		<tr class="success">	                    
+	        <td>ID</td>
+	        <td>First Name</td>
+	        <td>Last Name</td>
+	        <td>Major</td>
+	        <td>Current Courses/td>
+	        <td>Message This person</td>
+	     </tr>
+	     <tr ng-repeat="s in foundUsers">
+	        <td>{{s.id}}</td>
+	        <td>{{s.firstname}}</td>
+	        <td>{{s.lastname}}</td>
+	        <td>{{s.major}}</td>
+	        <td>{{s.courses}}</td>
+	        <td>Message placeholder</td>
+	     </tr>  
   </table>
 </div>
 
