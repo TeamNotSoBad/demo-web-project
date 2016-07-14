@@ -27,16 +27,17 @@ public class Group {
 
 	private String groupID;
 	private String groupName;
-	private String groupOwnerID;
-	private HashSet<String> adminsID;
-	private HashSet<String> membersID;
+	private User groupOwner;
+	private HashSet<User> admins;
+	private HashSet<User> members;
 	private String creationTime;
 	
-	public Group(String name, String groupID, String ownerID) {
+	public Group(String name, String groupUniqueID, User owner) {
 		groupName = name;
-		groupOwnerID = ownerID;
-		adminsID = new HashSet<String>();
-		membersID = new HashSet<String>();
+		groupID = groupUniqueID;
+		groupOwner = owner;
+		admins = new HashSet<User>();
+		members = new HashSet<User>();
 		creationTime = new Date(System.currentTimeMillis()).toString();
 	}
 	
@@ -60,8 +61,8 @@ public class Group {
 		this.groupName = groupName;
 	}
 	
-	public String getOwnerID() {
-		return groupOwnerID;
+	public User getOwner() {
+		return groupOwner;
 	}
 	
 	/**
@@ -69,33 +70,34 @@ public class Group {
 	 * @param ownerID
 	 * @return
 	 */
-	public boolean setOwnerID(String ownerID) {
-		if(!ownerID.equals(groupOwnerID)) {
-			groupOwnerID = "";
-			addMember(groupID);
-			addAdministrator(groupID);
-			removeAdministrator(ownerID);
-			removeMember(ownerID);
-			groupOwnerID = ownerID;
+	public boolean setOwner(User owner) {
+		if(!owner.equals(groupOwner)) {
+			User tempUser = groupOwner;
+			groupOwner = null;
+			addMember(tempUser);
+			addAdministrator(tempUser);
+			removeAdministrator(owner);
+			removeMember(owner);
+			groupOwner = owner;
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	public HashSet<String> getAdminSet() {
-		return adminsID;
+	public HashSet<User> getAdminSet() {
+		return admins;
 	}
 	
 	/**
 	 * This method strips a member of their admin status.
 	 * The user is then placed into the member set.
-	 * @param id
+	 * @param user
 	 */
-	public boolean removeAdministrator(String id) {
-		if (adminsID.contains(id)) {
-			adminsID.remove(id);
-			return membersID.add(id);
+	public boolean removeAdministrator(User user) {
+		if (admins.contains(user)) {
+			admins.remove(user);
+			return members.add(user);
 		} else {
 			return false;
 		}
@@ -105,17 +107,17 @@ public class Group {
 	 * To add a new admin, the userID must already exist in the member set.
 	 * The user must also not be the group owner.
 	 */
-	public boolean addAdministrator(String id) {
-		if (membersID.contains(id) && !groupOwnerID.equals(id)) {
-			membersID.remove(id);
-			return adminsID.add(id);
+	public boolean addAdministrator(User user) {
+		if (members.contains(user) && !groupOwner.equals(user)) {
+			members.remove(user);
+			return admins.add(user);
 		} else {
 			return false;
 		}
 	}
 	
-	public HashSet<String> getMembersSet() {
-		return membersID;
+	public HashSet<User> getMembersSet() {
+		return members;
 	}
 	
 	/**
@@ -124,20 +126,30 @@ public class Group {
 	 * remove this group's information from their profile.
 	 * @param id
 	 */
-	public boolean removeMember(String id) {
-		return membersID.remove(id);
+	public boolean removeMember(User user) {
+		if (members.remove(user) == true) {
+			user.leaveGroup(groupID);
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/**
 	 * A user may not be added to the member set if already in a higher level set.
-	 * @param id
+	 * @param user
 	 * @return
 	 */
-	public boolean addMember(String id) {
-		if (groupOwnerID.equals(id) || adminsID.contains(id)) {
+	public boolean addMember(User user) {
+		if (groupOwner.equals(user) || admins.contains(user)) {
 			return false;
 		} else {
-			return membersID.add(id);
+			if (members.add(user) == true) {
+				user.joinGroup(groupID);
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 
