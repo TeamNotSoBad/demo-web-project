@@ -47,11 +47,11 @@ public class Group {
 		return groupID;
 	}
 	
-	public void sendGroupMessage(UserMap uMap, String userID, String msg){
-		ArrayList<String> groupMembers = new ArrayList<String> (membersID);
+	public void sendGroupMessage(String userID, String msg){
+		ArrayList<User> groupMembers = new ArrayList<User> (members);
 		
 		for(int i = 0; i < groupMembers.size(); i++){
-			uMap.get(groupMembers.get(i)).sendMail(groupID, msg + "\n -" + userID);
+			groupMembers.get(i).sendMail(groupID, msg + "\n -" + userID);
 		}
 	}
 	/**
