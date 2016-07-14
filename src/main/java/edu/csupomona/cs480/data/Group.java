@@ -17,7 +17,7 @@ import java.util.HashSet;
  * This data structure follows a hierarchy of command.
  * Intended use for the 3 subgroups follows.
  * Members: The basic user that exists in the set may contact and get updates from higher level users.
- * Admins: These users may add/remove existing and applicant members. May also post udpates.
+ * Admins: These users may add/remove existing and applicant members. May also post updates.
  * Owner: This unique user may add/remove anyone in the group. This user may transfer ownership of the
  * group to another user. 
  * @author HH
@@ -31,6 +31,7 @@ public class Group {
 	private HashSet<User> admins;
 	private HashSet<User> members;
 	private String creationTime;
+	private boolean isMarkedForDeletion = false;
 	
 	public Group(String name, String groupUniqueID, User owner) {
 		groupName = name;
@@ -155,5 +156,23 @@ public class Group {
 
 	public String getCreationTime() {
 		return creationTime;
+	}
+
+	public boolean isMarkedForDeletion() {
+		return isMarkedForDeletion;
+	}
+
+	public boolean toggleMarkedForDeletion() {
+		if (isMarkedForDeletion == false) {
+			if(getMembersSet().isEmpty() && getAdminSet().isEmpty()) {
+				isMarkedForDeletion = true;
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			isMarkedForDeletion = false;
+			return true;
+		}
 	}
 }
