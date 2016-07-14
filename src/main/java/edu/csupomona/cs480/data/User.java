@@ -12,12 +12,16 @@ public class User {
 
 	/** The unique user Id */
 	private String id;
+	
 	/** The unique user Id */
 	private String lastName;
+	
 	/** The unique user Id */
 	private String firstName;
+	
 	/** The unique user Id */
 	private String major;
+	
 	/** The timestamp when the user is being created */
 	private String creationTime = new Date(System.currentTimeMillis()).toString();
 
@@ -26,36 +30,39 @@ public class User {
 	private HashSet<String> groups;
 	
 	private HashSet<String> courses;
+	
 	/**
 	 * friends is a HashMap that 
 	 */
 	private HashSet<String> friends;
+	
 	/**
 	 *  blackList is a HashSet that uses a user's id as it's key/value.
 	 *  people on the blackList will have all messages ignored.
 	 */
+	
 	private HashSet<String> blackList;
+	
 	/** 
 	 * conversations stores all of the different conversations from this user to another.
 	 * A conversation is a list of messages sent in chronological order
 	 */
 	private HashMap<String, ArrayList> conversations;
-
-
-
+	
+	
 	public User() {
-		
 		friends = new HashSet<String>();
 		blackList = new HashSet<String>();
 		conversations = new HashMap<String, ArrayList>();
 		groups = new HashSet<String>();
 	}
 
+	
 	public User(String id, String lastName, String firstName, String major) {
-		
 		friends = new HashSet<String>();
 		blackList = new HashSet<String>();
 		conversations = new HashMap<String, ArrayList>();
+		groups = new HashSet<String>();
 	
 		this.id = id;
 		this.lastName = lastName;
@@ -114,6 +121,10 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
+	
+	public boolean authenticate(String password){
+		return password == this.password;
+	}
 
 	public void setPassword(String password) {
 		this.password = password;
@@ -171,7 +182,7 @@ public class User {
 	}
 
 	/**
-	 * This instance of user will send mail to an instance of another user.
+	 * This instance of user will send mail to an instance of another user, on this users behalf.
 	 */
 	public boolean writeMail(User recipient, String messageBody) {
 		if (recipient.blackList.contains(id)) {
@@ -226,6 +237,7 @@ public class User {
 	public void joinGroup(String newGroupID) {
 		groups.add(newGroupID);
 	}
+	
 	public void leaveGroup(String newGroupID) {
 		groups.remove(newGroupID);
 	}

@@ -5,21 +5,25 @@ import java.util.HashSet;
 
 /**
  * This class is an object used to process user objects from the UserMap class.
- * A single search function allows parameter for search by ID, Name, Major, and
- * classes taken. A list of qualifying user searched results is provided by the
- * search method.
+ * A single search function allows parameter for search by ID, first and last Name, Major,
+ * a course, common courses to a user, and all members of a group. 
+ * A list of qualifying user searched results is provided by the search method.
+ * <p>
+ * Group searching features are also added.
  * 
  * @author HH
  *
  */
-public class UserSearchTool {
+public class SearchTool {
 
 	private ArrayList<User> listOfUsers;
+	private ArrayList<Group> listOfGroups;
 	private UserMap mapOfUsers;
 	private GroupMap mapOfGroups;
 
-	public UserSearchTool(UserMap users, GroupMap groups) {
+	public SearchTool(UserMap users, GroupMap groups) {
 		listOfUsers = new ArrayList<User>(users.values());
+		listOfGroups = new ArrayList<Group>(groups.values());
 		mapOfUsers = users;
 		mapOfGroups = groups;
 	}
@@ -143,22 +147,57 @@ public class UserSearchTool {
 	/**
 	 * Retrieves all users from the master groupMap object.
 	 * Given a groupID, this method will generate the list of the group's members.
+	 * The search includes admins and the owner.
 	 * @param groupID
 	 * @return
 	 */
-	public ArrayList<User> searchByGroupID(String groupID) {
+	public ArrayList<User> searchByGroupIDForUsers(String groupID) {
 		ArrayList<User> searchedUsers = new ArrayList<User>();
 		Group result = mapOfGroups.get(groupID);
 		
 		if(result != null) {
-			HashSet<String> membersID = result.getMembersID();
-			for(String member: membersID) {
-				User user = mapOfUsers.get(member);
-				if(user != null) {
+			searchedUsers.add(mapOfGroups.get(groupID).getOwner());
+			HashSet<User> adminsSet = result.getAdminSet();
+			HashSet<User> membersSet = result.getMembersSet();
+
+			for(User user: adminsSet) {
 					searchedUsers.add(user);
-				}
+			}			
+			
+			for(User user: membersSet) {
+					searchedUsers.add(user);
 			}
 		}
 		return searchedUsers;
+	}
+	
+	/**
+	 * A list of groups that contain the string in their group name.
+	 * @param groupName
+	 * @return
+	 */
+	public ArrayList<Group> searchByGroupName(String groupName) {
+		ArrayList<Group> searchedGroups = new ArrayList<Group>();
+		
+		for(Group group: listOfGroups) {
+			if(group.getGroupName().contains(groupName)) {
+				searchedGroups.add(group);
+			}
+		}
+		
+		return searchedGroups;
+	}
+	
+	/**
+	 * A single search for a group by providing a groupID.
+	 * @param groupID
+	 * @return
+	 */
+	public ArrayList<Group> searchByGroupID(String groupID) {
+		ArrayList<Group> searchedGroups = new ArrayList<Group>();
+		if (mapOfGroups.containsKey(groupID)) {
+			searchedGroups.add(mapOfGroups.get(groupID));
+		}
+		return searchedGroups;
 	}
 }

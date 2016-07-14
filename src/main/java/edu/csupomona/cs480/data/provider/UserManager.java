@@ -51,6 +51,7 @@ public interface UserManager {
 	void downloadMap();
 	
 	public List<User> getId(String id);
-	
+
+	public String getLocalMapTest();
 
 }

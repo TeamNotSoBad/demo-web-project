@@ -1,5 +1,5 @@
 package edu.csupomona.cs480.data.provider;
-import edu.csupomona.cs480.data.UserSearchTool;
+import edu.csupomona.cs480.data.SearchTool;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class FSUserManager implements UserManager {
 	 *
 	 */
 	private static final ObjectMapper JSON = new ObjectMapper();
-	private UserSearchTool userSearchTool;
+	private SearchTool userSearchTool;
 	/**
 	 * Load the user map from the local file.
 	 *
@@ -60,6 +60,20 @@ public class FSUserManager implements UserManager {
 			userMap = new UserMap();
 		}
 		return userMap;
+	}
+	
+	/**
+	 * This method is to test whether or not the json map is found in
+	 * the linux environment
+	 */
+	public String getLocalMapTest(){
+		UserMap userMap = null;
+		File userFile = ResourceResolver.getUserFile();
+		if (userFile.exists()) {
+			return "File was found";
+		} else {
+			return "Does not Exist";
+		}
 	}
 
 	/**

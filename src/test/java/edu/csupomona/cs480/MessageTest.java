@@ -25,9 +25,8 @@ public class MessageTest extends TestCase{
 	User user2;
 
 	public void testMessage() throws IOException {
-
-		user1 = new User("user1", "bob", "bom", "cs");
-		user2 = new User("user2", "ricky", "rock", "math");
+		user1 = new User("user1", "bob", "firstName", "cs");
+		user2 = new User("user2", "ricky", "firstName", "math");
 
 		String messageBody1 = "What is your name?";
 		String messageBody2 = "bob";
