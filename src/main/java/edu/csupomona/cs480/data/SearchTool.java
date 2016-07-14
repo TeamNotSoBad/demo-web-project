@@ -156,17 +156,15 @@ public class SearchTool {
 		Group result = mapOfGroups.get(groupID);
 		
 		if(result != null) {
-			searchedUsers.add(mapOfUsers.get(result.getOwnerID()));
-			HashSet<String> adminsID = result.getAdminSet();
-			HashSet<String> membersID = result.getMembersSet();
+			searchedUsers.add(mapOfGroups.get(groupID).getOwner());
+			HashSet<User> adminsSet = result.getAdminSet();
+			HashSet<User> membersSet = result.getMembersSet();
 
-			for(String admin: adminsID) {
-				User user = mapOfUsers.get(admin);
+			for(User user: adminsSet) {
 					searchedUsers.add(user);
 			}			
 			
-			for(String member: membersID) {
-				User user = mapOfUsers.get(member);
+			for(User user: membersSet) {
 					searchedUsers.add(user);
 			}
 		}

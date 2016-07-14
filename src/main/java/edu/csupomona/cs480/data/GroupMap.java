@@ -26,6 +26,23 @@ public class GroupMap extends HashMap<String, Group> {
 	}
 	
 	/**
+	 * Only allow the removal of an existing group if it is marked for deletion.
+	 * To mark for deletion, the group must only consist of the owner and the owner
+	 * must toggle the mark for deletion to be true.
+	 * @param groupID
+	 * @return
+	 */
+	public Group remove(String groupID) {
+		if (containsKey(groupID) == true) {
+			Group group = get(groupID);
+			if (group.isMarkedForDeletion() == true) {
+				return super.remove(groupID);
+			}
+		}
+		return null;
+	}
+	
+	/**
 	 * Changing the groupID should be done in this class only.
 	 * @param oldGroupID
 	 * @param newGroupID
