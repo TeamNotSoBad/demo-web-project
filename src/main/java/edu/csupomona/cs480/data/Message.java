@@ -22,4 +22,7 @@ public class Message{
 	Date getTime(){
 		return time;
 	}
+	String time(){
+		return time.toString();
+	}
 }
