@@ -9,11 +9,11 @@ import org.junit.Test;
 import edu.csupomona.cs480.data.GroupMap;
 import edu.csupomona.cs480.data.User;
 import edu.csupomona.cs480.data.UserMap;
-import edu.csupomona.cs480.data.UserSearchTool;
+import edu.csupomona.cs480.data.SearchTool;
 
-public class UserSearchToolTest {
+public class SearchToolTest {
 
-	private static UserSearchTool userST;
+	private static SearchTool searchToolTester;
 	private static ArrayList<User> listOfResults;
 	private static ArrayList<User> listOfAllUsers = new ArrayList<User>();
 
@@ -62,38 +62,38 @@ public class UserSearchToolTest {
 		listOfAllUsers.add(user3);
 		listOfAllUsers.add(user4);
 
-		userST = new UserSearchTool(userMap, groupMap);
+		searchToolTester = new SearchTool(userMap, groupMap);
 	}
 
 	@Test
 	public void testSearchByID() {
 		// Test case true if not empty.
-		listOfResults = userST.searchByID("001");
+		listOfResults = searchToolTester.searchByID("001");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByID("002");
+		listOfResults = searchToolTester.searchByID("002");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByID("003");
+		listOfResults = searchToolTester.searchByID("003");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByID("004");
+		listOfResults = searchToolTester.searchByID("004");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
 		// Fail Test Cases. Fail if list is not empty.
-		listOfResults = userST.searchByID("005");
+		listOfResults = searchToolTester.searchByID("005");
 		if (!listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByID("999");
+		listOfResults = searchToolTester.searchByID("999");
 		if (!listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByID("ABCDE");
+		listOfResults = searchToolTester.searchByID("ABCDE");
 		if (!listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
@@ -102,28 +102,28 @@ public class UserSearchToolTest {
 	@Test
 	public void testSearchByMajor() {
 		// Test case true if not empty.
-		listOfResults = userST.searchByMajor("Computer Science");
+		listOfResults = searchToolTester.searchByMajor("Computer Science");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByMajor("Physics");
+		listOfResults = searchToolTester.searchByMajor("Physics");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByMajor("English");
+		listOfResults = searchToolTester.searchByMajor("English");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
 		// Fail Test Cases. Fail if list is not empty.
-		listOfResults = userST.searchByMajor("005");
+		listOfResults = searchToolTester.searchByMajor("005");
 		if (!listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByMajor("CS999");
+		listOfResults = searchToolTester.searchByMajor("CS999");
 		if (!listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByMajor("");
+		listOfResults = searchToolTester.searchByMajor("");
 		if (!listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
@@ -132,33 +132,33 @@ public class UserSearchToolTest {
 	@Test
 	public void testSearchByName() {
 		// Test case true if not empty.
-		listOfResults = userST.searchByLastName("kevin");
+		listOfResults = searchToolTester.searchByLastName("kevin");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByLastName("mark");
+		listOfResults = searchToolTester.searchByLastName("mark");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByLastName("bob");
+		listOfResults = searchToolTester.searchByLastName("bob");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByLastName("markZero");
+		listOfResults = searchToolTester.searchByLastName("markZero");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
 		// Fail Test Cases. Fail if list is not empty.
-		listOfResults = userST.searchByLastName("KEVIN");
+		listOfResults = searchToolTester.searchByLastName("KEVIN");
 		if (!listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByLastName("kevin mark");
+		listOfResults = searchToolTester.searchByLastName("kevin mark");
 		if (!listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
 		// This test checks if a user can be found if containing substring name
-		listOfResults = userST.searchByLastName("mark");
+		listOfResults = searchToolTester.searchByLastName("mark");
 		boolean doesResultExist = false;
 		for (User user : listOfResults) {
 			if (user.getLastName().equals("markZero")) {
@@ -174,32 +174,32 @@ public class UserSearchToolTest {
 	@Test
 	public void testSearchByCourse() {
 		// Test case true if not empty.
-		listOfResults = userST.searchByCourse("CS480");
+		listOfResults = searchToolTester.searchByCourse("CS480");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByCourse("ENG101");
+		listOfResults = searchToolTester.searchByCourse("ENG101");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByCourse("CS128");
+		listOfResults = searchToolTester.searchByCourse("CS128");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByCourse("PHYS131");
+		listOfResults = searchToolTester.searchByCourse("PHYS131");
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
 		// Fail Test Cases. Fail if list is not empty.
-		listOfResults = userST.searchByCourse("");
+		listOfResults = searchToolTester.searchByCourse("");
 		if (!listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByCourse("001");
+		listOfResults = searchToolTester.searchByCourse("001");
 		if (!listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByCourse("ABCDE");
+		listOfResults = searchToolTester.searchByCourse("ABCDE");
 		if (!listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
@@ -208,19 +208,19 @@ public class UserSearchToolTest {
 	@Test
 	public void testSearchByCommonCourses() {
 		// Test case true if not empty.
-		listOfResults = userST.searchByCommonCourses(listOfAllUsers.get(0));
+		listOfResults = searchToolTester.searchByCommonCourses(listOfAllUsers.get(0));
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByCommonCourses(listOfAllUsers.get(1));
+		listOfResults = searchToolTester.searchByCommonCourses(listOfAllUsers.get(1));
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByCommonCourses(listOfAllUsers.get(2));
+		listOfResults = searchToolTester.searchByCommonCourses(listOfAllUsers.get(2));
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
-		listOfResults = userST.searchByCommonCourses(listOfAllUsers.get(3));
+		listOfResults = searchToolTester.searchByCommonCourses(listOfAllUsers.get(3));
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
@@ -231,7 +231,7 @@ public class UserSearchToolTest {
 		courses5.add("CS420");
 		user5.setCourses(courses5);
 
-		listOfResults = userST.searchByCommonCourses(user5);
+		listOfResults = searchToolTester.searchByCommonCourses(user5);
 		if (!listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}
@@ -239,7 +239,7 @@ public class UserSearchToolTest {
 		// User5 should now have a common classmate. After adding course ENG101.
 		courses5.add("ENG101");
 		user5.setCourses(courses5);
-		listOfResults = userST.searchByCommonCourses(user5);
+		listOfResults = searchToolTester.searchByCommonCourses(user5);
 		if (listOfResults.isEmpty()) {
 			throw new RuntimeException();
 		}

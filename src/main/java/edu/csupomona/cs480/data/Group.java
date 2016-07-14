@@ -120,11 +120,12 @@ public class Group {
 	
 	/**
 	 * This method removes only users from the member set. Higher level users
-	 * must be striped of status first.
+	 * must be striped of status first. The user who is removed must also
+	 * remove this group's information from their profile.
 	 * @param id
 	 */
 	public boolean removeMember(String id) {
-			return membersID.remove(id);
+		return membersID.remove(id);
 	}
 	
 	/**
