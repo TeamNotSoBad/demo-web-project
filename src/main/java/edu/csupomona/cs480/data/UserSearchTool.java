@@ -5,9 +5,9 @@ import java.util.HashSet;
 
 /**
  * This class is an object used to process user objects from the UserMap class.
- * A single search function allows parameter for search by ID, Name, Major, and
- * classes taken. A list of qualifying user searched results is provided by the
- * search method.
+ * A single search function allows parameter for search by ID, first and last Name, Major,
+ * a course, common courses to a user, and all members of a group. 
+ * A list of qualifying user searched results is provided by the search method.
  * 
  * @author HH
  *
@@ -143,6 +143,7 @@ public class UserSearchTool {
 	/**
 	 * Retrieves all users from the master groupMap object.
 	 * Given a groupID, this method will generate the list of the group's members.
+	 * The search includes admins and the owner.
 	 * @param groupID
 	 * @return
 	 */
@@ -151,12 +152,18 @@ public class UserSearchTool {
 		Group result = mapOfGroups.get(groupID);
 		
 		if(result != null) {
-			HashSet<String> membersID = result.getMembersID();
+			searchedUsers.add(mapOfUsers.get(result.getOwnerID()));
+			HashSet<String> adminsID = result.getAdminSet();
+			HashSet<String> membersID = result.getMembersSet();
+
+			for(String admin: adminsID) {
+				User user = mapOfUsers.get(admin);
+					searchedUsers.add(user);
+			}			
+			
 			for(String member: membersID) {
 				User user = mapOfUsers.get(member);
-				if(user != null) {
 					searchedUsers.add(user);
-				}
 			}
 		}
 		return searchedUsers;

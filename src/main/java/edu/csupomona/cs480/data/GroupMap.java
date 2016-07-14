@@ -25,4 +25,22 @@ public class GroupMap extends HashMap<String, Group> {
 		}
 	}
 	
+	/**
+	 * Changing the groupID should be done in this class only.
+	 * @param oldGroupID
+	 * @param newGroupID
+	 * @return
+	 */
+	public boolean changeGroupID(String oldGroupID, String newGroupID) {
+		if (containsKey(oldGroupID) == true) {
+			Group temp = get(oldGroupID);
+			temp.setGroupID(newGroupID);
+			remove(oldGroupID);
+			put(newGroupID, temp);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 }

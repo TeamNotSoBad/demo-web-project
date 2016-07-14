@@ -7,7 +7,19 @@ import java.util.HashSet;
  * The Group class holds the IDs of its members. Groups can be accessed
  * from the GroupMap class. Groups must be made with a name, ownerID, and unique groupID.
  * This data structure allows members to be separated into the subgroups: owner, admins, and members.
- * Note that the members set can also contain administrators.
+ * <p>
+ * Note that groupIDs are unique and should only be changed from the groupMap object.
+ * <p>
+ * There can only be one owner of the group.
+ * Another note is that the owner, member set, and admin set do not intersect.
+ * There must be an owner at all times.
+ * <p>
+ * This data structure follows a hierarchy of command.
+ * Intended use for the 3 subgroups follows.
+ * Members: The basic user that exists in the set may contact and get updates from higher level users.
+ * Admins: These users may add/remove existing and applicant members. May also post udpates.
+ * Owner: This unique user may add/remove anyone in the group. This user may transfer ownership of the
+ * group to another user. 
  * @author HH
  *
  */
@@ -31,20 +43,44 @@ public class Group {
 	public String getGroupID() {
 		return groupID;
 	}
+	
+	/**
+	 * This method should only be called by the GroupMap object.
+	 * @param groupID
+	 */
 	public void setGroupID(String groupID) {
 		this.groupID = groupID;
 	}
+	
 	public String getGroupName() {
 		return groupName;
 	}
+	
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}
+	
 	public String getOwnerID() {
 		return groupOwnerID;
 	}
-	public void setOwnerID(String ownerID) {
-		this.groupOwnerID = ownerID;
+	
+	/**
+	 * If a new ownerID is to be set, remove the current owner then make them an admin.
+	 * @param ownerID
+	 * @return
+	 */
+	public boolean setOwnerID(String ownerID) {
+		if(!ownerID.equals(groupOwnerID)) {
+			groupOwnerID = "";
+			addMember(groupID);
+			addAdministrator(groupID);
+			removeAdministrator(ownerID);
+			removeMember(ownerID);
+			groupOwnerID = ownerID;
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public HashSet<String> getAdminSet() {
@@ -52,46 +88,56 @@ public class Group {
 	}
 	
 	/**
-	 * This method strips a member of their admin status. To remove from group, use removeMember().
+	 * This method strips a member of their admin status.
+	 * The user is then placed into the member set.
 	 * @param id
 	 */
-	public void removeAdministrator(String id) {
-		adminsID.remove(id);
-	}
-	
-	/**
-	 * To add a new admin, the userID must already be a member of this group.
-	 */
-	public boolean addAdministrator(String id) {
-		if (membersID.contains(id)) {
-			adminsID.add(id);
-			return true;
+	public boolean removeAdministrator(String id) {
+		if (adminsID.contains(id)) {
+			adminsID.remove(id);
+			return membersID.add(id);
 		} else {
 			return false;
 		}
 	}
 	
-	public HashSet<String> getMembersID() {
+	/**
+	 * To add a new admin, the userID must already exist in the member set.
+	 * The user must also not be the group owner.
+	 */
+	public boolean addAdministrator(String id) {
+		if (membersID.contains(id) && !groupOwnerID.equals(id)) {
+			membersID.remove(id);
+			return adminsID.add(id);
+		} else {
+			return false;
+		}
+	}
+	
+	public HashSet<String> getMembersSet() {
 		return membersID;
 	}
 	
 	/**
-	 * This method cannot remove a member who is at the same time an admin.
-	 * Must strip admin privileges first. If attempting to remove a nonexisting member,
-	 * the method will still return true as the id is no longer in the set.
+	 * This method removes only users from the member set. Higher level users
+	 * must be striped of status first.
 	 * @param id
 	 */
 	public boolean removeMember(String id) {
-		if (adminsID.contains(id)) {
-			return false;
-		} else {
-			membersID.remove(id);
-			return true;
-		}
+			return membersID.remove(id);
 	}
 	
-	public void addMember(String id) {
-		membersID.add(id);
+	/**
+	 * A user may not be added to the member set if already in a higher level set.
+	 * @param id
+	 * @return
+	 */
+	public boolean addMember(String id) {
+		if (groupOwnerID.equals(id) || adminsID.contains(id)) {
+			return false;
+		} else {
+			return membersID.add(id);
+		}
 	}
 
 	public String getCreationTime() {
