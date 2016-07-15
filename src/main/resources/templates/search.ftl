@@ -5,7 +5,6 @@
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>    
     <script src="/js/search-control.js"></script>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -14,7 +13,7 @@
 	 body {
         padding-top: 40px;
         padding-bottom: 40px;
-        background-color: #9999ff;
+        background-color: #993600;
       }
       .header{
       	max-width: 500px;
@@ -60,6 +59,16 @@
     <div class = "form-search">
             <form>
   			Search For: <input type="text" Placeholder = "ID" id="input_id">
+  			<select>
+  				<option value="user">User ID</option>
+  				<option value="major">Major</option>
+  				<option value="firstName">First name</option>
+  				<option value="lastName">Last name</option>
+  				<option value="course">Course</option>
+  				<option value="commonCourses">Common Courses</option>
+  				<option value="groupName">Group Name</option>
+  				<option value="groupID">Group ID</option>
+			</select>
   			<input type = "button" value = "Search" onclick="search()">
   			</form>
     </div>

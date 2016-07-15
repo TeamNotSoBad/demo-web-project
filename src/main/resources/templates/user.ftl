@@ -4,15 +4,21 @@
     <title>CS480 Demo Web Service</title>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>    
     <script src="/js/user-control.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
+    
 	<style type = "text/css">
 		body {
         padding-top: 40px;
         padding-bottom: 40px;
-        background-color: #9999ff;
+        background-color: #993600;
       }
 		
-		.form-edit {
-        max-width: 400px;
+		.div-major {
+		position: relative;
+		left: 500px;
+      	max-width: 700px;
         padding: 19px 29px 29px;
         margin: 0 auto 20px;
         background-color: #fff;
@@ -23,14 +29,95 @@
         -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
                 box-shadow: 0 1px 2px rgba(0,0,0,.05);
-      }
+        }
+        
+        .div-currentclasses {
+        position: relative;
+        left: 500px;
+      	max-width: 700px;
+      	max-height: 300px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        }
+        
+        .div-previousclasses {
+        position: relative;
+        left: 500px;
+      	max-width: 700px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        }
+        
+        .div-friends {
+        position: relative;
+        right: 700px;
+        bottom: 350px;
+      	max-width: 400px;
+      	height: 300px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        }
+        
+        .div-groups {
+        position: relative;
+        right: 700px;
+        bottom: 350px;
+      	max-width: 400px;
+      	height: 300px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        }
+        
+        .div-messages {
+        position: relative;
+        bottom: 990px;
+        right: 200px;
+      	max-width: 500px;
+      	height: 600px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        }
       
-      .form-edit input[type="text"] {
-        font-size: 16px;
-        height: auto;
-        margin-bottom: 15px;
-        padding: 7px 9px;
-      }
       
 	</style>
 </head>
@@ -38,7 +125,7 @@
 <body>    
     
     <div>
-            <center><h1>Viewing #{user.name}'s Profile</h1></center>
+            <center><h1>Viewing ${user.firstName} ${user.lastName}'s Profile</h1></center>
     </div>
         
     <div align = "right">
@@ -48,47 +135,84 @@
   			</form>
     </div>
     
-    <hr>
-    
-    <div>
-    	<center><a href=" ">Save Profile</a><br><br></center>
-    	<center><a href=" ">Upload New Picture</a><br></center>
+    <div class = "div-major">
+    	<table class =  "table table-hover">
+    		<tr>
+    			<td> Major </td>
+    		<tr>
+    		<tr>
+    			<td>${user.major}</td>
+    		</tr>
+    	</table>
     </div>
-    <div>
-    <br>
-    <center>
-    <table border="1">            
-                <tr>
-                    <td>Name</td>
-                    <td>Major</td> 
-                    <td>Password</td> 
-                </tr>
-                <tr>
-                    <td>${user.name}</td>
-                    <td>${user.major}</td>
-                    <td>${user.password}</td>
-                </tr>
-      </table>
-      </center>
-      </div>
+
+    <div class = "div-currentclasses">
+    	<table class =  "table table-hover">
+    			<tr>
+    				<td> Current Classes </td>
+    			<tr>
+    			<tr>
+    				<td>PLACEHOLDER</td>
+    			</tr>
+    			<tr>
+    				<td>PLACEHOLDER</td>
+    			</tr>
+    			<tr>
+    				<td>PLACEHOLDER</td>
+    			</tr>
+    	</table>
+    </div>
     
-    <hr>
+    <div class = "div-previousclasses">
+    	<table class =  "table table-hover">
+    			<tr>
+    				<td> Completed Classes </td>
+    			<tr>
+    			<tr>
+    				<td>PLACEHOLDER</td>
+    			</tr>
+    			<tr>
+    				<td>PLACEHOLDER</td>
+    			</tr>
+    			<tr>
+    				<td>PLACEHOLDER</td>
+    			</tr>
+    	</table>
+    </div>
     
-    <div class = "container">
-    	<form class = "form-edit">
-		Name: <br><input type="text" name ="username">
-		<button onclick="changeName()">Save</button><br><br>
+    <div class = "div-friends">
+    	<table class =  "table table-hover">
+    			<tr>
+    				<td> Friends </td>
+    			<tr>
+    			<tr>
+    				<td>PLACEHOLDER</td>
+    			</tr>
+    	</table>
+    </div>
+    
+    <div class = "div-groups">
+    	<table class =  "table table-hover">
+    			<tr>
+    				<td> Groups </td>
+    			<tr>
+    			<tr>
+    				<td>PLACEHOLDER</td>
+    			</tr>
+    	</table>
+    </div>
 	
-		Classes: <br><input type="text" name ="userclasses">
-		<button onclick="changeClasses()">Save</button><br><br>
-		
-		Times Available: <br><input type="text" name ="usertime">
-		<button onclick="changeTime()">Save</button><br><br>
-		
-		Major: <br><input type="text" name ="usermajor">
-		<button onclick="changeMajor()">Save</button><br><br>
-    	</form>
+	<div class = "div-messages">
+    	<table class =  "table table-hover">
+    			<tr>
+    				<td> Messages </td>
+    			<tr>
+    			<tr>
+    				<td>PLACEHOLDER</td>
+    			</tr>
+    	</table>
     </div>
+    
 
         
 </body>

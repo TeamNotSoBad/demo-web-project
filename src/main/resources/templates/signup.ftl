@@ -9,7 +9,7 @@
     	body {
         padding-top: 40px;
         padding-bottom: 40px;
-        background-color: #9999ff;
+        background-color: #993600;
       }
       
       .welcome {

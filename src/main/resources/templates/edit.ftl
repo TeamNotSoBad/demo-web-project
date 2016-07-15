@@ -9,11 +9,15 @@
   	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  	
+	<script>	
+	var userId = ${user.id};
+	</script>
 	<style type = "text/css">
 		body {
         padding-top: 40px;
         padding-bottom: 40px;
-        background-color: #9999ff;
+        background-color: #993600;
       }
 		
 		.form-edit {
@@ -43,7 +47,7 @@
 <body>    
     
     <div>
-    		<center><h1>${user.id}'s Profile</h1></center>
+    		<center><h1>${user.firstName} ${user.lastName}'s Profile</h1></center>
             <center><h3>Edit Page</h3></center>
     </div>
         
@@ -67,8 +71,11 @@
     
     <div class = "container">
     	<form class = "form-edit">
-    	<h3>Your name is ${user.firstName} ${user.lastName}. <br>
-		<button onclick="changeName()" class="btn btn-primary btn-md">Change Name</button><br><br>
+    	<h3>Your name is ${user.firstName} ${user.lastName}. </h3><br>
+    	<h5>First Name</h5><br>
+    	<input type="text" placeholder = "First Name" id = "input_firstName"><br><br>
+    	<input type="text" placeholder = "Last Name" id = "input_lastName"><br><br>
+		<button onclick="changeName()" class="btn btn-primary btn-md" input type = "button">Change Name</button><br><br>
 	
 		Your classes are . . . <br>
 		<button onclick="changeClasses()"class="btn btn-primary btn-md">Change Classes</button><br><br>

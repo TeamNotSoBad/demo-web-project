@@ -1,5 +1,5 @@
 function search(){
-	var userId = $('#input_id').val();
+	var userId = $('#input_id').val(); 
 	
 	$.ajax(
 		{
