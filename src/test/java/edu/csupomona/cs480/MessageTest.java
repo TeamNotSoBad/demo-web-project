@@ -30,11 +30,11 @@ public class MessageTest extends TestCase{
 
 		String messageBody1 = "What is your name?";
 		String messageBody2 = "bob";
-//		user1.sendMail(user2.getId(), messageBody1);
-//		user1.writeMail(user2, messageBody2);
-//		ArrayList<Message> conversation = user1.conversation(user2.getId());
+		user1.sendMail(user2.getId(), messageBody1);
+		user1.writeMail(user2, messageBody2);
+		ArrayList<Message> conversation = user1.conversation(user2.getId());
 
-		assertEquals(1, 1);
+		assertEquals(conversation.remove(0).getClass(),messageBody1);
 	}
 
 }
