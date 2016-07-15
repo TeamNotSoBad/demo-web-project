@@ -34,10 +34,10 @@ public class ManagerTest extends TestCase{
 		usermanager.updateUser(user3);
 		usermanager.updateUser(user4);
 
-		assertEquals(usermanager.getUser("Mark"), user1);
-		assertEquals(usermanager.getUser("Geoff"), user2);
-		assertEquals(usermanager.getUser("Tom"), user3);
-		assertEquals(usermanager.getUser("Lina"), user4);
+		assertEquals(usermanager.getUser("1337").getId(), user1.getId());
+		assertEquals(usermanager.getUser("9166").getId(), user2.getId());
+		assertEquals(usermanager.getUser("2912").getId(), user3.getId());
+		assertEquals(usermanager.getUser("2132").getId(), user4.getId());
 
 
 	}
