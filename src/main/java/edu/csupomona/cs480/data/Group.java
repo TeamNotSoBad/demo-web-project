@@ -47,13 +47,21 @@ public class Group {
 		return groupID;
 	}
 	
+	/**
+	 * All members, admins, group owner, and the sender themselves will recieve the message.
+	 * @param userID
+	 * @param msg
+	 */
 	public void sendGroupMessage(String userID, String msg){
 		ArrayList<User> groupMembers = new ArrayList<User> (members);
+		groupMembers.addAll(getAdminSet());
+		groupMembers.add(groupOwner);
 		
-		for(int i = 0; i < groupMembers.size(); i++){
-			groupMembers.get(i).sendMail(groupID, msg + "\n -" + userID);
+		for(User groupMember: groupMembers){
+			groupMember.sendMail(groupID, msg + "\n -" + userID);
 		}
 	}
+	
 	/**
 	 * This method should only be called by the GroupMap object.
 	 * @param groupID
@@ -113,7 +121,7 @@ public class Group {
 	}
 	
 	/**
-	 * To add a new admin, the userID must already exist in the member set.
+	 * To add a new admin, the user must already exist in the member set.
 	 * The user must also not be the group owner.
 	 */
 	public boolean addAdministrator(User user) {
@@ -173,6 +181,11 @@ public class Group {
 		return isMarkedForDeletion;
 	}
 
+	/**
+	 * If group contains 0 members, 0 admins, 1 owner, Allow toggle to false/true.
+	 * If group contains at least 1 member or 1 admin, Allow toggle to false.
+	 * @return
+	 */
 	public boolean toggleMarkedForDeletion() {
 		if (isMarkedForDeletion == false) {
 			if(getMembersSet().isEmpty() && getAdminSet().isEmpty()) {

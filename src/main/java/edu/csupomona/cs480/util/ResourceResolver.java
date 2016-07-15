@@ -23,4 +23,12 @@ public class ResourceResolver {
 		}
 		return file;
 	}
+	
+	public static File getGroupFile() {
+		File file = new File(BASE_DIR + "/" + "group-map.json");
+		if (!file.getParentFile().exists()) {
+			file.getParentFile().mkdirs();
+		}
+		return file;
+	}
 }

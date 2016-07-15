@@ -21,6 +21,12 @@ public class SearchTool {
 	private UserMap mapOfUsers;
 	private GroupMap mapOfGroups;
 
+	/**
+	 * The list of Users/Groups is used to quickly obtain just the values.
+	 * The map is necessary for very fast look up of a single object.
+	 * @param users
+	 * @param groups
+	 */
 	public SearchTool(UserMap users, GroupMap groups) {
 		listOfUsers = new ArrayList<User>(users.values());
 		listOfGroups = new ArrayList<Group>(groups.values());
@@ -156,7 +162,7 @@ public class SearchTool {
 		Group result = mapOfGroups.get(groupID);
 		
 		if(result != null) {
-			searchedUsers.add(mapOfGroups.get(groupID).getOwner());
+			searchedUsers.add(result.getOwner());
 			HashSet<User> adminsSet = result.getAdminSet();
 			HashSet<User> membersSet = result.getMembersSet();
 
