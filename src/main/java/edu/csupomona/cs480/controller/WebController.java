@@ -465,9 +465,80 @@ public class WebController extends WebMvcConfigurerAdapter {
 	}
 	
 	@RequestMapping(value = "/results/id/{userId}", method = RequestMethod.GET)
-	ModelAndView getSearchById(@PathVariable("userId") String userId) {
+	ModelAndView resultsById(@PathVariable("userId") String userId) {
 		ModelAndView modelAndView = new ModelAndView("results");
 		modelAndView.addObject("users", searchById(userId));
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/search/first/{userId}", method = RequestMethod.GET)	
+	List<User> searchByFirstName(@PathVariable("userId") String userId){
+		List<User> results = new ArrayList<User> ();
+		results = userManager.searchByFirstName(userId);
+		return results;
+	}
+	
+	@RequestMapping(value = "/results/first/{userId}", method = RequestMethod.GET)
+	ModelAndView resultsByFirstName(@PathVariable("userId") String userId) {
+		ModelAndView modelAndView = new ModelAndView("results");
+		modelAndView.addObject("users", searchByFirstName(userId));
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/search/last/{userId}", method = RequestMethod.GET)	
+	List<User> searchByLastName(@PathVariable("userId") String userId){
+		List<User> results = new ArrayList<User> ();
+		results = userManager.searchByLastName(userId);
+		return results;
+	}
+	
+	@RequestMapping(value = "/results/last/{userId}", method = RequestMethod.GET)
+	ModelAndView resultsByLastName(@PathVariable("userId") String userId) {
+		ModelAndView modelAndView = new ModelAndView("results");
+		modelAndView.addObject("users", searchByLastName(userId));
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/search/course/{userId}", method = RequestMethod.GET)	
+	List<User> searchByCourse(@PathVariable("userId") String userId){
+		List<User> results = new ArrayList<User> ();
+		results = userManager.searchByCourse(userId);
+		return results;
+	}
+	
+	@RequestMapping(value = "/results/course/{userId}", method = RequestMethod.GET)
+	ModelAndView resultsByCourse(@PathVariable("userId") String userId) {
+		ModelAndView modelAndView = new ModelAndView("results");
+		modelAndView.addObject("users", searchByCourse(userId));
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/search/commoncourses/{userId}", method = RequestMethod.GET)	
+	List<User> searchByCommonCourses(@PathVariable("userId") String userId){
+		List<User> results = new ArrayList<User> ();
+		results = userManager.searchByCommonCourses(userId);
+		return results;
+	}
+	
+	@RequestMapping(value = "/results/commoncourses/{userId}", method = RequestMethod.GET)
+	ModelAndView resultsByCommonCourses(@PathVariable("userId") String userId) {
+		ModelAndView modelAndView = new ModelAndView("results");
+		modelAndView.addObject("users", searchByCommonCourses(userId));
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping(value = "/search/major/{userId}", method = RequestMethod.GET)	
+	List<User> searchByMajor(@PathVariable("userId") String userId){
+		List<User> results = new ArrayList<User> ();
+		results = userManager.searchByMajor(userId);
+		return results;
+	}
+	
+	@RequestMapping(value = "/results/major/{userId}", method = RequestMethod.GET)
+	ModelAndView resultsByMajor(@PathVariable("userId") String userId) {
+		ModelAndView modelAndView = new ModelAndView("results");
+		modelAndView.addObject("users", searchByMajor(userId));
 		return modelAndView;
 	}
 	

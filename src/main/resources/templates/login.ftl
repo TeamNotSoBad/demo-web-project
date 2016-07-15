@@ -95,7 +95,7 @@
 
       <form class="form-signin">
         <h2 class="form-signin-heading">Please sign in!</h2>
-        <input type="text" class="input-block-level" placeholder="Username" id="input_name">
+        <input type="text" class="input-block-level" placeholder="ID" id="input_name">
         <input type="password" class="input-block-level" placeholder="Password" id ="input_password"><br>
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me

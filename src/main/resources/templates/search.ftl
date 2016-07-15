@@ -58,9 +58,10 @@
         
     <div class = "form-search">
             <form>
-  			Search For: <input type="text" Placeholder = "ID" id="input_id">
-  			<select>
-  				<option value="user">User ID</option>
+  			Search For: <input type="text" id="input_id">
+  			<br>
+  			<select id = "searchType">
+  				<option value="id">User ID</option>
   				<option value="major">Major</option>
   				<option value="firstName">First name</option>
   				<option value="lastName">Last name</option>

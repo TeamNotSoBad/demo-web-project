@@ -1,5 +1,8 @@
 package edu.csupomona.cs480.data.provider;
 
+import edu.csupomona.cs480.data.Group;
+import edu.csupomona.cs480.data.GroupMap;
+
 import java.io.File;
 import java.util.List;
 
@@ -53,5 +56,15 @@ public interface UserManager {
 	public List<User> getId(String id);
 
 	public String getLocalMapTest();
-
+	
+	public List<User> searchByMajor(String major);
+	
+	public List<User> searchByFirstName(String first);
+	
+	public List<User> searchByLastName(String last);
+	
+	public List<User> searchByCourse(String course);
+	
+	public List<User> searchByCommonCourses(String commoncourses);
+	 	
 }

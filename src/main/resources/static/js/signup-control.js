@@ -38,8 +38,3 @@ function addUser() {
 	}
 				
 }
-
-function test(){
-	
-						window.location.assign("http://google.com/");
-}

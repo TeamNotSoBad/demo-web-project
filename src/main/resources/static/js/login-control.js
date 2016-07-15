@@ -3,7 +3,7 @@ function login(input_name){
 	var userPW = $('#input_password').val();
 	
 	if(userName){
-		window.location.href = "http://broncostudy.com/edit/" + userName;
+		window.location.href = "http://localhost:8080/edit/" + userName;
 	}
 	else{
 		alert("Invalid User.");
