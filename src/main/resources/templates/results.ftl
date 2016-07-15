@@ -14,7 +14,7 @@
 	 body {
         padding-top: 40px;
         padding-bottom: 40px;
-        background-color: #9999ff;
+        background-color: #993600;
       }
       .header{
       	max-width: 500px;
@@ -77,7 +77,7 @@
 	     </tr>
 	     <#list users as user>
 	     	<tr>
-	       		<td><a href = "http://broncostudy.com/edit/${user.id}">${user.id}</a></td>
+	       		<td><a href = "http://broncostudy.com/user/${user.id}">${user.id}</a></td>
 	        	<td>${user.firstName}</td>
 	        	<td>${user.lastName}</td>
 	        	<td>${user.major}</td>

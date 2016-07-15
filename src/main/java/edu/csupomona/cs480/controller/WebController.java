@@ -447,6 +447,17 @@ public class WebController extends WebMvcConfigurerAdapter {
 		return user;
 	}
 	
+	@RequestMapping(value = "/user/id/{userId}", method = RequestMethod.GET)
+	void updateUserName(
+			@PathVariable("userId") String userId,
+			@RequestParam("userLast") String userLast,
+			@RequestParam("userFirst") String userFirst) {
+		User user = userManager.getUser(userId);
+		user.setLastName(userLast);
+		user.setFirstName(userFirst);
+		userManager.updateUser(user);
+	}
+	
 
 	@RequestMapping(value = "/search/id/{userId}", method = RequestMethod.GET)	
 	List<User> searchById(@PathVariable("userId") String userId){
@@ -463,9 +474,9 @@ public class WebController extends WebMvcConfigurerAdapter {
 	
 
 
-	@RequestMapping(value = "/user/{userName}", method = RequestMethod.GET)
-	ModelAndView getUser(@PathVariable("userName") String userName) {
-		User user = userManager.getUser(userName);
+	@RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
+	ModelAndView getUser(@PathVariable("userId") String userId) {
+		User user = userManager.getUser(userId);
 		ModelAndView modelAndView = new ModelAndView("user");
 		modelAndView.addObject("user", user);
 		return modelAndView;
