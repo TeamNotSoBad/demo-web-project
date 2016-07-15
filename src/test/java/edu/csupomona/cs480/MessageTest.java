@@ -34,7 +34,7 @@ public class MessageTest extends TestCase{
 		user1.writeMail(user2, messageBody2);
 		ArrayList<Message> conversation = user1.conversation(user2.getId());
 
-		assertEquals(conversation.remove(0).getClass(),messageBody1);
+		assertEquals(conversation.remove(0).getMsg(),messageBody1);
 	}
 
 }
