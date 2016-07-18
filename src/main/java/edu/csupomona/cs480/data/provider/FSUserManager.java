@@ -2,6 +2,7 @@ package edu.csupomona.cs480.data.provider;
 
 import edu.csupomona.cs480.data.Group;
 import edu.csupomona.cs480.data.GroupMap;
+import edu.csupomona.cs480.data.ListOfClasses;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,13 +43,15 @@ public class FSUserManager implements UserManager {
 	 *
 	 */
 	private static final ObjectMapper JSON = new ObjectMapper();
-
+	
+	private ListOfClasses classMajorTool = new ListOfClasses();
 
 	/**
 	 * Load the user map from the local file.
 	 *
 	 * @return
 	 */
+
 	private UserMap getUserMap() {
 		UserMap userMap = null;
 		File userFile = ResourceResolver.getUserFile();
@@ -319,6 +322,19 @@ public class FSUserManager implements UserManager {
 			searchedGroups.add(getGroupMap().get(groupID));
 		}
 		return searchedGroups;
+	}
+	
+	public ArrayList<String> getMajors(){
+		return classMajorTool.getMajors();
+	}
+	
+	/**
+	 *  this method will only work if you pass it the 3 character or 2 character abbreviation of the major.
+	 *  it also only takes caps
+	 */
+	
+	public ArrayList<String> getClassOfMajor(String maj){
+		return classMajorTool.getClassByMajor(maj);
 	}
 
 }
