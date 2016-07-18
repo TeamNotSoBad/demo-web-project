@@ -2,10 +2,14 @@ package edu.csupomona.cs480.data;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class ListOfClasses {
-	ArrayList<String> listOfClasses = new ArrayList<String>();
-	
+	private HashSet<String> majors = new HashSet<String>();
+	private ArrayList<String> listOfClasses = new ArrayList<String>();
+	private HashMap<String, ArrayList> classMap = new HashMap<String, ArrayList>();
+
 	public ListOfClasses() {
 		String[] classes = { "ACC200", "ACC207", "ACC208", "ACC299", "ACC304", "ACC305", "ACC307", "ACC311", "ACC312",
 				"ACC313", "ACC400", "ACC403", "ACC405", "ACC412", "ACC413", "ACC418", "ACC419", "ACC420", "ACC424",
@@ -391,6 +395,59 @@ public class ListOfClasses {
 				"ZOO237", "ZOO238", "ZOO299", "ZOO422", "ZOO425", "ZOO426", "ZOO428", "ZOO429", "ZOO430", "ZOO435",
 				"ZOO439", "ZOO441", "ZOO499" };
 		listOfClasses = new ArrayList<String>(Arrays.asList(classes));
+		String temp = "";
+
+		for (int i = 0; i < classes.length; i++) {
+			temp = "";
+
+			temp += "" + classes[i].charAt(0) + classes[i].charAt(1);
+			char c = classes[i].charAt(2);
+
+			if (c != '0' && c != '1' && c != '2' && c != '3' && c != '4' && c != '5' && c != '6' && c != '7' && c != '8'
+					&& c != '9') {
+				temp += classes[i].charAt(2);
+			}
+
+			majors.add(temp);
+		}
+
+		for (int i = 0; i < classes.length; i++) {
+			ArrayList<String> course;
+			String key = "" + classes[i].charAt(0) + classes[i].charAt(1);
+			
+			char c = classes[i].charAt(2);
+
+			if (c != '0' && c != '1' && c != '2' && c != '3' && c != '4' && c != '5' && c != '6' && c != '7' && c != '8'
+					&& c != '9') {
+				key += "" + classes[i].charAt(2);
+			}
+
+			if (classMap.containsKey(key)) {
+				classMap.get(key).add(classes[i]);
+			} else {
+				course = new ArrayList<String>();
+				course.add(classes[i]);
+				classMap.put(key, course);
+			}
+
+		}
+
 	}
-	
+
+	public ArrayList<String> getClassByMajor(String maj) {
+
+		if (majors.contains(maj)) {
+			return classMap.get(maj);
+		} else {
+			return new ArrayList<String>();
+		}
+
+	}
+
+	public ArrayList<String> getMajors() {
+		ArrayList<String> temp = new ArrayList(majors);
+		temp.sort(null);
+		return temp;
+	}
+
 }
