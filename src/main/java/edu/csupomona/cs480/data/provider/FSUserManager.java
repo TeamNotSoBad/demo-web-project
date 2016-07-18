@@ -336,5 +336,9 @@ public class FSUserManager implements UserManager {
 	public ArrayList<String> getClassOfMajor(String maj){
 		return classMajorTool.getClassByMajor(maj);
 	}
+	
+	public ArrayList<String> getAllClasses(){
+		return classMajorTool.getAllClasses();
+	}
 
 }
