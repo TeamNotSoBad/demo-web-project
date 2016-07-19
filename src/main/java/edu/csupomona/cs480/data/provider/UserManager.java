@@ -66,5 +66,9 @@ public interface UserManager {
 	public List<User> searchByCourse(String course);
 	
 	public List<User> searchByCommonCourses(String commoncourses);
+	
+	public List<String> getMajors();
+	
+	public List<String> getClassOfMajor(String maj);
 	 	
 }

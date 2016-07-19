@@ -1,11 +1,16 @@
-var cs480App = angular.module('cs480App', []);
+function addFriend(user){
 
-cs480App.controller('ResultsCtrl', function ($scope, $http) {
-	$scope.searchById = function(){
- 		$http.get("search/id")
- 			.success(function(data){
- 				$scope.foundUsers = data;
- 				});
- 	}
- 	$scope.searchById();
-  });
+$.ajax(
+			{
+				type : "POST",
+				url  : "/cs480/user/" + user,
+				data : {
+				},
+				success : function(result) {
+					location.reload();
+				},
+				error: function (jqXHR, exception) {
+					alert("Failed to delete the photo.");
+				}
+			});
+}

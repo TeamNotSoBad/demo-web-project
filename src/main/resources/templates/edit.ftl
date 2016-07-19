@@ -12,12 +12,30 @@
   	
 	<script>	
 	var userId = ${user.id};
+	if(document.cookie.val() != "user="+userId){
+		alert("Invalid Location");
+		window.location.href = "http://localhost:8080/";
+	}
 	</script>
 	<style type = "text/css">
 		body {
         padding-top: 40px;
         padding-bottom: 40px;
         background-color: #993600;
+      }
+      
+      .form-search{
+      	max-width: 300px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
       }
 		
 		.form-edit {
@@ -48,20 +66,31 @@
     
     <div>
     		<center><h1>${user.firstName} ${user.lastName}'s Profile</h1></center>
+    		<center><h3># ${user.id}</h3></center>
             <center><h3>Edit Page</h3></center>
     </div>
         
-    <div align = "right">
-    	 	<form>
-  				<h4>Search User: <input type="text" name="userid">
-  				<button onclick="search()">Search</button>
+   <div class = "form-search">
+            <form>
+  			Search For: <input type="text" id="input_id">
+  			<br>
+  			<select id = "searchType">
+  				<option value="id">User ID</option>
+  				<option value="major">Major</option>
+  				<option value="firstName">First name</option>
+  				<option value="lastName">Last name</option>
+  				<option value="course">Course</option>
+  				<option value="commonCourses">Common Courses</option>
+  				<option value="groupName">Group Name</option>
+  				<option value="groupID">Group ID</option>
+			</select>
+			<button onclick="search()" class="btn btn-primary btn-md" input type ="button">Search</button><br><br>
   			</form>
     </div>
     
     
     <div>
     	<h3>
-    	<center><a href=" ">Save Profile</a><br><br></center>
     	<center><a href=" ">Upload New Picture</a><br></center>
     </div>
     
@@ -78,13 +107,36 @@
 		<button onclick="changeName()" class="btn btn-primary btn-md" input type = "button">Change Name</button><br><br>
 	
 		Your classes are . . . <br>
-		<button onclick="changeClasses()"class="btn btn-primary btn-md">Change Classes</button><br><br>
+		<div class = "div-class">
+		<button onclick="changeClasses()"class="btn btn-primary btn-md">Add Classes</button>
+    		<select id = "depType">
+    			<option value="default">Choose Department</option>
+    			<#list majors as majors>
+  					<option value=${majors}>${majors}</option>
+  				</#list>
+			</select>
+			<select id = "class">
+				<option value="default">Choose your class</option>
+    			<#list classes as classes>
+  					<option value=${classes}>${classes}</option>
+  				</#list>
+			</select>
+			<br><br>
+		</div>
 		
 		Your times available are . . . <br>
 		<button onclick="changeTime()"class="btn btn-primary btn-md">Change Time Available</button><br><br>
 		
-		Your major is ${user.major}.<br>
-		<button onclick="changeMajor()"class="btn btn-primary btn-md">Change Major</button><br><br>
+		<h5>Your major is ${user.major}.<h5><br>
+		<div class = "div-majors">
+    		<select id = "majorType">
+    			<#list majors as majors>
+  					<option value=${majors}>${majors}</option>
+  				</#list>
+			</select>
+			<br><br>
+		</div>
+		<button onclick="changeMajor()" class="btn btn-primary btn-md" input type ="button">Change Major</button><br><br>
     	
     	<button onclick="changePassword()"class="btn btn-primary btn-md">Change Password</button><br><br>
     	</form>

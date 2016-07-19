@@ -5,6 +5,12 @@
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>    
     <script src="/js/login-control.js"></script>
   	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  	<script> 
+	if(document.cookie != null){
+		var usedId = document.cookie.split("user=").pop();
+		window.location.href = "http://localhost:8080/edit/"+usedId;
+	}
+	</script>
     <style type="text/css">
       body {
         padding-top: 40px;
@@ -95,7 +101,7 @@
 
       <form class="form-signin">
         <h2 class="form-signin-heading">Please sign in!</h2>
-        <input type="text" class="input-block-level" placeholder="ID" id="input_name">
+        <input type="text" class="input-block-level" placeholder="ID" id="input_id">
         <input type="password" class="input-block-level" placeholder="Password" id ="input_password"><br>
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me
@@ -109,7 +115,7 @@
 
 	<br><br>
 	<div class = "div-signup">
-	<center><a href="http://broncostudy.com/signup">Sign Up For A Study Buddy Account Now!</a></center>
+	<center><a href="http://localhost:8080/signup">Sign Up For A Study Buddy Account Now!</a></center>
     <br><br><br><br>    
     <center> <h7><font color = #000000>By Mark Ilog, Henry Hu, Kevin Liu, Thomas Nguyen</font></h7></center>
     </div>
