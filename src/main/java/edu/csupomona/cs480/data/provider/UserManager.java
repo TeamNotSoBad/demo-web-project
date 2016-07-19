@@ -76,4 +76,5 @@ public interface UserManager {
 	public ArrayList<Boolean> getAvailabilityForDay(String userID, int i);
 	public void flipAvailibility(String userID, int day, double time);
 	
+	public ArrayList<Boolean> matchingDays(String user1ID, String user2ID, int day);
 }

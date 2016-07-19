@@ -249,5 +249,9 @@ public class User {
 		return calendar.getTimesForDay(day);
 	}
 	
+	public ArrayList<Boolean>matchingDays(User user2, int day){
+		return calendar.matchingDays(day, user2.calendar);
+	}
+	
 
 }

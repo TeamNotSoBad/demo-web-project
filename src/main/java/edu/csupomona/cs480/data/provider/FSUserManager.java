@@ -362,7 +362,9 @@ public class FSUserManager implements UserManager {
 		getUser(userID).flipTime(day, time);
 	}
 	
-
+	public ArrayList<Boolean> matchingDays(String user1ID, String user2ID, int day){
+		return getUser(user1ID).matchingDays(getUser(user2ID), day);
+	}
 	
 
 }

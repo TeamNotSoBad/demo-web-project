@@ -2,6 +2,7 @@ package edu.csupomona.cs480.data;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Calendar {
 	private boolean[][] calendar;
@@ -9,7 +10,9 @@ public class Calendar {
 	public Calendar() {
 		calendar = new boolean[7][48];
 	}
+	
 
+	
 	public void flipTime(int day, int time) {
 		calendar[day][time] = !(calendar[day][time]);
 	}
@@ -33,7 +36,15 @@ public class Calendar {
 
 		return d;
 	}
-
+	
+	public void setDay(int i, List<Boolean> list){
+		if(list.size() == 48){
+			for(int j = 0; j < 48; j++){
+				calendar[i][j] = list.get(j);
+			}
+		}
+	}
+	
 	public String toString() {
 		String s = "Sun Mon Tue Wed Thu Fri Sat";
 		
@@ -59,6 +70,23 @@ public class Calendar {
 			s += " "  + time + " \n";
 		}
 		return s;
+	}
+	
+	private Calendar matches(Calendar c){
+		Calendar matches = new Calendar();
+		
+		for(int i = 0; i < 7; i++){
+			for(int j = 0; j < 48; j++){
+				matches.calendar[i][j] = calendar[i][j] && c.calendar[i][j];
+			}
+		}
+		
+		return matches;
+	}
+	
+	public ArrayList<Boolean> matchingDays(int day, Calendar c){
+		Calendar temp = matches(c);
+		return temp.getTimesForDay(day);
 	}
 
 }
