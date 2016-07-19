@@ -3,6 +3,7 @@ package edu.csupomona.cs480.data.provider;
 import edu.csupomona.cs480.data.Group;
 import edu.csupomona.cs480.data.GroupMap;
 import edu.csupomona.cs480.data.ListOfClasses;
+import edu.csupomona.cs480.data.Message;
 
 import java.io.File;
 import java.io.IOException;
@@ -208,7 +209,19 @@ public class FSUserManager implements UserManager {
 		result.add(getUser(userId));
 		return result;
 	}
-
+	
+	public List<Message> getConversation(String userID, String conversationID){
+		return getUserMap().get(userID).conversation(conversationID);
+	}
+	
+	public void message(String userID, String recipientID, String msg){
+		getUser(userID).writeMail(getUser(recipientID), msg);
+	}
+	
+	public void groupMessage(String userID, String groupID, String msg){
+		getGroupMap().get(groupID).sendGroupMessage(userID, msg);
+	}
+	
 	public List<User> searchByLastName(String name) {
 		ArrayList<User> listOfUsers = new ArrayList<User>(getUserMap().values());
 		ArrayList<User> searchedUsers = new ArrayList<User>();
@@ -336,5 +349,24 @@ public class FSUserManager implements UserManager {
 	public ArrayList<String> getClassOfMajor(String maj){
 		return classMajorTool.getClassByMajor(maj);
 	}
+	
+	public ArrayList<String> getAllClasses(){
+		return classMajorTool.getAllClasses();
+	}
+
+	
+	
+	public ArrayList<Boolean> getAvailabilityForDay(String userID, int day){
+		return getUser(userID).getTimesForDay(day);
+	}
+	
+	public void flipAvailibility(String userID, int day, double time){
+		getUser(userID).flipTime(day, time);
+	}
+	
+	public ArrayList<Boolean> matchingDays(String user1ID, String user2ID, int day){
+		return getUser(user1ID).matchingDays(getUser(user2ID), day);
+	}
+	
 
 }

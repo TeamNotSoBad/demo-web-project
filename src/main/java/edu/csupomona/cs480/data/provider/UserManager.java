@@ -4,6 +4,7 @@ import edu.csupomona.cs480.data.Group;
 import edu.csupomona.cs480.data.GroupMap;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.csupomona.cs480.data.User;
@@ -67,8 +68,21 @@ public interface UserManager {
 	
 	public List<User> searchByCommonCourses(String commoncourses);
 	
+<<<<<<< HEAD
 	public List<String> getMajors();
 	
 	public List<String> getClassOfMajor(String maj);
 	 	
+=======
+	public List<String> getAllClasses();
+
+	public void message(String userID, String recipientID,String msg);
+	public void groupMessage(String userID, String groupID, String msg);
+	
+	
+	public ArrayList<Boolean> getAvailabilityForDay(String userID, int day);
+	public void flipAvailibility(String userID, int day, double time);
+	
+	public ArrayList<Boolean> matchingDays(String user1ID, String user2ID, int day);
+>>>>>>> c23dd0a5019bfb62446aedc7fe2c4f6082918e91
 }

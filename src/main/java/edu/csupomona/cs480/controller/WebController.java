@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
@@ -29,6 +32,7 @@ import com.amazonaws.services.simpledb.model.ListDomainsRequest;
 import com.amazonaws.services.simpledb.model.ListDomainsResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 
@@ -550,11 +554,53 @@ public class WebController extends WebMvcConfigurerAdapter {
 		return majors;
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping(value = "/list/classes/{dep}", method = RequestMethod.GET)	
 	List<String> getClasses(@PathVariable("dep") String dep){
 		List<String> classes = userManager.getClassOfMajor(dep);
 		return classes;
 	}
+=======
+	//TODO Need to test this method with free marker
+	/**
+	 * Test function to see if an image can be uploaded to ec2 client, idk how to 
+	 * use free marker though to create something that accepts a file
+	 * @param image
+	 */
+	@RequestMapping(value = "/uploadImageTest", method = RequestMethod.POST)
+	void transferImageTest(File file)throws IOException{
+		int width = 100;
+		int height = 100;
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		image = ImageIO.read(file);
+		String BASE_DIR = System.getProperty("user.home") + "/images/database";
+		file = new File(BASE_DIR + "/" + "test.jpg");
+		ImageIO.write(image, "jpg", file);
+	}
+	
+	@RequestMapping(value = "/upload/{userId}", method = RequestMethod.POST)
+	void uploadUserImage(File file, @PathVariable("userId") String userId)throws IOException{
+		int width = 100;
+		int height = 100;
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		image = ImageIO.read(file);
+		String BASE_DIR = System.getProperty("user.home") + "/images/database";
+		file = new File(BASE_DIR + "/" + userId +".jpg");
+		ImageIO.write(image, "jpg", file);
+	}
+	
+	@RequestMapping(value = "/user/profile/{userId}", method = RequestMethod.GET)
+	BufferedImage getUserImage(@PathVariable("userId") String userId) throws IOException{
+		int width = 100;
+		int height = 100;
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		File f = ResourceResolver.getUserImage(userId);
+		image = ImageIO.read(f);
+		
+		return image;		
+	}
+	
+>>>>>>> c23dd0a5019bfb62446aedc7fe2c4f6082918e91
 
 	@RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
 	ModelAndView getUser(@PathVariable("userId") String userId) {

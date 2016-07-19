@@ -9,7 +9,7 @@ public class ListOfClasses {
 	private HashSet<String> majors = new HashSet<String>();
 	private ArrayList<String> listOfClasses = new ArrayList<String>();
 	private HashMap<String, ArrayList> classMap = new HashMap<String, ArrayList>();
-
+	
 	public ListOfClasses() {
 		String[] classes = { "ACC200", "ACC207", "ACC208", "ACC299", "ACC304", "ACC305", "ACC307", "ACC311", "ACC312",
 				"ACC313", "ACC400", "ACC403", "ACC405", "ACC412", "ACC413", "ACC418", "ACC419", "ACC420", "ACC424",
@@ -448,6 +448,16 @@ public class ListOfClasses {
 		ArrayList<String> temp = new ArrayList(majors);
 		temp.sort(null);
 		return temp;
+	}
+	
+	public ArrayList<String> getAllClasses(){
+		ArrayList<String> all = new ArrayList<String>();
+		ArrayList<String> allMajors = new ArrayList<String>(majors);
+		for(int i = 0; i < allMajors.size(); i++){
+			all.addAll(classMap.get(allMajors.get(i)));
+		}
+		all.sort(null);
+		return all;
 	}
 
 }
