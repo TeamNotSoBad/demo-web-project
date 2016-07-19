@@ -354,8 +354,10 @@ public class FSUserManager implements UserManager {
 		return classMajorTool.getAllClasses();
 	}
 
-	public ArrayList<Boolean> getAvailabilityForDay(String userID, int i){
-		return getUser(userID).getTimesForDay(i);
+	
+	
+	public ArrayList<Boolean> getAvailabilityForDay(String userID, int day){
+		return getUser(userID).getTimesForDay(day);
 	}
 	
 	public void flipAvailibility(String userID, int day, double time){
