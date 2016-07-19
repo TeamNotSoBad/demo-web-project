@@ -554,13 +554,11 @@ public class WebController extends WebMvcConfigurerAdapter {
 		return majors;
 	}
 	
-<<<<<<< HEAD
 	@RequestMapping(value = "/list/classes/{dep}", method = RequestMethod.GET)	
 	List<String> getClasses(@PathVariable("dep") String dep){
 		List<String> classes = userManager.getClassOfMajor(dep);
 		return classes;
 	}
-=======
 	//TODO Need to test this method with free marker
 	/**
 	 * Test function to see if an image can be uploaded to ec2 client, idk how to 
@@ -600,7 +598,6 @@ public class WebController extends WebMvcConfigurerAdapter {
 		return image;		
 	}
 	
->>>>>>> c23dd0a5019bfb62446aedc7fe2c4f6082918e91
 
 	@RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
 	ModelAndView getUser(@PathVariable("userId") String userId) {
