@@ -12,7 +12,7 @@ function search(){
 				data : {
 				},
 				success : function(result) {
-					window.location.href = "http://localhost:8080/results/id/" + userId;
+					window.location.href = "http://broncostudy.com/results/id/" + userId;
 				},
 				error : function(exception){
 					alert("Invalid Input.");
