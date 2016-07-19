@@ -23,7 +23,7 @@ function addUser() {
 					},
 					success : function(result) {
 					alert("Valid User");
-					window.location.href = "http://localhost:8080/edit/" + userId;
+					window.location.href = "http://broncostudy.com/edit/" + userId;
 					},
 					error: function (jqXHR, exception) {
 					alert("Invalid Info");
