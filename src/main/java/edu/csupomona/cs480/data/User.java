@@ -227,7 +227,6 @@ public class User {
 		else{
 			return new ArrayList<Message>();
 		}
-		
 	}
 
 	public HashSet<String> getGroups() {
@@ -249,4 +248,6 @@ public class User {
 	public ArrayList<Boolean> getTimesForDay(int day){
 		return calendar.getTimesForDay(day);
 	}
+	
+
 }
