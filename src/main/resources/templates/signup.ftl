@@ -56,10 +56,10 @@
     <div class= "container">
     		<form class = "form-signup">   			
     			<h7 class = "form-signin-heading">If you wish to join, please input valid information.</h7><br><br>
-    			<input type="text" placeholder = "ID" id = "input_id"><br><br>
+    			<input type="text" placeholder = "Bronco ID" id = "input_id"><br><br>
     			<input type="text" placeholder = "First Name" id = "input_first"><br><br>
     			<input type="text" placeholder = "Last Name" id = "input_last"><br><br>
-    			<input type="text" placeholder = "Major" id = "input_major"><br><br>
+    			
     			<input type="password" placeholder = "Password" id="input_password"><br><br>
     			<input type="password" placeholder = "Confirm Password" id="input_confirmpw"><br><br>
     			<input type="button" value="Sign Up" onclick="addUser()">

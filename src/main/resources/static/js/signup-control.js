@@ -3,13 +3,14 @@ function addUser() {
 	var userId = $('#input_id').val();
 	var userFirst = $('#input_first').val();
 	var userLast = $('#input_last').val();
-	var userMajor = $('#input_major').val();
+	var userMajor = $('#majorType').val();
 	var userPW = $('#input_password').val();
 	var userConfirmPW = $('#input_confirmpw').val();
 	var compare = userPW.localeCompare(userConfirmPW);
 	
-	
-	if (userId && userFirst && userLast && userMajor && userPW && userConfirmPW && compare === 0) {
+	if(userMajor != "default"){
+	alert($('#majorType').val());
+		if (userId && userFirst && userLast && userMajor && userPW && userConfirmPW && compare === 0) {
 		$.ajax(
 				{
 					type : "POST",
@@ -35,6 +36,10 @@ function addUser() {
 	}
 	else {
 		alert("Invalid user");
+	}
+	}
+	else{
+		alert("Input Major");
 	}
 				
 }
