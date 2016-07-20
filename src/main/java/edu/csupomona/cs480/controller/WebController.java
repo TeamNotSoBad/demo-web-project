@@ -382,8 +382,8 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 * use free marker though to create something that accepts a file
 	 * @param image
 	 */
-	@RequestMapping(value = "/uploadImageTest", method = RequestMethod.POST)
-	void transferImageTest(File file)throws IOException{
+	@RequestMapping(value = "/uploadImageTest1", method = RequestMethod.POST)
+	void transferImageTest(@PathVariable("picture") File file)throws IOException{
 		int width = 100;
 		int height = 100;
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -391,6 +391,12 @@ public class WebController extends WebMvcConfigurerAdapter {
 		String BASE_DIR = System.getProperty("user.home") + "/images/database";
 		file = new File(BASE_DIR + "/" + "test.jpg");
 		ImageIO.write(image, "jpg", file);
+	}
+	
+	@RequestMapping(value ="/uploadImageTest", method = RequestMethod.GET)
+	ModelAndView xfertest(){
+		ModelAndView modelAndView = new ModelAndView("uploadimage");
+		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/upload/{userId}", method = RequestMethod.POST)
