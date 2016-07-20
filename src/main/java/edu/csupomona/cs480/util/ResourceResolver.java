@@ -10,6 +10,9 @@ public class ResourceResolver {
 	/** The base folder to store all the data used by this project. */
 	private static final String BASE_DIR = System.getProperty("user.home") + "/database";
 	private static final String IMG_DIR = System.getProperty("user.home") + "/images/database";
+	
+	private static final String GROUP_DIR = System.getProperty("user.home") + "/groups/database";
+
 
 	/**
 	 * Get the file used to store the user object JSON

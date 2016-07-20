@@ -1,7 +1,5 @@
 package edu.csupomona.cs480.data.provider;
 
-import edu.csupomona.cs480.data.Group;
-import edu.csupomona.cs480.data.GroupMap;
 import edu.csupomona.cs480.data.ListOfClasses;
 
 import java.io.File;
@@ -69,37 +67,6 @@ public class FSUserManager implements UserManager {
 		return userMap;
 	}
 
-	private GroupMap getGroupMap() {
-		GroupMap groupMap = null;
-		File groupFile = ResourceResolver.getGroupFile();
-		if (groupFile.exists()) {
-			// read the file and convert the JSON content
-			// to the UserMap object
-			try {
-				groupMap = JSON.readValue(groupFile, GroupMap.class);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} else {
-			groupMap = new GroupMap();
-		}
-		return groupMap;
-	}
-
-	/**
-	 * This method is to test whether or not the json map is found in the linux
-	 * environment
-	 */
-	public String getLocalMapTest() {
-		UserMap userMap = null;
-		File userFile = ResourceResolver.getUserFile();
-		if (userFile.exists()) {
-			return "File was found";
-		} else {
-			return "Does not Exist";
-		}
-	}
-
 	/**
 	 * Save and persist the user map in the local file.
 	 *
@@ -109,15 +76,6 @@ public class FSUserManager implements UserManager {
 		try {
 			// convert the user object to JSON format
 			JSON.writeValue(ResourceResolver.getUserFile(), userMap);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void persistGroupMap(GroupMap groupMap) {
-		try {
-			// convert the user object to JSON format
-			JSON.writeValue(ResourceResolver.getGroupFile(), groupMap);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -203,7 +161,7 @@ public class FSUserManager implements UserManager {
 	}
 
 	@Override
-	public List<User> getId(String userId) {
+	public List<User> getUsersById(String userId) {
 		List<User> result = new ArrayList<User>();
 		result.add(getUser(userId));
 		return result;
@@ -282,47 +240,6 @@ public class FSUserManager implements UserManager {
 		}
 		return searchedUsers;
 	}
-
-	public List<User> searchByGroupIDForUsers(String groupID) {
-		ArrayList<User> searchedUsers = new ArrayList<User>();
-		Group result = getGroupMap().get(groupID);
-
-		if (result != null) {
-			searchedUsers.add(result.getOwner());
-			HashSet<User> adminsSet = result.getAdminSet();
-			HashSet<User> membersSet = result.getMembersSet();
-
-			for (User user : adminsSet) {
-				searchedUsers.add(user);
-			}
-
-			for (User user : membersSet) {
-				searchedUsers.add(user);
-			}
-		}
-		return searchedUsers;
-	}
-
-	public List<Group> searchByGroupName(String groupName) {
-		ArrayList<Group> listOfGroups = new ArrayList<Group>(getGroupMap().values());
-		ArrayList<Group> searchedGroups = new ArrayList<Group>();
-
-		for (Group group : listOfGroups) {
-			if (group.getGroupName().contains(groupName)) {
-				searchedGroups.add(group);
-			}
-		}
-
-		return searchedGroups;
-	}
-
-	public ArrayList<Group> searchByGroupID(String groupID) {
-		ArrayList<Group> searchedGroups = new ArrayList<Group>();
-		if (getGroupMap().containsKey(groupID)) {
-			searchedGroups.add(getGroupMap().get(groupID));
-		}
-		return searchedGroups;
-	}
 	
 	public ArrayList<String> getMajors(){
 		return classMajorTool.getMajors();
@@ -340,5 +257,4 @@ public class FSUserManager implements UserManager {
 	public ArrayList<String> getAllClasses(){
 		return classMajorTool.getAllClasses();
 	}
-
 }
