@@ -58,7 +58,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.User;
-import edu.csupomona.cs480.data.provider.GroupManager;
+
 import edu.csupomona.cs480.data.provider.UserManager;
 import edu.csupomona.cs480.util.ResourceResolver;
 
@@ -84,7 +84,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 */
 	@Autowired
 	private UserManager userManager;
-	private GroupManager groupManager;
+
 	
 	/**
 	 * Cs480 - Assignment 3, part 3
@@ -416,6 +416,12 @@ public class WebController extends WebMvcConfigurerAdapter {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value = "/message", method = RequestMethod.GET)
+	ModelAndView message(){
+		ModelAndView modelAndView = new ModelAndView("edit");
+		return modelAndView;
+	}
+	
 	@RequestMapping(value = "/edit/{userId}", method = RequestMethod.GET)
 	ModelAndView getEdit(@PathVariable("userId") String userId) {
 		User user = userManager.getUser(userId);
@@ -423,13 +429,14 @@ public class WebController extends WebMvcConfigurerAdapter {
 		modelAndView.addObject("user", user);
 		modelAndView.addObject("majors", getMajors());
 		modelAndView.addObject("classes", new ArrayList<String>());
+	//	modelAndView.addObject("messages", );
 		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/group/{groupId}", method = RequestMethod.GET)
 	ModelAndView getGroup(@PathVariable("groupId") String groupId) {
 		ModelAndView modelAndView = new ModelAndView("group");
-		modelAndView.addObject("group", groupManager.getGroup(groupId));
+		modelAndView.addObject("group", userManager.getGroup(groupId));
 		return modelAndView;
 	}
 

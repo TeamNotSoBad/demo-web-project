@@ -35,7 +35,6 @@ public class User {
 	 * friends is a HashMap that 
 	 */
 	private HashSet<String> friends;
-	
 	/**
 	 *  blackList is a HashSet that uses a user's id as it's key/value.
 	 *  people on the blackList will have all messages ignored.
@@ -48,13 +47,14 @@ public class User {
 	 * A conversation is a list of messages sent in chronological order
 	 */
 	private HashMap<String, ArrayList> conversations;
-	
+	private ArrayList<Message> wall;
 	
 	public User() {
 		friends = new HashSet<String>();
 		blackList = new HashSet<String>();
 		conversations = new HashMap<String, ArrayList>();
 		groups = new HashSet<String>();
+		wall = new ArrayList<Message>();
 	}
 
 	
@@ -63,7 +63,8 @@ public class User {
 		blackList = new HashSet<String>();
 		conversations = new HashMap<String, ArrayList>();
 		groups = new HashSet<String>();
-	
+		wall = new ArrayList<Message>();
+		
 		this.id = id;
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -155,7 +156,7 @@ public class User {
 		}
 
 		Message msg = new Message(id, messageBody);
-
+		wall.add(msg);
 		if (!conversations.containsKey(id)) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
 			chatLog.add(msg);
@@ -171,6 +172,7 @@ public class User {
 		if (blackList.contains(msg.getId())) {
 			return false;
 		}
+		wall.add(msg);
 		if (!conversations.containsKey(msg.getId())) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
 			chatLog.add(msg);
@@ -190,8 +192,10 @@ public class User {
 		}
 
 		Message msg = new Message(id, messageBody);
+		
 		recipient.sendMail(msg);
-
+		wall.add(msg);
+		
 		if (!conversations.containsKey(recipient.id)) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
 			chatLog.add(msg);
@@ -207,8 +211,10 @@ public class User {
 		if (recipient.blackList.contains(id)) {
 			return false;
 		}
+		
 		recipient.sendMail(msg);
-
+		wall.add(msg);
+		
 		if (!conversations.containsKey(recipient.id)) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
 			chatLog.add(msg);

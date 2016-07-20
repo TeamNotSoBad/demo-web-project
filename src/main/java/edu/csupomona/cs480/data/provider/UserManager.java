@@ -2,6 +2,8 @@ package edu.csupomona.cs480.data.provider;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.csupomona.cs480.data.Group;
 import edu.csupomona.cs480.data.User;
 
 public interface UserManager {
@@ -75,4 +77,12 @@ public interface UserManager {
 	public List<String> getClassOfMajor(String maj);
 	 	
 	public List<String> getAllClasses();
+
+	List<Group> listAllGroups();
+
+	void deleteGroup(String groupId);
+
+	void updateGroup(Group group);
+
+	public Group getGroup(String groupID);
 }
