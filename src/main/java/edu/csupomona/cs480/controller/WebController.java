@@ -85,17 +85,6 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 */
 	@Autowired
 	private UserManager userManager;
-	
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	ModelAndView getTest() {
-		User user = new User("1", "lname", "fname", "CS");
-		ModelAndView modelAndView = new ModelAndView("edit");
-		modelAndView.addObject("user", user);
-		modelAndView.addObject("majors", getMajors());
-		modelAndView.addObject("classes", new ArrayList<String>());
-		modelAndView.addObject("messages", user.getWall());
-		return modelAndView;
-	}
 
 	public static void awsTest()throws Exception{
 		AWSCredentials credentials = null;
