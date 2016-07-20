@@ -14,17 +14,18 @@
 	 body {
         padding-top: 40px;
         padding-bottom: 40px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-image: url("http://i.imgur.com/YpFPz3W.jpg");
         background-color: #993600;
       }
-      .header{
-      	max-width: 500px;
-        padding: 19px 29px 29px;
-        margin: 0 auto 20px;
-      	}
+
       .form-search{
+      	opacity: 0.9;
       	max-width: 300px;
         padding: 19px 29px 29px;
         margin: 0 auto 20px;
+        margin-top: 160px;
         background-color: #fff;
         border: 1px solid #e5e5e5;
         -webkit-border-radius: 5px;
@@ -35,9 +36,11 @@
                 box-shadow: 0 1px 2px rgba(0,0,0,.05);
       }
       .container{
+      opacity: 0.8;
       	max-width: 900px;
         padding: 19px 29px 29px;
         margin: 0 auto 20px;
+        margin-top: 200px;
         background-color: #fff;
         border: 1px solid #e5e5e5;
         -webkit-border-radius: 5px;
@@ -53,9 +56,6 @@
 
 <body ng-controller = "ResultsCtrl"> 
 
-    <div class = "header">
-            <center><h1>Results</h1></center>
-    </div>
         
     <div class = "form-search">
             <form>
