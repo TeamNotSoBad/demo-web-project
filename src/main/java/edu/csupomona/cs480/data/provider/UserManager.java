@@ -1,14 +1,10 @@
 package edu.csupomona.cs480.data.provider;
 
-import edu.csupomona.cs480.data.Group;
-import edu.csupomona.cs480.data.GroupMap;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.csupomona.cs480.data.Group;
 import edu.csupomona.cs480.data.User;
-import edu.csupomona.cs480.data.UserMap;
 
 public interface UserManager {
 
@@ -54,10 +50,8 @@ public interface UserManager {
 
 	void downloadMap();
 	
-	public List<User> getId(String id);
+	public List<User> getUsersById(String id);
 
-	public String getLocalMapTest();
-	
 	public List<User> searchByMajor(String major);
 	
 	public List<User> searchByFirstName(String first);
@@ -66,14 +60,8 @@ public interface UserManager {
 	
 	public List<User> searchByCourse(String course);
 	
-	public List<User> searchByCommonCourses(String commoncourses);
+	public List<User> searchByCommonCourses(String commoncourses);	 	
 	
-	public List<String> getMajors();
-	
-	public List<String> getClassOfMajor(String maj);
-	 	
-	public List<String> getAllClasses();
-
 	public void message(String userID, String recipientID,String msg);
 	
 	public void groupMessage(String userID, String groupID, String msg);
@@ -83,4 +71,30 @@ public interface UserManager {
 	public void flipAvailibility(String userID, int day, double time);
 	
 	public ArrayList<Boolean> matchingDays(String user1ID, String user2ID, int day);
+	
+	public List<String> getMajors();
+	
+	public List<String> getClassOfMajor(String maj);
+	 	
+	public List<String> getAllClasses();
+
+	public List<Group> listAllGroups();
+
+	public void deleteGroup(String groupId);
+
+	public void updateGroup(Group group);
+
+	public Group getGroup(String groupID);
+
+	public void deleteMember(String groupID, String deleter, String deletee);
+	
+	public void addMember(String groupID, String adder, String addee);
+	
+	public void addAdmin(String groupID, String adder, String addee);
+
+	public List<User> searchByGroupIDForUsers(String groupID);
+
+	public void removeAdmin(String groupID, String deleter, String deletee);
+
+	public void setOwner(String groupID, String oldOwner, String newOwner);
 }

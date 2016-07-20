@@ -2,7 +2,7 @@ function search(){
 	var userId = $('#input_id').val(); 
 	var searchType = $('#searchType').val();
 	
-	alert($('#searchType').val());
+	alert(userId);
 	
 	if(searchType === "id"){
 		$.ajax(
@@ -12,7 +12,7 @@ function search(){
 				data : {
 				},
 				success : function(result) {
-					window.location.href = "http://broncostudy.com/results/id/" + userId;
+					window.location.href = "http://localhost:8080/results/id/" + userId;
 				},
 				error : function(exception){
 					alert("Invalid Input.");
@@ -28,7 +28,7 @@ function search(){
 				data : {
 				},
 				success : function(result) {
-					window.location.href = "http://broncostudy.com/results/major/" + userId;
+					window.location.href = "http://localhost:8080/results/major/" + userId;
 				},
 				error : function(exception){
 					alert("Invalid Input.");

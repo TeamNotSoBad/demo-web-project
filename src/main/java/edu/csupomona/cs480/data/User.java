@@ -31,27 +31,40 @@ public class User {
 
 	private ArrayList<String> myFriends;
 	
-	private ArrayList<String> groups;
+	private HashSet<String> groups;
 	
 	private HashSet<String> courses;
 	private Calendar calendar = new Calendar();
+
+	/**
+	 * friends is a HashMap that 
+	 */
+	/**
+	 *  blackList is a HashSet that uses a user's id as it's key/value.
+	 *  people on the blackList will have all messages ignored.
+	 */
+	
+	private HashSet<String> blackList;
 	
 	/** 
 	 * conversations stores all of the different conversations from this user to another.
 	 * A conversation is a list of messages sent in chronological order
 	 */
 	private HashMap<String, ArrayList> conversations;
-	
+	private ArrayList<Message> wall;
 	
 	public User() {
 		conversations = new HashMap<String, ArrayList>();
 		myFriends = new ArrayList<String>();
-		groups = new ArrayList<String>();
+		groups = new HashSet<String>();
+		wall = new ArrayList<Message>();
 	}
 
 	
 	public User(String id, String lastName, String firstName, String major) {
 		conversations = new HashMap<String, ArrayList>();
+		groups = new HashSet<String>();
+		wall = new ArrayList<Message>();
 		this.id = id;
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -144,7 +157,7 @@ public class User {
 	 */
 	public boolean sendMail(String id, String messageBody) {
 		Message msg = new Message(id, messageBody);
-
+		wall.add(msg);
 		if (!conversations.containsKey(id)) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
 			chatLog.add(msg);
@@ -157,6 +170,10 @@ public class User {
 	}
 
 	public boolean sendMail(Message msg) {
+		if (blackList.contains(msg.getId())) {
+			return false;
+		}
+		wall.add(msg);
 		if (!conversations.containsKey(msg.getId())) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
 			chatLog.add(msg);
@@ -173,8 +190,10 @@ public class User {
 	public boolean writeMail(User recipient, String messageBody) {
 
 		Message msg = new Message(id, messageBody);
+		
 		recipient.sendMail(msg);
-
+		wall.add(msg);
+		
 		if (!conversations.containsKey(recipient.id)) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
 			chatLog.add(msg);
@@ -187,8 +206,12 @@ public class User {
 	}
 
 	public boolean writeMail(User recipient, Message msg) {
+		if (recipient.blackList.contains(id)) {
+			return false;
+		}
 		recipient.sendMail(msg);
-
+		wall.add(msg);
+		
 		if (!conversations.containsKey(recipient.id)) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
 			chatLog.add(msg);
