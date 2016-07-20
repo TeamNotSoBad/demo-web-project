@@ -1,5 +1,6 @@
 package edu.csupomona.cs480.data.provider;
 
+import java.util.ArrayList;
 import java.util.List;
 import edu.csupomona.cs480.data.User;
 
@@ -56,6 +57,22 @@ public interface UserManager {
 	public List<User> searchByLastName(String last);
 	
 	public List<User> searchByCourse(String course);
-
+	
 	public List<User> searchByCommonCourses(String commoncourses);	 	
+	
+	public void message(String userID, String recipientID,String msg);
+	
+	public void groupMessage(String userID, String groupID, String msg);
+	
+	public ArrayList<Boolean> getAvailabilityForDay(String userID, int day);
+	
+	public void flipAvailibility(String userID, int day, double time);
+	
+	public ArrayList<Boolean> matchingDays(String user1ID, String user2ID, int day);
+	
+	public List<String> getMajors();
+	
+	public List<String> getClassOfMajor(String maj);
+	 	
+	public List<String> getAllClasses();
 }

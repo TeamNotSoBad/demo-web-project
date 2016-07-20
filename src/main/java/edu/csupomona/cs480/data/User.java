@@ -30,7 +30,7 @@ public class User {
 	private HashSet<String> groups;
 	
 	private HashSet<String> courses;
-	
+	private Calendar calendar = new Calendar();
 	/**
 	 * friends is a HashMap that 
 	 */
@@ -227,7 +227,6 @@ public class User {
 		else{
 			return new ArrayList<Message>();
 		}
-		
 	}
 
 	public HashSet<String> getGroups() {
@@ -241,4 +240,18 @@ public class User {
 	public void leaveGroup(String newGroupID) {
 		groups.remove(newGroupID);
 	}
+	
+	public void flipTime(int day, double time){
+		calendar.flipTime(day, time);
+	}
+	
+	public ArrayList<Boolean> getTimesForDay(int day){
+		return calendar.getTimesForDay(day);
+	}
+	
+	public ArrayList<Boolean>matchingDays(User user2, int day){
+		return calendar.matchingDays(day, user2.calendar);
+	}
+	
+
 }

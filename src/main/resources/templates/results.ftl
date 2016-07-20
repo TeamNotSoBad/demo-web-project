@@ -83,6 +83,7 @@
 	        	<td>${user.major}</td>
 	        	<td>Place Holder</td>
 	        	<td>Message placeholder</td>
+	        	<td><button onclick="addFriend(${user.id})" class="btn btn-primary btn-md" input type = "button">Add Friend</button></td>
 	        </tr>
 	      </#list>  
   </table>

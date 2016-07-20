@@ -422,6 +422,8 @@ public class WebController extends WebMvcConfigurerAdapter {
 		User user = userManager.getUser(userId);
 		ModelAndView modelAndView = new ModelAndView("edit");
 		modelAndView.addObject("user", user);
+		modelAndView.addObject("majors", getMajors());
+		modelAndView.addObject("classes", new ArrayList<String>());
 		return modelAndView;
 	}
 	
@@ -429,6 +431,13 @@ public class WebController extends WebMvcConfigurerAdapter {
 	ModelAndView getGroup(@PathVariable("groupId") String groupId) {
 		ModelAndView modelAndView = new ModelAndView("group");
 		modelAndView.addObject("group", groupManager.getGroup(groupId));
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	ModelAndView getSignUp() {
+		ModelAndView modelAndView = new ModelAndView("signup");
+		modelAndView.addObject("majors", getMajors());
 		return modelAndView;
 	}
 	
@@ -457,6 +466,15 @@ public class WebController extends WebMvcConfigurerAdapter {
 		User user = userManager.getUser(userId);
 		user.setLastName(userLast);
 		user.setFirstName(userFirst);
+		userManager.updateUser(user);
+	}
+	
+	@RequestMapping(value = "/user/major/{userId}", method = RequestMethod.GET)
+	void updateUserMajor(
+			@PathVariable("userId") String userId,
+			@RequestParam("userMajor") String userMajor) {
+		User user = userManager.getUser(userId);
+		user.setMajor(userMajor);
 		userManager.updateUser(user);
 	}
 	
@@ -530,6 +548,8 @@ public class WebController extends WebMvcConfigurerAdapter {
 	}
 	
 	
+	
+	
 	@RequestMapping(value = "/search/major/{userId}", method = RequestMethod.GET)	
 	List<User> searchByMajor(@PathVariable("userId") String userId){
 		List<User> results = new ArrayList<User> ();
@@ -544,7 +564,17 @@ public class WebController extends WebMvcConfigurerAdapter {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value = "/list/majors", method = RequestMethod.GET)	
+	List<String> getMajors(){
+		List<String> majors = userManager.getMajors();
+		return majors;
+	}
 	
+	@RequestMapping(value = "/list/classes/{dep}", method = RequestMethod.GET)	
+	List<String> getClasses(@PathVariable("dep") String dep){
+		List<String> classes = userManager.getClassOfMajor(dep);
+		return classes;
+	}
 	//TODO Need to test this method with free marker
 	/**
 	 * Test function to see if an image can be uploaded to ec2 client, idk how to 
