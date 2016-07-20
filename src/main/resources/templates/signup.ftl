@@ -77,8 +77,8 @@
    	</div>
 </body>
 
-    <div style="background-image:url(http://i.imgur.com/73iGleP.jpg); 
-    background-repeat:repeat-x;width:100%;height:300px;">
+    <div style="background-image:url(http://i.imgur.com/xApJxft.jpg); 
+    background-size:cover;width:100%;height:300px;">
 
 </div>
     

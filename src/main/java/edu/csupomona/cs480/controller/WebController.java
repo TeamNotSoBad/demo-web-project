@@ -57,6 +57,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import edu.csupomona.cs480.App;
+import edu.csupomona.cs480.data.Message;
 import edu.csupomona.cs480.data.User;
 
 import edu.csupomona.cs480.data.provider.UserManager;
@@ -87,8 +88,12 @@ public class WebController extends WebMvcConfigurerAdapter {
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	ModelAndView getTest() {
-		ModelAndView modelAndView = new ModelAndView("results");
-		modelAndView.addObject("users", searchById("1111"));
+		User user = new User("1", "lname", "fname", "CS");
+		ModelAndView modelAndView = new ModelAndView("edit");
+		modelAndView.addObject("user", user);
+		modelAndView.addObject("majors", getMajors());
+		modelAndView.addObject("classes", new ArrayList<String>());
+		modelAndView.addObject("messages", user.getWall());
 		return modelAndView;
 	}
 

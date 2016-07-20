@@ -19,8 +19,8 @@
 	</script>
 	<style type = "text/css">
 		body {
-        padding-top: 40px;
-        padding-bottom: 40px;
+        padding-top: 10px;
+        padding-bottom: 10px;
         background-color: #993600;
       }
       
@@ -28,6 +28,7 @@
       	max-width: 300px;
         padding: 19px 29px 29px;
         margin: 0 auto 20px;
+        margin-top: 200px;
         background-color: #fff;
         border: 1px solid #e5e5e5;
         -webkit-border-radius: 5px;
@@ -59,12 +60,17 @@
         padding: 7px 9px;
       }
       
+      .nametitle {
+      }
 	</style>
 </head>
 
-<body>    
+<body>
+
+    <div style="background-image:url(http://i.imgur.com/bevNIx6.jpg); 
+    background-size:cover;width:100%;height:300px;">    
     
-    <div>
+    <div class = "nametitle">
     		<center><h1>${user.firstName} ${user.lastName}'s Profile</h1></center>
     		<center><h3># ${user.id}</h3></center>
             <center><h3>Edit Page</h3></center>
@@ -143,6 +149,8 @@
     	
     </div>
 
+    <div style="background-image:url(http://i.imgur.com/zfC3jXW.jpg); 
+    background-size:cover;width:100%;height:300px;">
         
 </body>
 
