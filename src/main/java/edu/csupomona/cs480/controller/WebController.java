@@ -421,6 +421,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	ModelAndView getSignUp() {
 		ModelAndView modelAndView = new ModelAndView("signup");
+		modelAndView.addObject("majors", getMajors());
 		return modelAndView;
 	}
 	
