@@ -62,7 +62,7 @@ public interface UserManager {
 	
 	public List<User> searchByCommonCourses(String commoncourses);	 	
 	
-	public void message(String userID, String recipientID,String msg);
+	public void message(String senderID, String recipientID,String msg);
 	
 	public void groupMessage(String userID, String groupID, String msg);
 	
