@@ -2,7 +2,7 @@ function search(){
 	var userId = $('#input_id').val(); 
 	var searchType = $('#searchType').val();
 	
-	alert($('#searchType').val());
+	alert(userId);
 	
 	if(searchType === "id"){
 		$.ajax(

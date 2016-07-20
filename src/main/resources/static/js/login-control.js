@@ -3,8 +3,6 @@ function login(){
 	var userId = $('#input_id').val();
 	var userPW = $('#input_password').val();
 	
-	alert(document.cookie);
-	
 	if(document.cookie != null){
 		alert("Hi");
 		var usedId = document.cookie.split("user=").pop();

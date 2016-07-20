@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 	 <style type="text/css">
@@ -51,18 +51,29 @@
       </style>
 </head>
 
-<body ng-controller = "ResultsCtrl">    
-    
+<body ng-controller = "ResultsCtrl"> 
+
     <div class = "header">
             <center><h1>Results</h1></center>
     </div>
         
     <div class = "form-search">
             <form>
-  			Search For: <input type="text" name="input_id">
-  			<button onclick="search()">Search</button>
+  			Search For: <input type="text" id="input_id">
+  			<br>
+  			<select id = "searchType">
+  				<option value="id">User ID</option>
+  				<option value="major">Major</option>
+  				<option value="firstName">First name</option>
+  				<option value="lastName">Last name</option>
+  				<option value="course">Course</option>
+  				<option value="commonCourses">Common Courses</option>
+  				<option value="groupName">Group Name</option>
+  				<option value="groupID">Group ID</option>
+			</select>
+			<button onclick="search()" class="btn btn-primary btn-md" input type ="button">Search</button><br><br>
   			</form>
-    </div>
+    </div> 
     
     <div class="container">
   <h2>Users Found:</h2>
@@ -75,17 +86,23 @@
 	        <td>Current Courses/td>
 	        <td>Message This person</td>
 	     </tr>
-	     <#list users as user>
-	     	<tr>
-	       		<td><a href = "http://broncostudy.com/user/${user.id}">${user.id}</a></td>
-	        	<td>${user.firstName}</td>
-	        	<td>${user.lastName}</td>
-	        	<td>${user.major}</td>
-	        	<td>Place Holder</td>
-	        	<td>Message placeholder</td>
-	        	<td><button onclick="addFriend(${user.id})" class="btn btn-primary btn-md" input type = "button">Add Friend</button></td>
-	        </tr>
-	      </#list>  
+	     	<#list users as user>
+	     		<#if user??>
+	     			<tr>
+	     	  			<td><a href = "http://broncostudy.com/user/${user.id}">${user.id}</a></td>
+	     			   	<td>${user.firstName}</td>
+	     			   	<td>${user.lastName}</td>
+	     	   			<td>${user.major}</td>
+	     	   			<td>Place Holder</td>
+	        			<td>Message placeholder</td>
+	        			<td><button onclick="addFriend(${user.id})" class="btn btn-primary btn-md" input type = "button">Add Friend</button></td>
+	        		</tr>
+	        	<#else>
+	        		<tr>
+	        			<td>No Users Found</td>
+	        		</tr>
+	        	</#if>	
+	      	</#list> 
   </table>
 </div>
 
