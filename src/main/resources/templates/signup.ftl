@@ -59,15 +59,7 @@
     			<input type="text" placeholder = "Bronco ID" id = "input_id"><br><br>
     			<input type="text" placeholder = "First Name" id = "input_first"><br><br>
     			<input type="text" placeholder = "Last Name" id = "input_last"><br><br>
-    			<div class = "div-majors">
-    				<select id = "majorType">
-    					<option value="default">Choose Your Major </option>
-    					<#list majors as majors>
-  							<option value=${majors}>${majors}</option>
-  						</#list>
-					</select>
-					<br><br>
-				</div>	
+    			
     			<input type="password" placeholder = "Password" id="input_password"><br><br>
     			<input type="password" placeholder = "Confirm Password" id="input_confirmpw"><br><br>
     			<input type="button" value="Sign Up" onclick="addUser()">
