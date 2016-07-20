@@ -96,7 +96,7 @@ public class Group {
 	 * @param ownerID
 	 * @return
 	 */
-	private boolean setOwner(User owner) {
+	public boolean setOwner(User owner) {
 		if (!owner.equals(groupOwner)) {
 			User tempUser = groupOwner;
 			groupOwner = null;
@@ -128,7 +128,7 @@ public class Group {
 	 * 
 	 * @param user
 	 */
-	private boolean removeAdministrator(User user) {
+	public boolean removeAdministrator(User user) {
 		if (admins.contains(user)) {
 			admins.remove(user);
 			return members.add(user);
@@ -149,7 +149,7 @@ public class Group {
 	 * user must also not be the group owner.
 	 */
 
-	private boolean addAdministrator(User user) {
+	public boolean addAdministrator(User user) {
 		if (members.contains(user) && !groupOwner.equals(user)) {
 			members.remove(user);
 			return admins.add(user);
@@ -176,7 +176,7 @@ public class Group {
 	 * 
 	 * @param id
 	 */
-	private boolean removeMember(User user) {
+	public boolean removeMember(User user) {
 		if (members.remove(user) == true) {
 			user.leaveGroup(groupID);
 			return true;
@@ -201,7 +201,7 @@ public class Group {
 	 * @param user
 	 * @return
 	 */
-	private boolean addMember(User user) {
+	public boolean addMember(User user) {
 		if (groupOwner.equals(user) || admins.contains(user)) {
 			return false;
 		} else {
