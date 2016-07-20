@@ -58,6 +58,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.User;
+import edu.csupomona.cs480.data.provider.GroupManager;
 import edu.csupomona.cs480.data.provider.UserManager;
 import edu.csupomona.cs480.util.ResourceResolver;
 
@@ -83,6 +84,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 */
 	@Autowired
 	private UserManager userManager;
+	private GroupManager groupManager;
 	
 	/**
 	 * Cs480 - Assignment 3, part 3
@@ -402,9 +404,16 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 *
 	 */
 	
-	@RequestMapping(value = "testjson", method = RequestMethod.GET)
-	String testjson(){
-		return userManager.getLocalMapTest();
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	ModelAndView getLogin() {
+		ModelAndView modelAndView = new ModelAndView("login");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	ModelAndView getSearch() {
+		ModelAndView modelAndView = new ModelAndView("search");
+		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/edit/{userId}", method = RequestMethod.GET)
@@ -417,9 +426,17 @@ public class WebController extends WebMvcConfigurerAdapter {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value = "/group/{groupId}", method = RequestMethod.GET)
+	ModelAndView getGroup(@PathVariable("groupId") String groupId) {
+		ModelAndView modelAndView = new ModelAndView("group");
+		modelAndView.addObject("group", groupManager.getGroup(groupId));
+		return modelAndView;
+	}
+
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	ModelAndView getSignUp() {
 		ModelAndView modelAndView = new ModelAndView("signup");
+		modelAndView.addObject("majors", getMajors());
 		return modelAndView;
 	}
 	
@@ -463,7 +480,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 
 	@RequestMapping(value = "/search/id/{userId}", method = RequestMethod.GET)	
 	List<User> searchById(@PathVariable("userId") String userId){
-		return userManager.getId(userId);
+		return userManager.getUsersById(userId);
 	}
 	
 	@RequestMapping(value = "/results/id/{userId}", method = RequestMethod.GET)

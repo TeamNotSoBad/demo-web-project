@@ -33,6 +33,7 @@ public class Group {
 	private HashSet<User> members;
 	private String creationTime;
 	private boolean isMarkedForDeletion = false;
+	private String description = "Welcome to our group page.";
 	
 	public Group(String name, String groupUniqueID, User owner) {
 		groupName = name;
@@ -198,5 +199,13 @@ public class Group {
 			isMarkedForDeletion = false;
 			return true;
 		}
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
