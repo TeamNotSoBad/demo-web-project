@@ -57,7 +57,6 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import edu.csupomona.cs480.App;
-import edu.csupomona.cs480.data.Message;
 import edu.csupomona.cs480.data.User;
 
 import edu.csupomona.cs480.data.provider.UserManager;
@@ -85,6 +84,13 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 */
 	@Autowired
 	private UserManager userManager;
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	ModelAndView getTest() {
+		ModelAndView modelAndView = new ModelAndView("results");
+		modelAndView.addObject("users", searchById("1111"));
+		return modelAndView;
+	}
 
 	public static void awsTest()throws Exception{
 		AWSCredentials credentials = null;
