@@ -86,6 +86,13 @@ public class WebController extends WebMvcConfigurerAdapter {
 	private UserManager userManager;
 	private GroupManager groupManager;
 	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	ModelAndView getTest() {
+		ModelAndView modelAndView = new ModelAndView("signup");
+		modelAndView.addObject("majors", getMajors());
+		return modelAndView;
+	}
+	
 	/**
 	 * Thomas Nguyen
 	 * Assignment 4 part 2
@@ -211,12 +218,6 @@ public class WebController extends WebMvcConfigurerAdapter {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	ModelAndView getLogin() {
 		ModelAndView modelAndView = new ModelAndView("login");
-		return modelAndView;
-	}
-	
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	ModelAndView getSearch() {
-		ModelAndView modelAndView = new ModelAndView("search");
 		return modelAndView;
 	}
 	
@@ -432,11 +433,4 @@ public class WebController extends WebMvcConfigurerAdapter {
 	List<User> listAllUsers() {
 		return userManager.listAllUsers();
 	}
-	
-	
-	/***
-	 *Testing actual pages 
-	 * 
-	 */
-
 }
