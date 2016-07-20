@@ -58,7 +58,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.User;
-import edu.csupomona.cs480.data.provider.GroupManager;
+
 import edu.csupomona.cs480.data.provider.UserManager;
 import edu.csupomona.cs480.util.ResourceResolver;
 
@@ -84,7 +84,36 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 */
 	@Autowired
 	private UserManager userManager;
-	private GroupManager groupManager;
+
+	
+	/**
+<<<<<<< HEAD
+	 * Cs480 - Assignment 3, part 3
+	 * Template Method by Henry Hu.
+	 */
+	@RequestMapping(value = "/cs480/temptest", method = RequestMethod.GET)
+	String templateMethod() {
+		return "This is a test message. Success!";
+	}
+	
+	/**
+	 * Cs480 - Assignment 4, part 2 Prototype FileUpload Method by Henry Hu. The
+	 * following method is NOT COMPLETE. DO NOT RUN this method. The user will
+	 * provide a DiskFileItem which is a compacted upload file as an object. The
+	 * write method will write the uploaded file into the disk, our server.
+	 * 
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/cs480/user/filespace/upload", method = RequestMethod.GET)
+	String fileUploadMethod() throws Exception {
+
+		// parseUploadRequest()
+		// processUploadedItemsList()
+		// ------Make the DiskFileItem object--------
+		// dfi.write(dfi.getStoreLocation());
+		// FileCleanUp()
+		return "Testing the file upload classes";
+	}
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	ModelAndView getTest() {
@@ -94,6 +123,8 @@ public class WebController extends WebMvcConfigurerAdapter {
 	}
 	
 	/**
+=======
+>>>>>>> e0e764890ebfc5ea605befe90b36572ed7edebfd
 	 * Thomas Nguyen
 	 * Assignment 4 part 2
 	 * Please do not uncomment the awsTest method, currently missing some vital parts of aws
@@ -220,6 +251,17 @@ public class WebController extends WebMvcConfigurerAdapter {
 		ModelAndView modelAndView = new ModelAndView("login");
 		return modelAndView;
 	}
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	ModelAndView getSearch() {
+		ModelAndView modelAndView = new ModelAndView("search");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/message", method = RequestMethod.GET)
+	ModelAndView message(){
+		ModelAndView modelAndView = new ModelAndView("edit");
+		return modelAndView;
+	}
 	
 	@RequestMapping(value = "/edit/{userId}", method = RequestMethod.GET)
 	ModelAndView getEdit(@PathVariable("userId") String userId) {
@@ -228,13 +270,14 @@ public class WebController extends WebMvcConfigurerAdapter {
 		modelAndView.addObject("user", user);
 		modelAndView.addObject("majors", getMajors());
 		modelAndView.addObject("classes", new ArrayList<String>());
+		modelAndView.addObject("messages", userManager.getUser(userId).getWall());
 		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/group/{groupId}", method = RequestMethod.GET)
 	ModelAndView getGroup(@PathVariable("groupId") String groupId) {
 		ModelAndView modelAndView = new ModelAndView("group");
-		modelAndView.addObject("group", groupManager.getGroup(groupId));
+		modelAndView.addObject("group", userManager.getGroup(groupId));
 		return modelAndView;
 	}
 
@@ -258,6 +301,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 		user.setFirstName(userFirst);
 		user.setMajor(usermajor);
 		user.setPassword(userpassword);
+		user.addFriend(null);
 		userManager.updateUser(user);
 		return user;
 	}
@@ -279,6 +323,15 @@ public class WebController extends WebMvcConfigurerAdapter {
 			@RequestParam("userMajor") String userMajor) {
 		User user = userManager.getUser(userId);
 		user.setMajor(userMajor);
+		userManager.updateUser(user);
+	}
+	
+	@RequestMapping(value = "/user/friends/{userId}", method = RequestMethod.GET)
+	void updateUserFriend(
+			@PathVariable("userId") String userId,
+			@RequestParam("userFriend") String userFriend) {
+		User user = userManager.getUser(userId);
+		user.addFriend(userFriend);
 		userManager.updateUser(user);
 	}
 	
@@ -420,6 +473,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 		User user = userManager.getUser(userId);
 		ModelAndView modelAndView = new ModelAndView("user");
 		modelAndView.addObject("user", user);
+		modelAndView.addObject("friends", user.getFriends());
 		return modelAndView;
 	}
 	

@@ -1,5 +1,7 @@
 package edu.csupomona.cs480.data.provider;
 
+import edu.csupomona.cs480.data.Group;
+import edu.csupomona.cs480.data.GroupMap;
 import edu.csupomona.cs480.data.ListOfClasses;
 import edu.csupomona.cs480.data.Message;
 
@@ -42,7 +44,7 @@ public class FSUserManager implements UserManager {
 	 *
 	 */
 	private static final ObjectMapper JSON = new ObjectMapper();
-	
+
 	private ListOfClasses classMajorTool = new ListOfClasses();
 
 	/**
@@ -167,15 +169,12 @@ public class FSUserManager implements UserManager {
 		result.add(getUser(userId));
 		return result;
 	}
-	
-	public List<Message> getConversation(String userID, String conversationID){
-		return getUserMap().get(userID).conversation(conversationID);
+
+
+	public void message(String senderID, String recipientID, String msg) {
+		getUser(senderID).writeMail(getUser(recipientID), msg);
 	}
-	
-	public void message(String userID, String recipientID, String msg){
-		getUser(userID).writeMail(getUser(recipientID), msg);
-	}
-		
+
 	public List<User> searchByLastName(String name) {
 		ArrayList<User> listOfUsers = new ArrayList<User>(getUserMap().values());
 		ArrayList<User> searchedUsers = new ArrayList<User>();
@@ -249,40 +248,156 @@ public class FSUserManager implements UserManager {
 		}
 		return searchedUsers;
 	}
-	
-	public ArrayList<String> getMajors(){
+
+	public ArrayList<String> getMajors() {
 		return classMajorTool.getMajors();
 	}
-	
+
 	/**
-	 *  this method will only work if you pass it the 3 character or 2 character abbreviation of the major.
-	 *  it also only takes caps
+	 * this method will only work if you pass it the 3 character or 2 character
+	 * abbreviation of the major. it also only takes caps
 	 */
-	
-	public ArrayList<String> getClassOfMajor(String maj){
+
+	public ArrayList<String> getClassOfMajor(String maj) {
 		return classMajorTool.getClassByMajor(maj);
 	}
-	
-	public ArrayList<String> getAllClasses(){
+
+	public ArrayList<String> getAllClasses() {
 		return classMajorTool.getAllClasses();
 	}
-	
-	public ArrayList<Boolean> getAvailabilityForDay(String userID, int day){
+
+	public ArrayList<Boolean> getAvailabilityForDay(String userID, int day) {
 		return getUser(userID).getTimesForDay(day);
 	}
-	
-	public void flipAvailibility(String userID, int day, double time){
+
+	public void flipAvailibility(String userID, int day, double time) {
 		getUser(userID).flipTime(day, time);
 	}
-	
-	public ArrayList<Boolean> matchingDays(String user1ID, String user2ID, int day){
+
+	public ArrayList<Boolean> matchingDays(String user1ID, String user2ID, int day) {
 		return getUser(user1ID).matchingDays(getUser(user2ID), day);
 	}
 
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	private void persistGroupMap(GroupMap groupMap) {
+		try {
+			// convert the user object to JSON format
+			JSON.writeValue(ResourceResolver.getGroupFile(), groupMap);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private GroupMap getGroupMap() {
+		GroupMap groupMap = null;
+		File groupFile = ResourceResolver.getGroupFile();
+		if (groupFile.exists()) {
+			// read the file and convert the JSON content
+			// to the UserMap object
+			try {
+				groupMap = JSON.readValue(groupFile, GroupMap.class);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			groupMap = new GroupMap();
+		}
+		return groupMap;
+	}
+
 	@Override
-	public void groupMessage(String userID, String groupID, String msg){
-		//TODO:
-		//getGroupMap().get(groupID).sendGroupMessage(userID, msg);
+	public void updateGroup(Group group) {
+		GroupMap groupMap = getGroupMap();
+		groupMap.put(group.getGroupID(), group);
+		persistGroupMap(groupMap);
+	}
+
+	@Override
+	public void deleteGroup(String groupId) {
+		GroupMap groupMap = getGroupMap();
+		groupMap.remove(groupId);
+		persistGroupMap(groupMap);
+	}
+
+	@Override
+	public List<Group> listAllGroups() {
+		GroupMap groupMap = getGroupMap();
+		return new ArrayList<Group>(groupMap.values());
+	}
+	@Override
+	public List<User> searchByGroupIDForUsers(String groupID) {
+		ArrayList<User> searchedUsers = new ArrayList<User>();
+		Group result = getGroupMap().get(groupID);
+
+		if (result != null) {
+			searchedUsers.add(result.getOwner());
+			HashSet<User> adminsSet = result.getAdminSet();
+			HashSet<User> membersSet = result.getMembersSet();
+
+			for (User user : adminsSet) {
+				searchedUsers.add(user);
+			}
+
+			for (User user : membersSet) {
+				searchedUsers.add(user);
+			}
+		}
+		return searchedUsers;
+	}
+
+	public List<Group> searchByGroupName(String groupName) {
+		ArrayList<Group> listOfGroups = new ArrayList<Group>(getGroupMap().values());
+		ArrayList<Group> searchedGroups = new ArrayList<Group>();
+
+		for (Group group : listOfGroups) {
+			if (group.getGroupName().contains(groupName)) {
+				searchedGroups.add(group);
+			}
+		}
+
+		return searchedGroups;
+	}
+	
+	public ArrayList<Group> searchByGroupID(String groupID) {
+		ArrayList<Group> searchedGroups = new ArrayList<Group>();
+		if (getGroupMap().containsKey(groupID)) {
+			searchedGroups.add(getGroupMap().get(groupID));
+		}
+		return searchedGroups;
+	}
+	
+	@Override
+	public Group getGroup(String groupId) {
+		GroupMap groupMap = getGroupMap();
+		return groupMap.get(groupId);
+	}
+
+	@Override
+	public void groupMessage(String userID, String groupID, String msg) {
+		getGroup(groupID).sendGroupMessage(userID, msg);
+	}
+
+	@Override
+	public void deleteMember(String groupID, String deleter, String deletee) {
+		getGroup(groupID).deleteMember(getUser(deleter), getUser(deletee));
+	}
+	@Override
+	public void addMember(String groupID, String adder, String addee) {
+		getGroup(groupID).addMember(getUser(adder), getUser(addee));
+	}
+
+	@Override
+	public void addAdmin(String groupID, String adder, String addee) {
+		getGroup(groupID).addAdministrator(getUser(adder), getUser(addee));
+	}
+	@Override
+	public void removeAdmin(String groupID, String deleter, String deletee){
+		getGroup(groupID).removeAdministrator(getUser(deleter), getUser(deletee));
+	}
+	
+	@Override
+	public void setOwner(String groupID, String oldOwner, String newOwner){
+		getGroup(groupID).setOwner(getUser(oldOwner), getUser(newOwner));
 	}
 
 }

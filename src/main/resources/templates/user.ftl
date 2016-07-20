@@ -186,7 +186,15 @@
     				<td> Friends </td>
     			<tr>
     			<tr>
-    				<td>PLACEHOLDER</td>
+    				<#if friends??>
+    					<#list friends as friend>
+    						<#if friend??>
+    							<td><a href = "http://broncostudy.com/user/${friend}">${friend}</a></td>
+    						</#if>	
+    					</#list>
+    					<#else>
+    						<td>No Users</td>
+    				</#if>
     			</tr>
     	</table>
     </div>

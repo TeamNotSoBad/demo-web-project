@@ -12,9 +12,9 @@
   	
 	<script>	
 	var userId = ${user.id};
-	if(document.cookie.val() != "user="+userId){
+	if(document.cookie != "user="+userId){
 		alert("Invalid Location");
-		window.location.href = "http://localhost:8080/";
+		window.location.href = "http://broncostudy.com/";
 	}
 	</script>
 	<style type = "text/css">

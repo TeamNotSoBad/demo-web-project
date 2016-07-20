@@ -3,26 +3,44 @@ package edu.csupomona.cs480.data;
 import java.util.Date;
 
 public class Message{
-	private String id;
+	private String from;
+	private String to;
+	
 	private String message;
-	private Date time;
 	
-	Message(String id, String message){
-		this.id = id;
+	private String time;
+	
+	public Message(String from, String to, String message){
+		this.from = from;
+		this.to = to;
 		this.message = message;
-		time = new Date();
+		time = new Date().toString();
 	}
 	
-	String getId(){
-		return id;
+	public String getFrom(){
+		return from;
 	}
+	
+	public String getTo(){
+		return to;
+	}
+	
 	public String getMsg(){
 		return message;
 	}
-	Date getTime(){
+	
+	public String getTime(){
 		return time;
 	}
-	String time(){
+	
+	public String time(){
 		return time.toString();
+	}
+	
+	public String toString(){
+		String s = "From: " + from + "To: " + to + "\n";
+		s += message + "\n";
+		s += time;
+		return s;
 	}
 }

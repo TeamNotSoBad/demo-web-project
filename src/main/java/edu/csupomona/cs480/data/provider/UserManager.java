@@ -2,6 +2,8 @@ package edu.csupomona.cs480.data.provider;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.csupomona.cs480.data.Group;
 import edu.csupomona.cs480.data.User;
 
 public interface UserManager {
@@ -60,7 +62,7 @@ public interface UserManager {
 	
 	public List<User> searchByCommonCourses(String commoncourses);	 	
 	
-	public void message(String userID, String recipientID,String msg);
+	public void message(String senderID, String recipientID,String msg);
 	
 	public void groupMessage(String userID, String groupID, String msg);
 	
@@ -75,4 +77,24 @@ public interface UserManager {
 	public List<String> getClassOfMajor(String maj);
 	 	
 	public List<String> getAllClasses();
+
+	public List<Group> listAllGroups();
+
+	public void deleteGroup(String groupId);
+
+	public void updateGroup(Group group);
+
+	public Group getGroup(String groupID);
+
+	public void deleteMember(String groupID, String deleter, String deletee);
+	
+	public void addMember(String groupID, String adder, String addee);
+	
+	public void addAdmin(String groupID, String adder, String addee);
+
+	public List<User> searchByGroupIDForUsers(String groupID);
+
+	public void removeAdmin(String groupID, String deleter, String deletee);
+
+	public void setOwner(String groupID, String oldOwner, String newOwner);
 }
