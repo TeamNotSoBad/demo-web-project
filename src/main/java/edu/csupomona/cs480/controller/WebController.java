@@ -91,7 +91,6 @@ public class WebController extends WebMvcConfigurerAdapter {
 	@RequestMapping(value = "/cs480/temptest", method = RequestMethod.GET)
 	String templateMethod() {
 		return "This is a test message. Success!";
-		
 	}
 	
 	/**
@@ -606,10 +605,5 @@ public class WebController extends WebMvcConfigurerAdapter {
 		return userManager.listAllUsers();
 	}
 	
-	
-	/***
-	 *Testing actual pages 
-	 * 
-	 */
 
 }
