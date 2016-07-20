@@ -84,36 +84,6 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 */
 	@Autowired
 	private UserManager userManager;
-
-	
-	/**
-<<<<<<< HEAD
-	 * Cs480 - Assignment 3, part 3
-	 * Template Method by Henry Hu.
-	 */
-	@RequestMapping(value = "/cs480/temptest", method = RequestMethod.GET)
-	String templateMethod() {
-		return "This is a test message. Success!";
-	}
-	
-	/**
-	 * Cs480 - Assignment 4, part 2 Prototype FileUpload Method by Henry Hu. The
-	 * following method is NOT COMPLETE. DO NOT RUN this method. The user will
-	 * provide a DiskFileItem which is a compacted upload file as an object. The
-	 * write method will write the uploaded file into the disk, our server.
-	 * 
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/cs480/user/filespace/upload", method = RequestMethod.GET)
-	String fileUploadMethod() throws Exception {
-
-		// parseUploadRequest()
-		// processUploadedItemsList()
-		// ------Make the DiskFileItem object--------
-		// dfi.write(dfi.getStoreLocation());
-		// FileCleanUp()
-		return "Testing the file upload classes";
-	}
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	ModelAndView getTest() {
@@ -121,17 +91,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 		modelAndView.addObject("majors", getMajors());
 		return modelAndView;
 	}
-	
-	/**
-=======
->>>>>>> e0e764890ebfc5ea605befe90b36572ed7edebfd
-	 * Thomas Nguyen
-	 * Assignment 4 part 2
-	 * Please do not uncomment the awsTest method, currently missing some vital parts of aws
-	 * that allows for the use of instantiating ec2, s3, and simpleDB,
-	 * 
-	 */
-	
+
 	public static void awsTest()throws Exception{
 		AWSCredentials credentials = null;
 		AmazonEC2Client ec2 = new AmazonEC2Client(credentials);
@@ -211,20 +171,6 @@ public class WebController extends WebMvcConfigurerAdapter {
         }
     }
 	
-	/**
-	 * This is a simple example of how the HTTP API works.
-	 * It returns a String "OK" in the HTTP response.
-	 * To try it, run the web application locally,
-	 * in your web browser, type the link:
-	 * 	http://localhost:8080/cs480/ping
-	 */
-	@RequestMapping(value = "/cs480/ping", method = RequestMethod.GET)
-	String healthCheck() {
-		// You can replace this with other string,
-		// and run the application locally to check your changes
-		// with the URL: http://localhost:8080/
-		return "OK";
-	}
 	
 	/**
 	 * Uploads the file that contains all the users, but I don't
@@ -251,6 +197,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 		ModelAndView modelAndView = new ModelAndView("login");
 		return modelAndView;
 	}
+	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	ModelAndView getSearch() {
 		ModelAndView modelAndView = new ModelAndView("search");
