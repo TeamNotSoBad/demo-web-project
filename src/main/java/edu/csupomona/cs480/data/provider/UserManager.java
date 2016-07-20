@@ -78,11 +78,23 @@ public interface UserManager {
 	 	
 	public List<String> getAllClasses();
 
-	List<Group> listAllGroups();
+	public List<Group> listAllGroups();
 
-	void deleteGroup(String groupId);
+	public void deleteGroup(String groupId);
 
-	void updateGroup(Group group);
+	public void updateGroup(Group group);
 
 	public Group getGroup(String groupID);
+
+	public void deleteMember(String groupID, String deleter, String deletee);
+	
+	public void addMember(String groupID, String adder, String addee);
+	
+	public void addAdmin(String groupID, String adder, String addee);
+
+	public List<User> searchByGroupIDForUsers(String groupID);
+
+	public void removeAdmin(String groupID, String deleter, String deletee);
+
+	public void setOwner(String groupID, String oldOwner, String newOwner);
 }
