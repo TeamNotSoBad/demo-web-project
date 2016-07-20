@@ -189,7 +189,7 @@
     				<#if friends??>
     					<#list friends as friend>
     						<#if friend??>
-    							<td><a href = "http://localhost:8080/user/${friend}">${friend}</a></td>
+    							<td><a href = "http://broncostudy.com/user/${friend}">${friend}</a></td>
     						</#if>	
     					</#list>
     					<#else>

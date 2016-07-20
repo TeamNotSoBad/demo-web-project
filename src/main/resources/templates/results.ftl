@@ -89,7 +89,7 @@
 	     	<#list users as user>
 	     		<#if user??>
 	     			<tr>
-	     	  			<td><a href = "http://localhost:8080/user/${user.id}">${user.id}</a></td>
+	     	  			<td><a href = "http://broncostudy.com/user/${user.id}">${user.id}</a></td>
 	     			   	<td>${user.firstName}</td>
 	     			   	<td>${user.lastName}</td>
 	     	   			<td>${user.major}</td>
