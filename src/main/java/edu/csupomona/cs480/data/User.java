@@ -70,7 +70,9 @@ public class User {
 		this.firstName = firstName;
 		this.major = major;
 	}
-
+	public ArrayList<Message> getWall(){
+		return wall;
+	}
 	public void addFriend(String id) {
 		friends.add(id);
 	}
@@ -150,12 +152,12 @@ public class User {
 	/**
 	 * this method will be used to write mail to this instance of user
 	 */
-	public boolean sendMail(String id, String messageBody) {
-		if (blackList.contains(id)) {
+	public boolean sendMail(String from, String to, String messageBody) {
+		if (blackList.contains(from)) {
 			return false;
 		}
 
-		Message msg = new Message(id, messageBody);
+		Message msg = new Message(from,to, messageBody);
 		wall.add(msg);
 		if (!conversations.containsKey(id)) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
@@ -169,16 +171,16 @@ public class User {
 	}
 
 	public boolean sendMail(Message msg) {
-		if (blackList.contains(msg.getId())) {
+		if (blackList.contains(msg.getFrom())) {
 			return false;
 		}
 		wall.add(msg);
-		if (!conversations.containsKey(msg.getId())) {
+		if (!conversations.containsKey(msg.getFrom())) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
 			chatLog.add(msg);
-			conversations.put(msg.getId(), chatLog);
+			conversations.put(msg.getFrom(), chatLog);
 		} else {
-			conversations.get(msg.getId()).add(msg);
+			conversations.get(msg.getFrom()).add(msg);
 		}
 		return true;
 	}
@@ -191,7 +193,7 @@ public class User {
 			return false;
 		}
 
-		Message msg = new Message(id, messageBody);
+		Message msg = new Message(id, recipient.getId(), messageBody);
 		
 		recipient.sendMail(msg);
 		wall.add(msg);

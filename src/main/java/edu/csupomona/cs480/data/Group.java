@@ -64,7 +64,7 @@ public class Group {
 		groupMembers.add(groupOwner);
 
 		for (User groupMember : groupMembers) {
-			groupMember.sendMail(groupID, msg + "\n -" + userID);
+			groupMember.sendMail(groupID, groupMember.getId(), msg + "\n -" + userID);
 		}
 	}
 

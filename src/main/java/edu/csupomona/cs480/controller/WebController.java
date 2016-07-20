@@ -264,7 +264,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 		modelAndView.addObject("user", user);
 		modelAndView.addObject("majors", getMajors());
 		modelAndView.addObject("classes", new ArrayList<String>());
-	//	modelAndView.addObject("messages", );
+		modelAndView.addObject("messages", userManager.getUser(userId).getWall());
 		return modelAndView;
 	}
 	
