@@ -8,7 +8,7 @@ import java.io.File;
 public class ResourceResolver {
 
 	/** The base folder to store all the data used by this project. */
-	private static final String BASE_DIR = System.getProperty("user.home") + "/database";
+	private static final String BASE_DIR = System.getProperty("user.home") + "/database2";
 	private static final String IMG_DIR = System.getProperty("user.home") + "/images/database";
 
 	/**

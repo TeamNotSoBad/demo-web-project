@@ -438,6 +438,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 		user.setFirstName(userFirst);
 		user.setMajor(usermajor);
 		user.setPassword(userpassword);
+		user.addFriend(null);
 		userManager.updateUser(user);
 		return user;
 	}
@@ -459,6 +460,15 @@ public class WebController extends WebMvcConfigurerAdapter {
 			@RequestParam("userMajor") String userMajor) {
 		User user = userManager.getUser(userId);
 		user.setMajor(userMajor);
+		userManager.updateUser(user);
+	}
+	
+	@RequestMapping(value = "/user/friends/{userId}", method = RequestMethod.GET)
+	void updateUserFriend(
+			@PathVariable("userId") String userId,
+			@RequestParam("userFriend") String userFriend) {
+		User user = userManager.getUser(userId);
+		user.addFriend(userFriend);
 		userManager.updateUser(user);
 	}
 	
@@ -604,6 +614,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 		User user = userManager.getUser(userId);
 		ModelAndView modelAndView = new ModelAndView("user");
 		modelAndView.addObject("user", user);
+		modelAndView.addObject("friends", user.getFriends());
 		return modelAndView;
 	}
 	

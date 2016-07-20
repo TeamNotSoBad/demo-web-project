@@ -3,6 +3,7 @@ package edu.csupomona.cs480.data;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.HashMap;
 
 /**
@@ -23,25 +24,17 @@ public class User {
 	private String major;
 	
 	/** The timestamp when the user is being created */
-	private String creationTime = new Date(System.currentTimeMillis()).toString();
+	private String smorgle = "HI";
 
 	private String password;
 
-	private HashSet<String> groups;
+
+	private ArrayList<String> myFriends;
+	
+	private ArrayList<String> groups;
 	
 	private HashSet<String> courses;
 	private Calendar calendar = new Calendar();
-	/**
-	 * friends is a HashMap that 
-	 */
-	private HashSet<String> friends;
-	
-	/**
-	 *  blackList is a HashSet that uses a user's id as it's key/value.
-	 *  people on the blackList will have all messages ignored.
-	 */
-	
-	private HashSet<String> blackList;
 	
 	/** 
 	 * conversations stores all of the different conversations from this user to another.
@@ -51,19 +44,14 @@ public class User {
 	
 	
 	public User() {
-		friends = new HashSet<String>();
-		blackList = new HashSet<String>();
 		conversations = new HashMap<String, ArrayList>();
-		groups = new HashSet<String>();
+		myFriends = new ArrayList<String>();
+		groups = new ArrayList<String>();
 	}
 
 	
 	public User(String id, String lastName, String firstName, String major) {
-		friends = new HashSet<String>();
-		blackList = new HashSet<String>();
 		conversations = new HashMap<String, ArrayList>();
-		groups = new HashSet<String>();
-	
 		this.id = id;
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -71,20 +59,25 @@ public class User {
 	}
 
 	public void addFriend(String id) {
-		friends.add(id);
+
+		if(myFriends == null){
+			myFriends = new ArrayList<String>();
+		}
+		if(myFriends.contains(id)){
+		}
+		else{
+			myFriends.add(id);
+		}
+		
 	}
 
 	public void removeFriend(String id) {
-		friends.remove(id);
 	}
 	
-	public void addBlackList(String id) {
-		blackList.add(id);
+	public ArrayList<String> getFriends(){
+		return myFriends;
 	}
-
-	public void removeBlackList(String id) {
-		blackList.remove(id);
-	}
+		
 
 	public String getId() {
 		return id;
@@ -131,11 +124,11 @@ public class User {
 	}
 
 	public String getCreationTime() {
-		return creationTime;
+		return smorgle;
 	}
 
 	public void setCreationTime(String creationTime) {
-		this.creationTime = creationTime;
+		this.smorgle = creationTime;
 	}
 
 	public HashSet<String> getCourses() {
@@ -150,10 +143,6 @@ public class User {
 	 * this method will be used to write mail to this instance of user
 	 */
 	public boolean sendMail(String id, String messageBody) {
-		if (blackList.contains(id)) {
-			return false;
-		}
-
 		Message msg = new Message(id, messageBody);
 
 		if (!conversations.containsKey(id)) {
@@ -168,9 +157,6 @@ public class User {
 	}
 
 	public boolean sendMail(Message msg) {
-		if (blackList.contains(msg.getId())) {
-			return false;
-		}
 		if (!conversations.containsKey(msg.getId())) {
 			ArrayList<Message> chatLog = new ArrayList<Message>();
 			chatLog.add(msg);
@@ -185,9 +171,6 @@ public class User {
 	 * This instance of user will send mail to an instance of another user, on this users behalf.
 	 */
 	public boolean writeMail(User recipient, String messageBody) {
-		if (recipient.blackList.contains(id)) {
-			return false;
-		}
 
 		Message msg = new Message(id, messageBody);
 		recipient.sendMail(msg);
@@ -204,9 +187,6 @@ public class User {
 	}
 
 	public boolean writeMail(User recipient, Message msg) {
-		if (recipient.blackList.contains(id)) {
-			return false;
-		}
 		recipient.sendMail(msg);
 
 		if (!conversations.containsKey(recipient.id)) {
@@ -229,9 +209,9 @@ public class User {
 		}
 	}
 
-	public HashSet<String> getGroups() {
-		return groups;
-	}
+//	public HashSet<String> getGroups() {
+	//	return groups;
+	//}
 
 	public void joinGroup(String newGroupID) {
 		groups.add(newGroupID);
