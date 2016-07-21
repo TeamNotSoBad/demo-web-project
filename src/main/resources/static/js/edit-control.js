@@ -71,11 +71,11 @@ function search(){
 		$.ajax(
 			{
 				type : "GET",
-				url : "/search/classes/" + userId,
+				url : "/search/course/" + userId,
 				data : {
 				},
 				success : function(result) {
-					window.location.href = "http://broncostudy.com/results/classes/" + userId;
+					window.location.href = "http://broncostudy.com/results/courses/" + userId;
 				},
 				error : function(exception){
 					alert("Invalid Input.");
