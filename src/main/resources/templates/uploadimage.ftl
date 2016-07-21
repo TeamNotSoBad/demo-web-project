@@ -8,9 +8,9 @@
 
 <body>    
 
-<form class = "form-upload">
+<form id = "image">
     <input type="file" name="test" accept="image/*">
-    <input type="button" value="Submit" onclick="uploadImage()">
+    <input type="button" value="submit" onclick="uploadimage()">
 </form>    
     
 </body>

@@ -19,11 +19,11 @@
         </ul>
     </div>
     
-    <form action="http://localhost:8080/cs480/login">
+    <form action="broncostudy.com/login">
     	<input type="submit" value="Log In">
 	</form>
 	
-	<form action="http://localhost:8080/cs480/register">
+	<form action="broncostudy.com/signup">
     	<input type="submit" value="Register">
 	</form>
 

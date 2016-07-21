@@ -1,13 +1,13 @@
 function uploadImage(){
     
-    var pic = document.getElementsByName("test");
+    var file = document.getElementById("image");
     
     $.ajax(
         {
         type : "POST",
         url  : "/uploadImageTest1",
         data : {
-                 "pic" : file
+                 "file" : file
                 },
         success : function(result) {
                 alert("Did it");
