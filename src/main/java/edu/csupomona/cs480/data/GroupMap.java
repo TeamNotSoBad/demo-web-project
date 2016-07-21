@@ -16,14 +16,7 @@ public class GroupMap extends HashMap<String, Group> {
 	 * Overrides the HashMap put() method to restrict keys to be unique.
 	 * Otherwise, the group will not be added and a null value will be returned.
 	 */
-	public Group put(String groupID, Group newGroup) {
-		if (containsKey(groupID) != true) {
-			super.put(groupID, newGroup);
-			return newGroup;
-		} else {
-			return null;
-		}
-	}
+	
 	
 	/**
 	 * Only allow the removal of an existing group if it is marked for deletion.
@@ -44,7 +37,7 @@ public class GroupMap extends HashMap<String, Group> {
 			}
 		}
 		return null;
-	}*/
+	}/
 	
 	/**
 	 * Changing the groupID should be done in this class only.

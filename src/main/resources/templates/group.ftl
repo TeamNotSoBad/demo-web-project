@@ -118,7 +118,7 @@
     			<tr>
     			<#list group.members as member>
     			<tr>
-    				<td><a href = "http://broncostudy.com/user/$[member}">${member}</a></td>
+    				<td><a href = "http://broncostudy.com/user/${member}">${member}</a></td>
     			</tr>
     			</#list>
     	</table>

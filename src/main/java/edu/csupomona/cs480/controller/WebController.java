@@ -221,8 +221,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 		ModelAndView modelAndView = new ModelAndView("edit");
 		modelAndView.addObject("user", user);
 		modelAndView.addObject("majors", getMajors());
-		modelAndView.addObject("classes", getUserClasses(userId));
-		modelAndView.addObject("classes", new ArrayList<String>());
+		modelAndView.addObject("classes", userManager.getUser(userId).getClasses());
 		modelAndView.addObject("messages", userManager.getUser(userId).getWall());
 		return modelAndView;
 	}
@@ -243,10 +242,11 @@ public class WebController extends WebMvcConfigurerAdapter {
 	
 	@RequestMapping(value = "/join/{groupId}", method = RequestMethod.POST)
 	void joinGroup(@PathVariable("groupId") String groupId,
-					@RequestParam("userId") String userId){
-		User user = userManager.getUser(userId); 
-		userManager.getGroup(groupId).addMember(userId);
-		userManager.updateGroup(userManager.getGroup(groupId));
+					@RequestParam("userId") String userId){ 
+		Group group = new Group();
+		group = userManager.getGroup(groupId);
+		group.addMembers(userId);
+		userManager.updateGroup(group);
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
@@ -456,6 +456,13 @@ public class WebController extends WebMvcConfigurerAdapter {
 		
 		return image;		
 	}
+	
+	@RequestMapping(value = "/password/{userId}", method = RequestMethod.POST)
+	void changePassword(@PathVariable("userId") String userId,
+						@RequestParam("password") String password) {
+		userManager.getUser(userId).setPassword(password);
+	}
+	
 	
 	@RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
 	ModelAndView getUser(@PathVariable("userId") String userId) {

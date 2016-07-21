@@ -174,7 +174,7 @@ public class Group {
 		return members;
 	}
 	
-	public void addMember(String member){
+	public void addMembers(String member){
 		members.add(member);
 	}
 

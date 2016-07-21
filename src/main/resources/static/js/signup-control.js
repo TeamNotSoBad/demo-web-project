@@ -8,6 +8,7 @@ function addUser() {
 	var userConfirmPW = $('#input_confirmpw').val();
 	var compare = userPW.localeCompare(userConfirmPW);
 	
+	if(userId.length == 9 && userFirst.length > 1 && userFirst.length < 15 && userLast.length > 1 && userLast.length < 15 && userPW.length > 3){
 	if(userMajor != "default"){
 	alert($('#majorType').val());
 		if (userId && userFirst && userLast && userMajor && userPW && userConfirmPW && compare === 0) {
@@ -42,5 +43,14 @@ function addUser() {
 	else{
 		alert("Input Major");
 	}
-				
+	}
+	else if(userId.length != 9){
+		alert("Bronco ID is 9 digits in length.");
+	}
+	else if(userFirst.length <= 1 || userFirst.length >= 15 || userLast.length <= 1 || userLast.length >= 15){
+		alert("User first/last name must be 2-14 characters long");
+	}
+	else if(userPW.length <= 3){
+		alert("Password must be at least 4 characters long");
+	}
 }
