@@ -107,35 +107,36 @@ function changeName(){
 	
 	var userFirst = $('#input_firstName').val();
 	var userLast = $('#input_lastName').val();
-	$.ajax(
-				{
-					type : "GET",
-					url  : "/user/id/" + userId,
-					data : {
-						"userFirst" : userFirst,
-						"userLast" : userLast
-					},
-					success : function(result) {
-					alert("Changed Name");
-					location.reload();
-					},
-					error: function (jqXHR, exception) {
-					alert("Invalid Info");
+	if(userFirst.length > 1 && userFirst.length < 15 && userLast.length > 1 && userLast.length < 15){
+		$.ajax(
+					{
+						type : "GET",
+						url  : "/user/id/" + userId,
+						data : {
+							"userFirst" : userFirst,
+							"userLast" : userLast
+						},
+						success : function(result) {
+						alert("Changed Name");
+						location.reload();
+						},
+						error: function (jqXHR, exception) {
+						alert("Invalid Info");
+						}
 					}
-				}
-				);
+					);
+		}
+	else if(userFirst.length <= 1 || userFirst.length >= 15 || userLast.length <= 1 || userLast.length >= 15){
+		alert("User first/last name must be 2-14 characters long");
+	}
 }
-
-function chooseDepartment(){
-	
-}
-
 
 
 function addClass(){;
 	var dep = $('#depType').val();
 	var classNum = $('#input_classNumber').val();
 	alert("Adding " + dep + classNum);
+	if(classNum.length == 3){
 	$.ajax(
 				{
 					type : "GET",
@@ -153,9 +154,10 @@ function addClass(){;
 					}
 				}
 				);
-}
-
-function changeTime(){
+	}
+	else if(classNum != 3){
+		alert("Class number invalid");
+	}
 }
 
 function changeMajor(){
@@ -179,11 +181,10 @@ function changeMajor(){
 				);
 }
 
-
-
 function createGroup(){
 	var groupId = $('#input_groupId').val();
 	alert("Trying to create " + groupId + " by " + userId);
+	if(groupId.length >= 8 && groupId.length <= 20){
 	$.ajax(
 				{
 					type : "POST",
@@ -200,5 +201,40 @@ function createGroup(){
 					}
 				}
 				);
+	}
+	else if(groupId.length < 8 || groupId.length > 20){
+		alert("Group name must be between 8 and 20 characters long");
+	}
 }
 
+function changePassword(){
+	var password= $('#input_PW').val();
+	var confirmPW = $('#input_confirmPW').val();
+	var compare = password.localeCompare(confirmPW);
+	
+	alert(password);
+	if(compare == 0 && password.length >= 4){
+		$.ajax(
+				{
+					type : "POST",
+					url  : "/password/" + userId,
+					data : {
+						"password" : password
+					},
+					success : function(result) {
+					alert("Password Changed");
+					location.reload();
+					},
+					error: function (jqXHR, exception) {
+					alert("Invalid Info");
+					}
+				}
+				);
+		}
+	else if(compare != 0){
+		alert("Passwords do match.");
+	}
+	else if(password.length <= 4){
+		alert("Passwords need to be at least of length 4");
+	}
+}

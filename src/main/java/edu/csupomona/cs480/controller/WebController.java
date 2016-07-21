@@ -58,6 +58,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.User;
+import edu.csupomona.cs480.data.Group;
 
 import edu.csupomona.cs480.data.provider.UserManager;
 import edu.csupomona.cs480.util.ResourceResolver;
@@ -85,46 +86,6 @@ public class WebController extends WebMvcConfigurerAdapter {
 	@Autowired
 	private UserManager userManager;
 
-	
-	/**
-<<<<<<< HEAD
-	 * Cs480 - Assignment 3, part 3
-	 * Template Method by Henry Hu.
-	 */
-	@RequestMapping(value = "/cs480/temptest", method = RequestMethod.GET)
-	String templateMethod() {
-		return "This is a test message. Success!";
-	}
-	
-	/**
-	 * Cs480 - Assignment 4, part 2 Prototype FileUpload Method by Henry Hu. The
-	 * following method is NOT COMPLETE. DO NOT RUN this method. The user will
-	 * provide a DiskFileItem which is a compacted upload file as an object. The
-	 * write method will write the uploaded file into the disk, our server.
-	 * 
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/cs480/user/filespace/upload", method = RequestMethod.GET)
-	String fileUploadMethod() throws Exception {
-
-		// parseUploadRequest()
-		// processUploadedItemsList()
-		// ------Make the DiskFileItem object--------
-		// dfi.write(dfi.getStoreLocation());
-		// FileCleanUp()
-		return "Testing the file upload classes";
-	}
-	
-	/**
-=======
->>>>>>> e0e764890ebfc5ea605befe90b36572ed7edebfd
-	 * Thomas Nguyen
-	 * Assignment 4 part 2
-	 * Please do not uncomment the awsTest method, currently missing some vital parts of aws
-	 * that allows for the use of instantiating ec2, s3, and simpleDB,
-	 * 
-	 */
-	
 	public static void awsTest()throws Exception{
 		AWSCredentials credentials = null;
 		AmazonEC2Client ec2 = new AmazonEC2Client(credentials);
@@ -204,31 +165,6 @@ public class WebController extends WebMvcConfigurerAdapter {
         }
     }
 	
-	/**
-	 * This is a simple example of how the HTTP API works.
-	 * It returns a String "OK" in the HTTP response.
-	 * To try it, run the web application locally,
-	 * in your web browser, type the link:
-	 * 	http://localhost:8080/cs480/ping
-	 */
-	@RequestMapping(value = "/cs480/ping", method = RequestMethod.GET)
-	String healthCheck() {
-		// You can replace this with other string,
-		// and run the application locally to check your changes
-		// with the URL: http://localhost:8080/
-		return "OK";
-	}
-	
-	/**
-	 * Uploads the file that contains all the users, but I don't
-	 * know the name of the file that stores all the users, so I'm
-	 * using the resource resolver thing
-	 */
-	@RequestMapping(value = "/cs480/upload", method = RequestMethod.POST)
-	String upload(){
-		userManager.uploadMap();
-		return "redirect:/";
-	}
 	
 	/**
 	 * Downloads the file that contains all users
@@ -263,7 +199,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 		ModelAndView modelAndView = new ModelAndView("edit");
 		modelAndView.addObject("user", user);
 		modelAndView.addObject("majors", getMajors());
-		modelAndView.addObject("classes", new ArrayList<String>());
+		modelAndView.addObject("classes", userManager.getUser(userId).getClasses());
 		modelAndView.addObject("messages", userManager.getUser(userId).getWall());
 		
 		return modelAndView;
@@ -274,6 +210,22 @@ public class WebController extends WebMvcConfigurerAdapter {
 		ModelAndView modelAndView = new ModelAndView("group");
 		modelAndView.addObject("group", userManager.getGroup(groupId));
 		return modelAndView;
+	}
+
+	@RequestMapping(value = "/group/{groupId}", method = RequestMethod.POST)
+	void createGroup(@PathVariable("groupId") String groupId,
+					@RequestParam("userId") String userId){
+		User user = userManager.getUser(userId);
+		userManager.createGroup(groupId, user);
+	}
+	
+	@RequestMapping(value = "/join/{groupId}", method = RequestMethod.POST)
+	void joinGroup(@PathVariable("groupId") String groupId,
+					@RequestParam("userId") String userId){ 
+		Group group = new Group();
+		group = userManager.getGroup(groupId);
+		group.addMembers(userId);
+		userManager.updateGroup(group);
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
@@ -385,13 +337,6 @@ public class WebController extends WebMvcConfigurerAdapter {
 		return modelAndView;
 	}
 	
-//	@RequestMapping(value = "/search/commoncourses/{userId}", method = RequestMethod.GET)	
-//	List<User> searchByCommonCourses(@PathVariable("userId") String userId){
-//		List<User> results = new ArrayList<User> ();
-//		results = userManager.searchByCommonCourses(userId);
-//		return results;
-//	}
-	
 //	@RequestMapping(value = "/results/commoncourses/{userId}", method = RequestMethod.GET)
 //	ModelAndView resultsByCommonCourses(@PathVariable("userId") String userId) {
 //		ModelAndView modelAndView = new ModelAndView("results");
@@ -462,6 +407,13 @@ public class WebController extends WebMvcConfigurerAdapter {
 		
 		return image;		
 	}
+	
+	@RequestMapping(value = "/password/{userId}", method = RequestMethod.POST)
+	void changePassword(@PathVariable("userId") String userId,
+						@RequestParam("password") String password) {
+		userManager.getUser(userId).setPassword(password);
+	}
+	
 	
 	@RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
 	ModelAndView getUser(@PathVariable("userId") String userId) {

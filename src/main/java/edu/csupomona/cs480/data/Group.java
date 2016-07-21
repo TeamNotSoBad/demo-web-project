@@ -179,12 +179,16 @@ public class Group {
 		return members;
 	}
 	
+
 	public void addMember(User member){
 		members.add(member.getId());
 	}
 	
 	public void deleteMember(User member){
 		members.remove(member.getId());
+	}
+	public void addMembers(String member){
+		members.add(member);
 	}
 
 	/**

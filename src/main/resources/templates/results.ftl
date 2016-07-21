@@ -99,7 +99,7 @@
 	        	<td>Members</td>
 	     	</tr>
 	     			<tr>
-	     				<td><a href = "http://localhost:8080/group/${group.groupName}">${group.groupName}</a>
+	     				<td><a href = "http://broncostudy.com/group/${group.groupName}">${group.groupName}</a>
 	     				<button onclick="joinGroup('${group.groupName}')" class="btn btn-primary btn-md" input type = "button">Join Group</button>
 	     	  			</td>
 	     			   	<td><a href = "http://broncostudy.com/group/${group.owner}">${group.owner}</a></td>

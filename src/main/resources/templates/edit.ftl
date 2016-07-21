@@ -90,7 +90,6 @@
 			</select>
 			<div class = "div-majors">
     				<select id = "majorType">
-    					<option value="default">Search By Major </option>
     					<#list majors as majors>
   							<option value=${majors}>${majors}</option>
   						</#list>
@@ -121,12 +120,11 @@
 	
 		Your classes are 
 			<#list classes as class> 
-				<p>${class}</p>,
+				<h1>${class}</h1>,
 			</#list>
 			<br>
 		<div class = "div-class">
     		<select id = "depType">
-    			<option value="default">Choose Department</option>
     			<#list majors as majors>
   					<option value=${majors}>${majors}</option>
   				</#list>
@@ -135,9 +133,6 @@
 			<button onclick="addClass()"class="btn btn-primary btn-md">Add Classes</button>
 			<br><br>
 		</div>
-		
-		Your times available are . . . <br>
-		<button onclick="changeTime()"class="btn btn-primary btn-md">Change Time Available</button><br><br>
 		
 		<h5>Your major is ${user.major}.<h5><br>
 		<div class = "div-majors">
@@ -150,6 +145,9 @@
 		</div>
 		<button onclick="changeMajor()" class="btn btn-primary btn-md" input type ="button">Change Major</button><br><br>
     	
+    	
+		<input type="password" placeholder = "Password" id = "input_PW"><br><br>
+		<input type="password" placeholder = "Confirm Password" id = "input_confirmPW"><br><br>
     	<button onclick="changePassword()"class="btn btn-primary btn-md">Change Password</button><br><br>
 
     	<h5> Create group </h5>

@@ -66,7 +66,6 @@
     	<center><h1><img src ="http://i.imgur.com/q3r2qlw.jpg" width="500" height="200"></font></h1>
     </div>
 
-	<hr>
 
     <div class= "container">
     		<form class = "form-signup">   			

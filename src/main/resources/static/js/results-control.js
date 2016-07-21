@@ -1,3 +1,23 @@
+function addFriend(userFriend){
+	var userId = document.cookie.split("user=").pop();
+	alert(userId + " friends " + userFriend);
+$.ajax(
+			{
+				type : "GET",
+				url  : "/user/friends/" + userId,
+				data : {
+					"userFriend" : userFriend
+				},
+				success : function(result) {
+					alert("Friend request sent.");
+				},
+				error: function (jqXHR, exception) {
+					alert("Failed.");
+				}
+			});
+}
+
+
 function joinGroup(groupName){
 	var userId = document.cookie.split("user=").pop();
 	alert(userId + " wants to join " + groupName);
@@ -19,26 +39,6 @@ function joinGroup(groupName){
 			}
 		);
 }
-
-function addFriend(userFriend){
-	var userId = document.cookie.split("user=").pop();
-	alert(userId + " friends " + userFriend);
-$.ajax(
-			{
-				type : "GET",
-				url  : "/user/friends/" + userId,
-				data : {
-					"userFriend" : userFriend
-				},
-				success : function(result) {
-					alert("Friend request sent.");
-				},
-				error: function (jqXHR, exception) {
-					alert("Failed.");
-				}
-			});
-}
-
 
 
 function search(){
