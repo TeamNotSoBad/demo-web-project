@@ -147,13 +147,17 @@
     background-size:cover;">
 
 
-<body>    
-    
-    <div class = "messages">
+<body>  
+
+	<div class = "messages">
     	<input type="text" placeholder = "Message to" id = "input_receiverId"><br><br>
-    	<input type="text" placeholder = "Send Message" id = "input_message"><br><br>
+    	<fieldset class="form-group">
+   			<label for="message">Message</label>
+    		<textarea class="form-control" id="input_message" rows="3"></textarea>
+  		</fieldset>
 		<button onclick="sendMessage()" class="btn btn-primary btn-md" input type ="button">Send Message</button><br><br>
     </div>
+    
     <div>
      <div class = "form-search">
             <form>
@@ -220,7 +224,7 @@
     				<#if friends??>
     					<#list friends as friend>
     						<#if friend??>
-    							<td><a href = "http://broncostudy.com/user/${friend}">${friend}</a></td>
+    							<tr><td><a href = "http://broncostudy.com/user/${friend}">${friend}</a></td></tr>
     						</#if>	
     					</#list>
     					<#else>
@@ -233,13 +237,13 @@
     <div class = "div-groups">
     	<table class =  "table table-hover">
     			<tr>
-    				<td> Groups </td>
+    				<th> Groups </th>
     			<tr>
     			<tr>
     				<#if groups??>
     					<#list groups as group>
     						<#if group??>
-    							<td><a href = "http://broncostudy.com/user/${group}">${group}</a></td>
+    							<tr><td><a href = "http://broncostudy.com/user/${group.groupName}">${group.groupName}</a></td></tr>
     						</#if>	
     					</#list>
     					<#else>

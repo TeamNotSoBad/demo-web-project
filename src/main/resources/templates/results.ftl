@@ -146,7 +146,6 @@
 	     			   	<td>${user.firstName}</td>
 	     			   	<td>${user.lastName}</td>
 	     	   			<td>${user.major}</td>
-	     	   				
 	     	   					<td><#list user.classes as class> 
 	     	   						<#if class??>
 	     	   							<p>${class}</p>

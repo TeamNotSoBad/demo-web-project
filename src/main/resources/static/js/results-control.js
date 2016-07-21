@@ -20,7 +20,6 @@ $.ajax(
 
 function joinGroup(groupName){
 	var userId = document.cookie.split("user=").pop();
-	alert(userId + " wants to join " + groupName);
 	
 	
 	$.ajax(
@@ -31,6 +30,7 @@ function joinGroup(groupName){
 					"userId" : userId
 				},
 				success : function(result) {
+					alert(userId + " joins " + groupName);
 					window.location.href = "http://broncostudy.com/group/" + groupName;
 				},
 				error : function(exception){
@@ -44,8 +44,6 @@ function joinGroup(groupName){
 function search(){
 	var userId = $('#input_id').val(); 
 	var searchType = $('#searchType').val();
-	
-	alert($('#searchType').val());
 	
 	if(searchType === "id"){
 		$.ajax(

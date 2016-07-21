@@ -3,8 +3,6 @@ function search(){
 	var searchType = $('#searchType').val();
 	var userMajor = $('#majorType').val();
 	
-	alert(userId);
-	
 	if(searchType === "id"){
 		$.ajax(
 			{
@@ -162,7 +160,6 @@ function addClass(){;
 
 function changeMajor(){
 	var userMajor = $('#majorType').val();
-	alert(userMajor);
 	$.ajax(
 				{
 					type : "GET",
@@ -183,7 +180,6 @@ function changeMajor(){
 
 function createGroup(){
 	var groupId = $('#input_groupId').val();
-	alert("Trying to create " + groupId + " by " + userId);
 	if(groupId.length >= 8 && groupId.length <= 20){
 	$.ajax(
 				{
@@ -212,7 +208,6 @@ function changePassword(){
 	var confirmPW = $('#input_confirmPW').val();
 	var compare = password.localeCompare(confirmPW);
 	
-	alert(password);
 	if(compare == 0 && password.length >= 4){
 		$.ajax(
 				{
@@ -226,7 +221,6 @@ function changePassword(){
 					location.reload();
 					},
 					error: function (jqXHR, exception) {
-					alert("Invalid Info");
 					}
 				}
 				);

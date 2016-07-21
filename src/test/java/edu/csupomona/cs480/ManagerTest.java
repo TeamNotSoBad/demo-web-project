@@ -28,8 +28,18 @@ public class ManagerTest extends TestCase{
 		User user2 = new User("9166", "Geoff", "Kilma", "Math");
 		User user3 = new User("2912", "Tom", "Tomm", "ME");
 		User user4 = new User("2132", "Lina", "Leon", "PH");
-
-		assertEquals(1,1);
+		
+		usermanager.updateUser(user1);
+		usermanager.updateUser(user2);
+		usermanager.updateUser(user3);
+		usermanager.updateUser(user4);
+		
+		usermanager.createGroup("g1", user1);
+		
+		usermanager.addMember(user1.getId(), user2.getId(), "g1");
+		usermanager.groupMessage(user1.getId(), "g1", "test");
+		System.out.println(usermanager.getGroup("g1").getMembers().size());
+		assertEquals(usermanager.getGroup("g1").getWall().get(0).getMessage(), "test\n -Ilog Mark");
 
 
 	}
