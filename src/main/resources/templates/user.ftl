@@ -163,15 +163,11 @@
     			<tr>
     				<td> Current Classes </td>
     			<tr>
+    			<#list user.classes as class>
     			<tr>
-    				<td>PLACEHOLDER</td>
+    				<td>${class}</td>
     			</tr>
-    			<tr>
-    				<td>PLACEHOLDER</td>
-    			</tr>
-    			<tr>
-    				<td>PLACEHOLDER</td>
-    			</tr>
+    			</#list>
     	</table>
     </div>
     

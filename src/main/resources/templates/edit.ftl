@@ -25,8 +25,11 @@
       }
       
       .form-search{
-      	max-width: 300px;
-        padding: 19px 29px 29px;
+      	position: absolute;
+      	right: 380px;
+      	width: 500px;
+      	max-width: 500px;
+        padding: 20px 29px 29px;
         margin: 0 auto 20px;
         margin-top: 200px;
         background-color: #fff;
@@ -40,6 +43,9 @@
       }
 		
 		.form-edit {
+		position: absolute;
+		left: 300px;
+		width: 500px;
         max-width: 500px;
         padding: 19px 29px 29px;
         margin: 0 auto 20px;
@@ -60,6 +66,66 @@
         padding: 7px 9px;
       }
       
+      .message-container{
+      	position: absolute;
+      	right: 80px;
+      	bottom: 50px;
+      	height: 350px;
+      	width:800px;
+      	max-width: 1000px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        }
+      }
+      table {
+        width: 100%;
+    }
+    
+    .majors{
+    	position: absolute;
+    	right: 1px;
+    	bottom: 100px;
+    }
+    
+
+thead, tbody, tr, td, th { display: block; }
+
+tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+thead th {
+    height: 30px;
+
+    /*text-align: left;*/
+}
+
+tbody {
+    height: 300px;
+    overflow-y: auto;
+}
+
+thead {
+    /* fallback */
+}
+
+
+tbody td, thead th {
+    width: 19.2%;
+    float: left;
+}
+      
       .nametitle {
       }
 	</style>
@@ -78,8 +144,15 @@
         
    <div class = "form-search">
             <form>
-  			Search For: <input type="text" id="input_id">
-  			<br>
+  			Search For: <input type="text" id="input_id"><br><br>
+  			Choose Major:
+    				<select id = "majorType">
+    					<#list majors as majors>
+  							<option value=${majors}>${majors}</option>
+  						</#list>
+					</select>
+					<br><br>
+			Search By:
   			<select id = "searchType">
   				<option value="id">User ID</option>
   				<option value="major">Major</option>
@@ -88,15 +161,8 @@
   				<option value="course">Course</option>
   				<option value="groupName">Group Name</option>
 			</select>
-			<div class = "div-majors">
-    				<select id = "majorType">
-    					<#list majors as majors>
-  							<option value=${majors}>${majors}</option>
-  						</#list>
-					</select>
-					<br><br>
-				</div>	
-			<button onclick="search()" class="btn btn-primary btn-md" input type ="button">Search</button><br><br>
+			
+			<button onclick="search()" class="btn btn-primary btn-lg" input type ="button">Search</button><br><br>
   			</form>
     </div>
     
@@ -112,26 +178,24 @@
     
     <div class = "container">
     	<form class = "form-edit">
-    	<h3>Your name is ${user.firstName} ${user.lastName}. </h3><br>
-    	<h5>First Name</h5><br>
-    	<input type="text" placeholder = "First Name" id = "input_firstName"><br><br>
-    	<input type="text" placeholder = "Last Name" id = "input_lastName"><br><br>
+    	<h3>Your name is ${user.firstName} ${user.lastName}. </h3>
+    	<h5>First Name</h5>
+    	<input type="text" placeholder = "First Name" id = "input_firstName"><br>
+    	<input type="text" placeholder = "Last Name" id = "input_lastName"><br>
 		<button onclick="changeName()" class="btn btn-primary btn-md" input type = "button">Change Name</button><br><br>
-	
 		Your classes are 
 			<#list classes as class> 
-				<h1>${class}</h1>,
+				<h7>${class}</h7>,
 			</#list>
-			<br>
 		<div class = "div-class">
     		<select id = "depType">
     			<#list majors as majors>
   					<option value=${majors}>${majors}</option>
   				</#list>
 			</select>
-			<input type="text" placeholder = "Class Number" id = "input_classNumber"><br><br>
+			<input type="text" placeholder = "Class Number" id = "input_classNumber"><br>
 			<button onclick="addClass()"class="btn btn-primary btn-md">Add Classes</button>
-			<br><br>
+			<br>
 		</div>
 		
 		<h5>Your major is ${user.major}.<h5><br>
@@ -151,37 +215,39 @@
     	<button onclick="changePassword()"class="btn btn-primary btn-md">Change Password</button><br><br>
 
     	<h5> Create group </h5>
-    	<input type="text" placeholder = "Group Name" id = "input_groupId"><br><br>
-		<button onclick="createGroup()" class="btn btn-primary btn-md" input type = "button">Create Group</button><br><br>
+    	<input type="text" placeholder = "Group Name" id = "input_groupId"><br>
+		<button onclick="createGroup()" class="btn btn-primary btn-md" input type = "button">Create Group</button>
 
     	</form>
     	
     </div>
 
-
+<div class = "message-container">
  <table class="table table-hover">
-   		<tr class="success">
-   			<td>Sent From</td>
-   			<td>Sent To</td>	
-   			<td>Time Sent</td>                    
-	        <td>Message</td>
+ 		<thead>
+   		<tr class = "success">
+   			<th>Sent From</th>
+   			<th>Sent To</th>	
+   			<th>Time Sent</th>                    
+	        <th>Message</th>
 	     </tr>
+	     </thead>
+	     <tbody>
 	     	<#if messages??>
 	     		<#list messages as message>
 	     			<#if message??>
 	     			<tr>
-	     				<td>${message.from}</td>
-	     				<td>${message.to}</td>
-	     				<td>${message.time}</td>
-	     				<td>${message.message}</td>
+	     				<td class = "filterable-cell">${message.from}</td>
+	     				<td class = "filterable-cell">${message.to}</td>
+	     				<td class = "filterable-cell">${message.time}</td>
+	     				<td class = "filterable-cell">${message.message}</td>
 	     			</tr>
 	     			</#if>
 	      		</#list>
-			</#if> 
+			</#if>
+		</tbody> 
   </table>
-
-    <div style="background-image:url(http://i.imgur.com/zfC3jXW.jpg); 
-    background-size:cover;width:100%;height:300px;">
+  </div>
 
         
 </body>
