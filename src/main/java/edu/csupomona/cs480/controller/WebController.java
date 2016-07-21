@@ -387,7 +387,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 * @param image
 	 */
 	@RequestMapping(value = "/uploadImageTest1", method = RequestMethod.POST)
-	void transferImageTest(@PathVariable("picture") File file)throws IOException{
+	void transferImageTest(@PathVariable("file") File file)throws IOException{
 		int width = 100;
 		int height = 100;
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
