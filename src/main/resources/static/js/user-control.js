@@ -3,6 +3,7 @@ function sendMessage(){
 	var userMessage = $('#input_message').val();
 	var receiverId = $('#input_receiverId').val();
 	
+	
 	$.ajax(
 			{
 				type : "GET",
