@@ -31,7 +31,7 @@ function joinGroup(groupName){
 					"userId" : userId
 				},
 				success : function(result) {
-					window.location.href = "http://localhost:8080/group/" + groupName;
+					window.location.href = "http://broncostudy.com/group/" + groupName;
 				},
 				error : function(exception){
 					alert("Invalid Input.");
