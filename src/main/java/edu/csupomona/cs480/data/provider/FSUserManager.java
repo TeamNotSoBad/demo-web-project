@@ -391,44 +391,48 @@ public class FSUserManager implements UserManager {
 	
 	@Override
 	public boolean addMember(String ownerID, String newMemberID, String groupID){
-		UserMap userMap = getUserMap();
-		GroupMap groupMap = getGroupMap();
+		User owner = getUser(ownerID);
+		User newMem = getUser(newMemberID);
+		Group g = getGroup(groupID);
 		
-		if(!groupMap.get(groupID).getOwner().equals(userMap.get(ownerID).getId())){
-			
+		if(!g.getOwner().equals(ownerID)){
 			return false;
 		}
 		
-		groupMap.get(groupID).addMember(userMap.get(newMemberID));
-		userMap.get(newMemberID).joinGroup(groupID);
+		g.addMember(newMem);
+		newMem.joinGroup(groupID);
 		
-		persistUserMap(userMap);
-		persistGroupMap(groupMap);
+		updateUser(newMem);
+		updateGroup(g);
+		
 		return true;
 	}
 	@Override
-	public boolean removeMember(String ownerID, String newMemberID, String groupID){
-		UserMap userMap = getUserMap();
-		GroupMap groupMap = getGroupMap();
-		
-		if(!groupMap.get(groupID).getOwner().equals(userMap.get(ownerID))){
+	public boolean removeMember(String ownerID, String memberID, String groupID){
+		User owner = getUser(ownerID);
+		User member = getUser(memberID);
+		Group g = getGroup(groupID);
+		if(!g.getOwner().equals(ownerID)){
 			return false;
 		}
 		
-		groupMap.get(groupID).deleteMember(userMap.get(newMemberID));
-		userMap.get(newMemberID).leaveGroup(groupID);
+		g.deleteMember(member);
+		member.leaveGroup(groupID);
 		
-		persistUserMap(userMap);
-		persistGroupMap(groupMap);
+		updateUser(member);
+		updateGroup(g);
+		
 		return true;
 	}
 	@Override
 	public void leaveGroup(String userID, String groupID){
-		UserMap userMap = getUserMap();
-		GroupMap groupMap = getGroupMap();
+		User u = getUser(userID);
+		Group g = getGroup(groupID);
+		u.leaveGroup(userID);
+		g.deleteMember(u);
 		
-		userMap.get(userID).leaveGroup(groupID);
-		groupMap.get(groupID).deleteMember(userMap.get(userID));
+		updateUser(u);
+		updateGroup(g);
 	}
 	
 	
