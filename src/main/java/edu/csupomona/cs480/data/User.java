@@ -33,7 +33,7 @@ public class User {
 	
 	private HashSet<String> groups;
 	
-	private HashSet<String> courses;
+	private ArrayList<String> classes;
 	private Calendar calendar = new Calendar();
 
 	/**
@@ -56,6 +56,7 @@ public class User {
 	public User() {
 		conversations = new HashMap<String, ArrayList>();
 		myFriends = new ArrayList<String>();
+		classes = new ArrayList<String>();
 		groups = new HashSet<String>();
 		wall = new ArrayList<Message>();
 	}
@@ -82,6 +83,14 @@ public class User {
 			myFriends.add(id);
 		}
 		
+	}
+	
+	public void addClasses(String classes){
+		this.classes.add(classes); 
+	}
+	
+	public ArrayList<String> getClasses(){
+		return classes;
 	}
 
 	public void removeFriend(String id) {
@@ -144,13 +153,7 @@ public class User {
 		this.smorgle = creationTime;
 	}
 
-	public HashSet<String> getCourses() {
-		return courses;
-	}
-
-	public void setCourses(HashSet<String> courses) {
-		this.courses = courses;
-	}
+	
 
 	/**
 	 * this method will be used to write mail to this instance of user

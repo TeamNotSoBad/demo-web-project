@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>CS480 Demo Web Service</title>
+    <title>Edit Page</title>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>    
     <script src="/js/edit-control.js"></script>
  	<meta charset="utf-8">
@@ -80,10 +80,17 @@
   				<option value="firstName">First name</option>
   				<option value="lastName">Last name</option>
   				<option value="course">Course</option>
-  				<option value="commonCourses">Common Courses</option>
   				<option value="groupName">Group Name</option>
-  				<option value="groupID">Group ID</option>
 			</select>
+			<div class = "div-majors">
+    				<select id = "majorType">
+    					<option value="default">Search By Major </option>
+    					<#list majors as majors>
+  							<option value=${majors}>${majors}</option>
+  						</#list>
+					</select>
+					<br><br>
+				</div>	
 			<button onclick="search()" class="btn btn-primary btn-md" input type ="button">Search</button><br><br>
   			</form>
     </div>
@@ -106,21 +113,20 @@
     	<input type="text" placeholder = "Last Name" id = "input_lastName"><br><br>
 		<button onclick="changeName()" class="btn btn-primary btn-md" input type = "button">Change Name</button><br><br>
 	
-		Your classes are . . . <br>
+		Your classes are 
+			<#list classes as class> 
+				<p>${class}</p>,
+			</#list>
+			<br>
 		<div class = "div-class">
-		<button onclick="changeClasses()"class="btn btn-primary btn-md">Add Classes</button>
     		<select id = "depType">
     			<option value="default">Choose Department</option>
     			<#list majors as majors>
   					<option value=${majors}>${majors}</option>
   				</#list>
 			</select>
-			<select id = "class">
-				<option value="default">Choose your class</option>
-    			<#list classes as classes>
-  					<option value=${classes}>${classes}</option>
-  				</#list>
-			</select>
+			<input type="text" placeholder = "Class Number" id = "input_classNumber"><br><br>
+			<button onclick="addClass()"class="btn btn-primary btn-md">Add Classes</button>
 			<br><br>
 		</div>
 		
@@ -139,6 +145,11 @@
 		<button onclick="changeMajor()" class="btn btn-primary btn-md" input type ="button">Change Major</button><br><br>
     	
     	<button onclick="changePassword()"class="btn btn-primary btn-md">Change Password</button><br><br>
+
+    	<h5> Create group </h5>
+    	<input type="text" placeholder = "Group Name" id = "input_groupId"><br><br>
+		<button onclick="createGroup()" class="btn btn-primary btn-md" input type = "button">Create Group</button><br><br>
+
     	</form>
     	
     </div>

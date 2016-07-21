@@ -29,26 +29,30 @@ import java.util.HashSet;
  */
 public class Group {
 
-	private String groupID;
 	private String groupName;
-	private User groupOwner;
-	private HashSet<User> admins;
-	private HashSet<User> members;
-	private String creationTime;
-	private boolean isMarkedForDeletion = false;
+	private String groupOwner;
+	//private HashSet<User> admins;
+	private ArrayList<String> members;
+	//private String creationTime;
+	//private boolean isMarkedForDeletion = false;
 	private String description = "Welcome to our group page.";
 
-	public Group(String name, String groupUniqueID, User owner) {
+	public Group(){
+		groupName = "";
+		groupOwner = "";
+	}
+	public Group(String name, User owner) {
 		groupName = name;
-		groupID = groupUniqueID;
-		groupOwner = owner;
-		admins = new HashSet<User>();
-		members = new HashSet<User>();
-		creationTime = new Date(System.currentTimeMillis()).toString();
+		groupOwner = owner.getId();
+	//	admins = new HashSet<User>();
+		members = new ArrayList<String>();
+		members.add(owner.getId());
+		//members.add(owner);
+		//creationTime = new Date(System.currentTimeMillis()).toString();
 	}
 
-	public String getGroupID() {
-		return groupID;
+	public String getGroupName() {
+		return groupName;
 	}
 
 	/**
@@ -58,35 +62,32 @@ public class Group {
 	 * @param userID
 	 * @param msg
 	 */
-	public void sendGroupMessage(String userID, String msg) {
+	/**public void sendGroupMessage(String userID, String msg) {
 		ArrayList<User> groupMembers = new ArrayList<User>(members);
 		groupMembers.addAll(getAdminSet());
 		groupMembers.add(groupOwner);
 
 		for (User groupMember : groupMembers) {
-			groupMember.sendMail(groupID, msg + "\n -" + userID);
+			groupMember.sendMail(groupName, msg + "\n -" + userID);
 		}
-	}
+	}/
 
 	/**
 	 * This method should only be called by the GroupMap object.
 	 * 
 	 * @param groupID
 	 */
-	public void setGroupID(String groupID) {
-		this.groupID = groupID;
-	}
-
-	public String getGroupName() {
-		return groupName;
-	}
-
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}
 
-	public User getOwner() {
+
+	public String getOwner() {
 		return groupOwner;
+	}
+	
+	public void setOwner(String groupOwner){
+		this.groupOwner = groupOwner;
 	}
 
 	/**
@@ -96,7 +97,7 @@ public class Group {
 	 * @param ownerID
 	 * @return
 	 */
-	public boolean setOwner(User owner) {
+	/**public boolean setOwner(User owner) {
 		if (!owner.equals(groupOwner)) {
 			User tempUser = groupOwner;
 			groupOwner = null;
@@ -109,14 +110,14 @@ public class Group {
 		} else {
 			return false;
 		}
-	}
-	
+	}*/
+	/**
 	public boolean setOwner(User owner, User newOwner) {
 		if(owner.equals(groupOwner))
 			return setOwner(newOwner);
 		
 		return false;
-	}
+	}/
 
 	public HashSet<User> getAdminSet() {
 		return admins;
@@ -128,45 +129,49 @@ public class Group {
 	 * 
 	 * @param user
 	 */
-	public boolean removeAdministrator(User user) {
+	/**public boolean removeAdministrator(User user) {
 		if (admins.contains(user)) {
 			admins.remove(user);
-			return members.add(user);
+			return members.add(user.getId());
 		}
 		return false;
 
-	}
+	}*/
 
-	public boolean removeAdministrator(User deleter, User deletee) {
+	/**public boolean removeAdministrator(User deleter, User deletee) {
 		if (deleter.equals(groupOwner)) {
 			return removeAdministrator(deletee);
 		}
 		return false;
-	}
+	}*/
 
 	/**
 	 * To add a new admin, the user must already exist in the member set. The
 	 * user must also not be the group owner.
 	 */
 
-	public boolean addAdministrator(User user) {
+	/**public boolean addAdministrator(User user) {
 		if (members.contains(user) && !groupOwner.equals(user)) {
 			members.remove(user);
 			return admins.add(user);
 		} else {
 			return false;
 		}
-	}
+	}*/
 
-	public boolean addAdministrator(User adder, User addee) {
+	/**public boolean addAdministrator(User adder, User addee) {
 		if (addee.equals(groupOwner))
 			return addAdministrator(addee);
 
 		return false;
-	}
+	}*/
 
-	public HashSet<User> getMembersSet() {
+	public ArrayList<String> getMembers() {
 		return members;
+	}
+	
+	public void addMember(String member){
+		members.add(member);
 	}
 
 	/**
@@ -176,22 +181,22 @@ public class Group {
 	 * 
 	 * @param id
 	 */
-	public boolean removeMember(User user) {
+	/**public boolean removeMember(User user) {
 		if (members.remove(user) == true) {
-			user.leaveGroup(groupID);
+			user.leaveGroup(groupName);
 			return true;
 		} else {
 			return false;
 		}
-	}
+	}*/
 
-	public boolean deleteMember(User deleter, User deletee) {
+	/**public boolean deleteMember(User deleter, User deletee) {
 		if (admins.contains(deleter) || deleter.equals(groupOwner)) {
 			return removeMember(deletee);
 		} else {
 			return false;
 		}
-	}
+	}*/
 
 	/**
 	 * A user may not be added to the member set if already in a higher level
@@ -201,13 +206,13 @@ public class Group {
 	 * @param user
 	 * @return
 	 */
-	public boolean addMember(User user) {
+	/**public boolean addMember(User user) {
 		if (groupOwner.equals(user) || admins.contains(user)) {
 			return false;
 		} else {
-			if (members.add(user) == true) {
-				user.joinGroup(groupID);
-				toggleMarkedForDeletion();
+			if (members.add(user.getId()) == true) {
+				user.joinGroup(groupName);
+				//toggleMarkedForDeletion();
 				return true;
 			} else {
 				return false;
@@ -222,13 +227,13 @@ public class Group {
 		return false;
 	}
 
-	public String getCreationTime() {
+	/**public String getCreationTime() {
 		return creationTime;
-	}
+	}*/
 
-	public boolean isMarkedForDeletion() {
+	/**public boolean isMarkedForDeletion() {
 		return isMarkedForDeletion;
-	}
+	}*/
 
 	/**
 	 * If group contains 0 members, 0 admins, 1 owner, Allow toggle to
@@ -237,7 +242,7 @@ public class Group {
 	 * 
 	 * @return
 	 */
-	public boolean toggleMarkedForDeletion() {
+	/**public boolean toggleMarkedForDeletion() {
 		if (isMarkedForDeletion == false) {
 			if (getMembersSet().isEmpty() && getAdminSet().isEmpty()) {
 				isMarkedForDeletion = true;
@@ -249,13 +254,13 @@ public class Group {
 			isMarkedForDeletion = false;
 			return true;
 		}
-	}
-
+	}*/
+	/**
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
+	}*/
 }

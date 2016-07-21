@@ -58,6 +58,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.User;
+import edu.csupomona.cs480.data.Group;
 
 import edu.csupomona.cs480.data.provider.UserManager;
 import edu.csupomona.cs480.util.ResourceResolver;
@@ -263,8 +264,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 		ModelAndView modelAndView = new ModelAndView("edit");
 		modelAndView.addObject("user", user);
 		modelAndView.addObject("majors", getMajors());
-		modelAndView.addObject("classes", new ArrayList<String>());
-	//	modelAndView.addObject("messages", );
+		modelAndView.addObject("classes", getUserClasses(userId));
 		return modelAndView;
 	}
 	
@@ -273,6 +273,21 @@ public class WebController extends WebMvcConfigurerAdapter {
 		ModelAndView modelAndView = new ModelAndView("group");
 		modelAndView.addObject("group", userManager.getGroup(groupId));
 		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/group/{groupId}", method = RequestMethod.POST)
+	void createGroup(@PathVariable("groupId") String groupId,
+					@RequestParam("userId") String userId){
+		User user = userManager.getUser(userId);
+		userManager.createGroup(groupId, user);
+	}
+	
+	@RequestMapping(value = "/join/{groupId}", method = RequestMethod.POST)
+	void joinGroup(@PathVariable("groupId") String groupId,
+					@RequestParam("userId") String userId){
+		User user = userManager.getUser(userId); 
+		userManager.getGroup(groupId).addMember(userId);
+		userManager.updateGroup(userManager.getGroup(groupId));
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
@@ -329,6 +344,22 @@ public class WebController extends WebMvcConfigurerAdapter {
 		userManager.updateUser(user);
 	}
 	
+	@RequestMapping(value = "/user/classes/{userId}", method = RequestMethod.GET)
+	void updateUserClass(
+			@PathVariable("userId") String userId,
+			@RequestParam("dep") String dep,
+			@RequestParam("classNum") String classNum) {
+		User user = userManager.getUser(userId);
+		user.addClasses(dep + classNum);
+		userManager.updateUser(user);
+	}
+	
+	@RequestMapping(value = "/list/classes/{userId}", method = RequestMethod.GET)
+	ArrayList<String> getUserClasses(@PathVariable("userId") String userId){
+		return userManager.getUser(userId).getClasses();
+	}
+	
+	
 
 	@RequestMapping(value = "/search/id/{userId}", method = RequestMethod.GET)	
 	List<User> searchById(@PathVariable("userId") String userId){
@@ -370,31 +401,16 @@ public class WebController extends WebMvcConfigurerAdapter {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/search/course/{userId}", method = RequestMethod.GET)	
-	List<User> searchByCourse(@PathVariable("userId") String userId){
-		List<User> results = new ArrayList<User> ();
-		results = userManager.searchByCourse(userId);
-		return results;
+	
+	@RequestMapping(value = "/search/groupname/{userId}", method = RequestMethod.GET)	
+	Group searchByGroup(@PathVariable("userId") String userId){
+		return userManager.getGroup(userId);
 	}
 	
-	@RequestMapping(value = "/results/course/{userId}", method = RequestMethod.GET)
-	ModelAndView resultsByCourse(@PathVariable("userId") String userId) {
+	@RequestMapping(value = "/results/groupname/{userId}", method = RequestMethod.GET)
+	ModelAndView resultsByGroup(@PathVariable("userId") String userId) {
 		ModelAndView modelAndView = new ModelAndView("results");
-		modelAndView.addObject("users", searchByCourse(userId));
-		return modelAndView;
-	}
-	
-	@RequestMapping(value = "/search/commoncourses/{userId}", method = RequestMethod.GET)	
-	List<User> searchByCommonCourses(@PathVariable("userId") String userId){
-		List<User> results = new ArrayList<User> ();
-		results = userManager.searchByCommonCourses(userId);
-		return results;
-	}
-	
-	@RequestMapping(value = "/results/commoncourses/{userId}", method = RequestMethod.GET)
-	ModelAndView resultsByCommonCourses(@PathVariable("userId") String userId) {
-		ModelAndView modelAndView = new ModelAndView("results");
-		modelAndView.addObject("users", searchByCommonCourses(userId));
+		modelAndView.addObject("group", searchByGroup(userId));
 		return modelAndView;
 	}
 	
@@ -409,6 +425,20 @@ public class WebController extends WebMvcConfigurerAdapter {
 	ModelAndView resultsByMajor(@PathVariable("userId") String userId) {
 		ModelAndView modelAndView = new ModelAndView("results");
 		modelAndView.addObject("users", searchByMajor(userId));
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/search/classes/{userId}", method = RequestMethod.GET)	
+	List<User> searchByClasses(@PathVariable("userId") String userId){
+		List<User> results = new ArrayList<User> ();
+		results = userManager.searchByCourse(userId);
+		return results;
+	}
+	
+	@RequestMapping(value = "/results/classes/{userId}", method = RequestMethod.GET)
+	ModelAndView resultsByClasses(@PathVariable("userId") String userId) {
+		ModelAndView modelAndView = new ModelAndView("results");
+		modelAndView.addObject("users", searchByClasses(userId));
 		return modelAndView;
 	}
 	
