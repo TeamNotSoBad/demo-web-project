@@ -172,9 +172,11 @@ public class FSUserManager implements UserManager {
 
 
 	public void message(String senderID, String recipientID, String msg) {
-		UserMap usermap = getUserMap();
-		usermap.get(senderID).writeMail(usermap.get(recipientID), msg);
-		persistUserMap(usermap);
+		User send = getUser(senderID);
+		User receive = getUser(recipientID);
+		send.writeMail(receive, msg + "\n -" + send.getFirstName() + " " + send.getLastName());
+		updateUser(send);
+		updateUser(receive);
 	}
 
 	public List<User> searchByLastName(String name) {
@@ -432,20 +434,22 @@ public class FSUserManager implements UserManager {
 	
 	@Override
 	public void groupMessage(String userID, String groupID, String msg) {
-		GroupMap groupMap = getGroupMap();
-		UserMap userMap = getUserMap();
-		Message m = new Message(userID, groupID, msg);
+		Group g = getGroup(groupID);
+		User u = getUser(userID);
+		Message m = new Message(userID, groupID, msg + "\n -" + u.getFirstName() + " " + u.getLastName());
 		
-		if(groupMap.get(groupID).sendMail(m)){
-			ArrayList<String> members = groupMap.get(groupID).getMembers();
+		if(g.sendMail(m)){
+			ArrayList<String> members = g.getMembers();
 			
 			for(int i = 0; i < members.size(); i++){
-				userMap.get(members.get(i)).sendMail(m);
+				User tempU = getUser(members.get(i));
+				tempU.sendMail(m);
+				updateUser(tempU);
 			}
 			
 		}
-		persistGroupMap(groupMap);
-		persistUserMap(userMap);
+		updateGroup(g);
+		
 	}
 /**
 	@Override
