@@ -87,10 +87,14 @@ public class WebController extends WebMvcConfigurerAdapter {
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	ModelAndView getTest() {
-		ModelAndView modelAndView = new ModelAndView("results");
-		modelAndView.addObject("users", searchById("1111"));
+		User user = new User("1", "lname", "fname", "CS");
+		ModelAndView modelAndView = new ModelAndView("edit");
+		modelAndView.addObject("user", user);
+		modelAndView.addObject("majors", getMajors());
+		modelAndView.addObject("classes", new ArrayList<String>());
+		modelAndView.addObject("messages", user.getWall());
 		return modelAndView;
-	}
+	}                         
 
 	public static void awsTest()throws Exception{
 		AWSCredentials credentials = null;

@@ -12,7 +12,7 @@
       body {
         background-size: cover;
         background-color: #993600;
-        background-image: url("http://i.imgur.com/Po8pR3A.gif");
+        background-image: url("http://1.bp.blogspot.com/-IIDpbJ2jwEU/UzouxlhGOoI/AAAAAAAACCU/8mZ-Y2eEwZ4/s1600/hacker.gif");
       }
  
     </style>
@@ -21,8 +21,7 @@
 
 <body>    
 	<br><br>
-	<div class = "div-signup">
-	margin-bottom:800px;
+	<div class = "signup">
 	<center><a href="http://broncostudy.com/">Something went wrong, Back to safety Now!</a></center>
     <br><br><br><br>    
   </div>
