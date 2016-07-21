@@ -240,7 +240,7 @@ tbody td, thead th {
 	     			<#if message??>
 	     			<tr>
 	     				<td class = "filterable-cell"><a href = "http://broncostudy.com/user/${message.from}">${message.from}</a></td>
-	     				<td class = "filterable-cell"><a href = "http://broncostudy.com/user/${message.to}">${message.to}></a></td>
+	     				<td class = "filterable-cell"><a href = "http://broncostudy.com/user/${message.to}">${message.to}</a></td>
 	     				<td class = "filterable-cell">${message.time}</td>
 	     				<td class = "filterable-cell">${message.message}</td>
 	     			</tr>
