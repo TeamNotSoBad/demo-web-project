@@ -89,7 +89,7 @@ public class FSUserManager implements UserManager {
 	 * method in web controller created the bucket, but nothing was in it.
 	 */
 
-	@Override
+	@Override 
 	public void uploadMap() {
 		AWSCredentials credentials = new ProfileCredentialsProvider("default").getCredentials();
 		AmazonS3 s3c = new AmazonS3Client(credentials);
@@ -307,9 +307,17 @@ public class FSUserManager implements UserManager {
 		return groupMap;
 	}
 	
-	public void createGroup(String group, User owner){
+	public boolean createGroup(String group, User owner){
+		
+		if(getGroupMap().containsKey(group)){
+			return false;
+		}
+		
 		Group addGroup = new Group(group, owner);
+		owner.joinGroup(group);
+		updateUser(owner);
 		updateGroup(addGroup);
+		return true;
 	}
 
 	@Override
@@ -378,12 +386,68 @@ public class FSUserManager implements UserManager {
 		GroupMap groupMap = getGroupMap();
 		return groupMap.get(groupId);
 	}
-
-	/**@Override
-	public void groupMessage(String userID, String groupID, String msg) {
-		getGroup(groupID).sendGroupMessage(userID, msg);
+	
+	@Override
+	public boolean addMember(String ownerID, String newMemberID, String groupID){
+		UserMap userMap = getUserMap();
+		GroupMap groupMap = getGroupMap();
+		
+		if(!groupMap.get(groupID).getOwner().equals(userMap.get(ownerID).getId())){
+			
+			return false;
+		}
+		
+		groupMap.get(groupID).addMember(userMap.get(newMemberID));
+		userMap.get(newMemberID).joinGroup(groupID);
+		
+		persistUserMap(userMap);
+		persistGroupMap(groupMap);
+		return true;
 	}
-
+	@Override
+	public boolean removeMember(String ownerID, String newMemberID, String groupID){
+		UserMap userMap = getUserMap();
+		GroupMap groupMap = getGroupMap();
+		
+		if(!groupMap.get(groupID).getOwner().equals(userMap.get(ownerID))){
+			return false;
+		}
+		
+		groupMap.get(groupID).deleteMember(userMap.get(newMemberID));
+		userMap.get(newMemberID).leaveGroup(groupID);
+		
+		persistUserMap(userMap);
+		persistGroupMap(groupMap);
+		return true;
+	}
+	@Override
+	public void leaveGroup(String userID, String groupID){
+		UserMap userMap = getUserMap();
+		GroupMap groupMap = getGroupMap();
+		
+		userMap.get(userID).leaveGroup(groupID);
+		groupMap.get(groupID).deleteMember(userMap.get(userID));
+	}
+	
+	
+	@Override
+	public void groupMessage(String userID, String groupID, String msg) {
+		GroupMap groupMap = getGroupMap();
+		UserMap userMap = getUserMap();
+		Message m = new Message(userID, groupID, msg);
+		
+		if(groupMap.get(groupID).sendMail(m)){
+			ArrayList<String> members = groupMap.get(groupID).getMembers();
+			
+			for(int i = 0; i < members.size(); i++){
+				userMap.get(members.get(i)).sendMail(m);
+			}
+			
+		}
+		persistGroupMap(groupMap);
+		persistUserMap(userMap);
+	}
+/**
 	@Override
 	public void deleteMember(String groupID, String deleter, String deletee) {
 		getGroup(groupID).deleteMember(getUser(deleter), getUser(deletee));

@@ -18,6 +18,7 @@ public class Message{
 		message = "";
 		time = new Date().toString();
 	}
+	
 	public Message(String from, String to, String message){
 		this.from = from;
 		this.to = to;

@@ -36,10 +36,13 @@ public class Group {
 	//private String creationTime;
 	//private boolean isMarkedForDeletion = false;
 	private String description = "Welcome to our group page.";
-
+	private ArrayList<Message> wall = new ArrayList<Message>();
+	
 	public Group(){
 		groupName = "";
 		groupOwner = "";
+		wall = new ArrayList<Message>();
+		members = new ArrayList<String>();
 	}
 	public Group(String name, User owner) {
 		groupName = name;
@@ -47,6 +50,7 @@ public class Group {
 	//	admins = new HashSet<User>();
 		members = new ArrayList<String>();
 		members.add(owner.getId());
+		wall = new ArrayList<Message>();
 		//members.add(owner);
 		//creationTime = new Date(System.currentTimeMillis()).toString();
 	}
@@ -62,20 +66,8 @@ public class Group {
 	 * @param userID
 	 * @param msg
 	 */
-	/**public void sendGroupMessage(String userID, String msg) {
-		ArrayList<User> groupMembers = new ArrayList<User>(members);
-		groupMembers.addAll(getAdminSet());
-		groupMembers.add(groupOwner);
-
-		for (User groupMember : groupMembers) {
-<<<<<<< HEAD
-			groupMember.sendMail(groupName, msg + "\n -" + userID);
-=======
-			groupMember.sendMail(groupID, groupMember.getId(), msg + "\n -" + userID);
->>>>>>> a4edc364e76fd29427d9d4bc23dc53110d839d17
-		}
-	}/
-
+	
+	
 	/**
 	 * This method should only be called by the GroupMap object.
 	 * 
@@ -93,7 +85,20 @@ public class Group {
 	public void setOwner(String groupOwner){
 		this.groupOwner = groupOwner;
 	}
+	public ArrayList<Message> getWall(){
+		return wall;
+	}
+	
+	public boolean sendMail(Message m){
 
+		if(!members.contains(m.getFrom())){
+			return false;
+		}
+		
+		wall.add(m);
+		
+		return true;
+	}
 	/**
 	 * If a new ownerID is to be set, remove the current owner then make them an
 	 * admin.
@@ -174,8 +179,12 @@ public class Group {
 		return members;
 	}
 	
-	public void addMember(String member){
-		members.add(member);
+	public void addMember(User member){
+		members.add(member.getId());
+	}
+	
+	public void deleteMember(User member){
+		members.remove(member.getId());
 	}
 
 	/**
