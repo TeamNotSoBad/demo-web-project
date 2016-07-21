@@ -1,6 +1,7 @@
 function uploadImage(){
 
-    var picture = ('#test')
+    var picture = $('#test')
+    
     $.ajax(
         type : "POST",
         url  : "/uploadImageTest1",
