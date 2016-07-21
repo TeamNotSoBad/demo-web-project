@@ -41,6 +41,12 @@
         margin-bottom: 15px;
         padding: 7px 9px;
       }
+      
+      .bbanner {
+      	background-image:url("http://i.imgur.com/xApJxft.jpg");
+    	background-size: cover;
+      }
+
       </style>
 </head>
 
@@ -48,7 +54,7 @@
 
 
     <div class = "welcome">
-    	<center><h1><font color = #000000>Sign Up Now!</font></h1>
+    	<center><h1><img src ="http://i.imgur.com/q3r2qlw.jpg" width="500" height="200"></font></h1>
     </div>
 
 	<hr>
@@ -75,5 +81,12 @@
     		</form>
    	</div>
 </body>
+	<banner>
+	
+	<div style="background-image:url(http://i.imgur.com/xApJxft.jpg); 
+    background-size:cover;width:100%;height:300px;">    
 
+</div>
+    
+    
 </html>

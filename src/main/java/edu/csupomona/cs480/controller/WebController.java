@@ -85,47 +85,18 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 */
 	@Autowired
 	private UserManager userManager;
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	ModelAndView getTest() {
+		User user = new User("1", "lname", "fname", "CS");
+		ModelAndView modelAndView = new ModelAndView("edit");
+		modelAndView.addObject("user", user);
+		modelAndView.addObject("majors", getMajors());
+		modelAndView.addObject("classes", new ArrayList<String>());
+		modelAndView.addObject("messages", user.getWall());
+		return modelAndView;
+	}                         
 
-	
-	/**
-<<<<<<< HEAD
-	 * Cs480 - Assignment 3, part 3
-	 * Template Method by Henry Hu.
-	 */
-	@RequestMapping(value = "/cs480/temptest", method = RequestMethod.GET)
-	String templateMethod() {
-		return "This is a test message. Success!";
-	}
-	
-	/**
-	 * Cs480 - Assignment 4, part 2 Prototype FileUpload Method by Henry Hu. The
-	 * following method is NOT COMPLETE. DO NOT RUN this method. The user will
-	 * provide a DiskFileItem which is a compacted upload file as an object. The
-	 * write method will write the uploaded file into the disk, our server.
-	 * 
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/cs480/user/filespace/upload", method = RequestMethod.GET)
-	String fileUploadMethod() throws Exception {
-
-		// parseUploadRequest()
-		// processUploadedItemsList()
-		// ------Make the DiskFileItem object--------
-		// dfi.write(dfi.getStoreLocation());
-		// FileCleanUp()
-		return "Testing the file upload classes";
-	}
-	
-	/**
-=======
->>>>>>> e0e764890ebfc5ea605befe90b36572ed7edebfd
-	 * Thomas Nguyen
-	 * Assignment 4 part 2
-	 * Please do not uncomment the awsTest method, currently missing some vital parts of aws
-	 * that allows for the use of instantiating ec2, s3, and simpleDB,
-	 * 
-	 */
-	
 	public static void awsTest()throws Exception{
 		AWSCredentials credentials = null;
 		AmazonEC2Client ec2 = new AmazonEC2Client(credentials);
@@ -205,20 +176,6 @@ public class WebController extends WebMvcConfigurerAdapter {
         }
     }
 	
-	/**
-	 * This is a simple example of how the HTTP API works.
-	 * It returns a String "OK" in the HTTP response.
-	 * To try it, run the web application locally,
-	 * in your web browser, type the link:
-	 * 	http://localhost:8080/cs480/ping
-	 */
-	@RequestMapping(value = "/cs480/ping", method = RequestMethod.GET)
-	String healthCheck() {
-		// You can replace this with other string,
-		// and run the application locally to check your changes
-		// with the URL: http://localhost:8080/
-		return "OK";
-	}
 	
 	/**
 	 * Uploads the file that contains all the users, but I don't
@@ -265,6 +222,8 @@ public class WebController extends WebMvcConfigurerAdapter {
 		modelAndView.addObject("user", user);
 		modelAndView.addObject("majors", getMajors());
 		modelAndView.addObject("classes", getUserClasses(userId));
+		modelAndView.addObject("classes", new ArrayList<String>());
+		modelAndView.addObject("messages", userManager.getUser(userId).getWall());
 		return modelAndView;
 	}
 	
@@ -459,8 +418,8 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 * use free marker though to create something that accepts a file
 	 * @param image
 	 */
-	@RequestMapping(value = "/uploadImageTest", method = RequestMethod.POST)
-	void transferImageTest(File file)throws IOException{
+	@RequestMapping(value = "/uploadImageTest1", method = RequestMethod.POST)
+	void transferImageTest(@PathVariable("file") File file)throws IOException{
 		int width = 100;
 		int height = 100;
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -468,6 +427,12 @@ public class WebController extends WebMvcConfigurerAdapter {
 		String BASE_DIR = System.getProperty("user.home") + "/images/database";
 		file = new File(BASE_DIR + "/" + "test.jpg");
 		ImageIO.write(image, "jpg", file);
+	}
+	
+	@RequestMapping(value ="/uploadImageTest", method = RequestMethod.GET)
+	ModelAndView xfertest(){
+		ModelAndView modelAndView = new ModelAndView("uploadimage");
+		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/upload/{userId}", method = RequestMethod.POST)
@@ -511,6 +476,4 @@ public class WebController extends WebMvcConfigurerAdapter {
 	List<User> listAllUsers() {
 		return userManager.listAllUsers();
 	}
-	
-
 }

@@ -68,7 +68,11 @@ public class Group {
 		groupMembers.add(groupOwner);
 
 		for (User groupMember : groupMembers) {
+<<<<<<< HEAD
 			groupMember.sendMail(groupName, msg + "\n -" + userID);
+=======
+			groupMember.sendMail(groupID, groupMember.getId(), msg + "\n -" + userID);
+>>>>>>> a4edc364e76fd29427d9d4bc23dc53110d839d17
 		}
 	}/
 

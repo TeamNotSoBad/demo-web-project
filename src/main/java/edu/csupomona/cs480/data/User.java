@@ -59,6 +59,7 @@ public class User {
 		classes = new ArrayList<String>();
 		groups = new HashSet<String>();
 		wall = new ArrayList<Message>();
+		blackList = new HashSet<String>();
 	}
 
 	
@@ -66,12 +67,15 @@ public class User {
 		conversations = new HashMap<String, ArrayList>();
 		groups = new HashSet<String>();
 		wall = new ArrayList<Message>();
+		blackList = new HashSet<String>();
 		this.id = id;
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.major = major;
 	}
-
+	public ArrayList<Message> getWall(){
+		return wall;
+	}
 	public void addFriend(String id) {
 
 		if(myFriends == null){
@@ -156,34 +160,41 @@ public class User {
 	
 
 	/**
-	 * this method will be used to write mail to this instance of user
+	 * this method will be used to write mail to this instance of user.
+	 * Should mainly be used by groups
 	 */
-	public boolean sendMail(String id, String messageBody) {
-		Message msg = new Message(id, messageBody);
-		wall.add(msg);
-		if (!conversations.containsKey(id)) {
-			ArrayList<Message> chatLog = new ArrayList<Message>();
-			chatLog.add(msg);
-			conversations.put(id, chatLog);
-		} else {
-			conversations.get(id).add(msg);
+
+	public boolean sendMail(String from, String to, String messageBody) {
+		if (blackList.contains(from)) {
+			return false;
 		}
+
+		Message msg = new Message(from,to, messageBody);
+
+		wall.add(msg);
+//		if (!conversations.containsKey(id)) {
+//			ArrayList<Message> chatLog = new ArrayList<Message>();
+//			chatLog.add(msg);
+//			conversations.put(id, chatLog);
+//		} else {
+//			conversations.get(id).add(msg);
+//		}
 
 		return true;
 	}
 
 	public boolean sendMail(Message msg) {
-		if (blackList.contains(msg.getId())) {
+		if (blackList.contains(msg.getFrom())) {
 			return false;
 		}
 		wall.add(msg);
-		if (!conversations.containsKey(msg.getId())) {
-			ArrayList<Message> chatLog = new ArrayList<Message>();
-			chatLog.add(msg);
-			conversations.put(msg.getId(), chatLog);
-		} else {
-			conversations.get(msg.getId()).add(msg);
-		}
+//		if (!conversations.containsKey(msg.getFrom())) {
+//			ArrayList<Message> chatLog = new ArrayList<Message>();
+//			chatLog.add(msg);
+//			conversations.put(msg.getFrom(), chatLog);
+//		} else {
+//			conversations.get(msg.getFrom()).add(msg);
+//		}
 		return true;
 	}
 
@@ -192,18 +203,18 @@ public class User {
 	 */
 	public boolean writeMail(User recipient, String messageBody) {
 
-		Message msg = new Message(id, messageBody);
+		Message msg = new Message(id, recipient.getId(), messageBody);
 		
 		recipient.sendMail(msg);
 		wall.add(msg);
 		
-		if (!conversations.containsKey(recipient.id)) {
-			ArrayList<Message> chatLog = new ArrayList<Message>();
-			chatLog.add(msg);
-			conversations.put(recipient.id, chatLog);
-		} else {
-			conversations.get(recipient.id).add(msg);
-		}
+//		if (!conversations.containsKey(recipient.id)) {
+//			ArrayList<Message> chatLog = new ArrayList<Message>();
+//			chatLog.add(msg);
+//			conversations.put(recipient.id, chatLog);
+//		} else {
+//			conversations.get(recipient.id).add(msg);
+//		}
 
 		return true;
 	}
@@ -215,25 +226,25 @@ public class User {
 		recipient.sendMail(msg);
 		wall.add(msg);
 		
-		if (!conversations.containsKey(recipient.id)) {
-			ArrayList<Message> chatLog = new ArrayList<Message>();
-			chatLog.add(msg);
-			conversations.put(recipient.id, chatLog);
-		} else {
-			conversations.get(recipient.id).add(msg);
-		}
+//		if (!conversations.containsKey(recipient.id)) {
+//			ArrayList<Message> chatLog = new ArrayList<Message>();
+//			chatLog.add(msg);
+//			conversations.put(recipient.id, chatLog);
+//		} else {
+//			conversations.get(recipient.id).add(msg);
+//		}
 
 		return true;
 	}
 
-	public ArrayList <Message> conversation(String id) {
-		if(conversations.containsKey(id)){
-			return conversations.get(id);
-		}
-		else{
-			return new ArrayList<Message>();
-		}
-	}
+//	public ArrayList <Message> conversation(String id) {
+//		if(conversations.containsKey(id)){
+//			return conversations.get(id);
+//		}
+//		else{
+//			return new ArrayList<Message>();
+//		}
+//	}
 
 //	public HashSet<String> getGroups() {
 	//	return groups;

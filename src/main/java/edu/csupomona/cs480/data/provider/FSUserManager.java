@@ -170,12 +170,9 @@ public class FSUserManager implements UserManager {
 		return result;
 	}
 
-	public List<Message> getConversation(String userID, String conversationID) {
-		return getUserMap().get(userID).conversation(conversationID);
-	}
 
-	public void message(String userID, String recipientID, String msg) {
-		getUser(userID).writeMail(getUser(recipientID), msg);
+	public void message(String senderID, String recipientID, String msg) {
+		getUser(senderID).writeMail(getUser(recipientID), msg);
 	}
 
 	public List<User> searchByLastName(String name) {
