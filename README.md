@@ -1,34 +1,25 @@
-Overview
---------
+Information
+-----------
 
-The skeleton of the demo web project for CS480.
+This is the documentation for TeamNotSoBad's demo-web-project, named BroncoStudy. Project created for Cal Poly Pomona course CS480 Summer 2016, supervised by Professor Yu Sun.
 
-This project is designed to let you practice the different aspects of software engineering, such as version control, design, tests, build, deployment, and maintenance.
+Abstraction of BroncoStudy
+--------------------------
 
-Environment Setup
------------------
+BroncoStudy is designed to implement a web service for quick and easy searching for potential study partners. Basic core features include free membership features, searching by major, id, first and last name, group functionality and messaging. Planned features include virtual whiteboards, screen sharing, file uploading, and voice chat.
 
-1. Install the latests Maven (http://maven.apache.org/download.cgi)
-2. Install the Eclipse 4+ (http://www.eclipse.org/)
-3. Install the Maven Eclipse Plug-in using the update site (http://www.eclipse.org/m2e/download/)
+Team Members and Contributions
+------------------------------
 
-Importing the Project into Eclipse
-----------------------------------
+Henry H. managed Group data structure, various java files, team page, searching feature, HTML stylings.
 
-1. File->Import->Maven->Existing Maven Projects
-2. Select the directory containing the pom.xml file
-3. Finish
+Mark I. managed back-end to front-end functionality, javascript, WebController file, freemarker files.
 
-Building the Project for the First Time
----------------------------------------
-1. Right-click on the project root folder->Maven->Update Project
+Kevin L. managed User objects, various java files, messaging and calendar feature, javascript.
 
-Running the Project Locally
-----------------------------------------
-1. Locate the App.java in src/main/java source folder and right-click on it->Run As->Java Application
-2. Verify the running process in your web browser by the following URLs:
+Thomas N. managed amazon web services, domain name service, database storage, avatar upload.
 
-- http://localhost:8080/
-- http://localhost:8080/cs480/ping
-- http://localhost:8080/cs480/home
+Services and Tools Used
+-----------------------
 
+Our project used the following: Maven, Freemarker, Java, Javascript, Jeknins, Bootstrap, Amazon Web Services, GoDaddy, and miscellaneous image resources.
