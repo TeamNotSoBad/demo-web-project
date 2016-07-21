@@ -96,6 +96,8 @@ public interface UserManager {
 
 	public List<Group> getGroups(String userID);
 
+	List<Group> searchByGroupName(String groupName);
+
 
 
 	//public void deleteMember(String groupID, String deleter, String deletee);

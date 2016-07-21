@@ -42,10 +42,16 @@
       }
       
       .groupcontainer{
+      	position: absolute;
+		margin-left: auto;
+		margin-right: auto;
+		left: 0;
+		right: 0;
+		top:300px;
       	max-width: 900px;
         padding: 19px 29px 29px;
         margin: 0 auto 20px;
-        margin-top: 160px;
+        margin-top: 200px;
         background-color: #fff;
         border: 1px solid #e5e5e5;
         -webkit-border-radius: 5px;
@@ -100,7 +106,8 @@
 			<button onclick="search()" class="btn btn-primary btn-md" input type ="button">Search</button><br><br>
   			</form>
     </div> 
-    <#if group??>
+    <#if groups??>
+    	<#list groups as group>
     	<div class="groupcontainer">
   			<h2>Groups Found:</h2>
   			<table class="table table-hover">
@@ -126,6 +133,7 @@
 	     					</tr>
  			 </table>
 	</div>
+	</#list>
     </#if>	
     <#if users??>
     <div class="container">

@@ -352,6 +352,20 @@ public class WebController extends WebMvcConfigurerAdapter {
 		modelAndView.addObject("users", searchByMajor(userId));
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = "/search/groupname/{userId}", method = RequestMethod.GET)
+	List<Group> searchByGroupName(@PathVariable("userId") String userId) {
+		List<Group> results = new ArrayList<Group>();
+		results = userManager.searchByGroupName(userId);
+		return results;
+	}
+
+	@RequestMapping(value = "/results/groupname/{userId}", method = RequestMethod.GET)
+	ModelAndView resultsByGroupName(@PathVariable("userId") String userId) {
+		ModelAndView modelAndView = new ModelAndView("results");
+		modelAndView.addObject("groups", searchByGroupName(userId));
+		return modelAndView;
+	}
 
 	@RequestMapping(value = "/list/majors", method = RequestMethod.GET)
 	List<String> getMajors() {

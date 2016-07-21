@@ -370,8 +370,8 @@ public class FSUserManager implements UserManager {
 			}
 		}
 		return searchedUsers;
-	}
-
+	}*/
+	@Override
 	public List<Group> searchByGroupName(String groupName) {
 		ArrayList<Group> listOfGroups = new ArrayList<Group>(getGroupMap().values());
 		ArrayList<Group> searchedGroups = new ArrayList<Group>();
@@ -385,7 +385,7 @@ public class FSUserManager implements UserManager {
 		return searchedGroups;
 	}
 	
-	public ArrayList<Group> searchByGroupID(String groupID) {
+	/**public ArrayList<Group> searchByGroupID(String groupID) {
 		ArrayList<Group> searchedGroups = new ArrayList<Group>();
 		if (getGroupMap().containsKey(groupID)) {
 			searchedGroups.add(getGroupMap().get(groupID));
