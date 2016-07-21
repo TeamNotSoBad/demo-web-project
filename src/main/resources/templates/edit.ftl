@@ -160,7 +160,7 @@
     	
     </div>
 
-<<<<<<< HEAD
+
  <table class="table table-hover">
    		<tr class="success">
    			<td>Sent From</td>
@@ -181,10 +181,10 @@
 	      		</#list>
 			</#if> 
   </table>
-=======
+
     <div style="background-image:url(http://i.imgur.com/zfC3jXW.jpg); 
     background-size:cover;width:100%;height:300px;">
->>>>>>> 89a3e2ce16fdde47fea76aef20abe5fafe49bdfe
+
         
 </body>
 
