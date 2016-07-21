@@ -1,3 +1,25 @@
+function joinGroup(groupName){
+	var userId = document.cookie.split("user=").pop();
+	alert(userId + " wants to join " + groupName);
+	
+	
+	$.ajax(
+			{
+				type : "POST",
+				url : "/join/" + groupName,
+				data : {
+					"userId" : userId
+				},
+				success : function(result) {
+					window.location.href = "http://broncostudy.com/group/" + groupName;
+				},
+				error : function(exception){
+					alert("Invalid Input.");
+				}
+			}
+		);
+}
+
 function addFriend(userFriend){
 	var userId = document.cookie.split("user=").pop();
 	alert(userId + " friends " + userFriend);
@@ -16,6 +38,7 @@ $.ajax(
 				}
 			});
 }
+
 
 
 function search(){
@@ -152,5 +175,4 @@ function search(){
 			}
 		);
 	}
-	
 }

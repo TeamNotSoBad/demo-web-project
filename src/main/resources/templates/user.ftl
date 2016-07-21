@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>CS480 Demo Web Service</title>
+    <title>User Page</title>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>    
     <script src="/js/user-control.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -123,6 +123,11 @@
       
 	</style>
 </head>
+            <center><h1>Viewing ${user.firstName} ${user.lastName}'s Profile</h1></center>
+
+    <div style="background-image:url(http://i.imgur.com/VCpnBOv.jpg); 
+    background-size:cover;">
+
 
 <body>    
     
@@ -132,7 +137,7 @@
 		<button onclick="sendMessage()" class="btn btn-primary btn-md" input type ="button">Send Message</button><br><br>
     </div>
     <div>
-            <center><h1>Viewing ${user.firstName} ${user.lastName}'s Profile</h1></center>
+    
     </div>
         
     <div align = "right">
@@ -228,7 +233,8 @@
     	</table>
     </div>
     
-
+    <div style="background-image:url(http://i.imgur.com/TAWBsxN.jpg); 
+    background-size:cover;width:100%;height:300px;">
         
 </body>
 

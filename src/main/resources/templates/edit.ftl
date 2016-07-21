@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>CS480 Demo Web Service</title>
+    <title>Edit Page</title>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>    
     <script src="/js/edit-control.js"></script>
  	<meta charset="utf-8">
@@ -19,8 +19,8 @@
 	</script>
 	<style type = "text/css">
 		body {
-        padding-top: 40px;
-        padding-bottom: 40px;
+        padding-top: 10px;
+        padding-bottom: 10px;
         background-color: #993600;
       }
       
@@ -28,6 +28,7 @@
       	max-width: 300px;
         padding: 19px 29px 29px;
         margin: 0 auto 20px;
+        margin-top: 200px;
         background-color: #fff;
         border: 1px solid #e5e5e5;
         -webkit-border-radius: 5px;
@@ -59,12 +60,17 @@
         padding: 7px 9px;
       }
       
+      .nametitle {
+      }
 	</style>
 </head>
 
-<body>    
+<body>
+
+    <div style="background-image:url(http://i.imgur.com/bevNIx6.jpg); 
+    background-size:cover;width:100%;height:300px;">    
     
-    <div>
+    <div class = "nametitle">
     		<center><h1>${user.firstName} ${user.lastName}'s Profile</h1></center>
     		<center><h3># ${user.id}</h3></center>
             <center><h3>Edit Page</h3></center>
@@ -80,10 +86,17 @@
   				<option value="firstName">First name</option>
   				<option value="lastName">Last name</option>
   				<option value="course">Course</option>
-  				<option value="commonCourses">Common Courses</option>
   				<option value="groupName">Group Name</option>
-  				<option value="groupID">Group ID</option>
 			</select>
+			<div class = "div-majors">
+    				<select id = "majorType">
+    					<option value="default">Search By Major </option>
+    					<#list majors as majors>
+  							<option value=${majors}>${majors}</option>
+  						</#list>
+					</select>
+					<br><br>
+				</div>	
 			<button onclick="search()" class="btn btn-primary btn-md" input type ="button">Search</button><br><br>
   			</form>
     </div>
@@ -106,21 +119,20 @@
     	<input type="text" placeholder = "Last Name" id = "input_lastName"><br><br>
 		<button onclick="changeName()" class="btn btn-primary btn-md" input type = "button">Change Name</button><br><br>
 	
-		Your classes are . . . <br>
+		Your classes are 
+			<#list classes as class> 
+				<p>${class}</p>,
+			</#list>
+			<br>
 		<div class = "div-class">
-		<button onclick="changeClasses()"class="btn btn-primary btn-md">Add Classes</button>
     		<select id = "depType">
     			<option value="default">Choose Department</option>
     			<#list majors as majors>
   					<option value=${majors}>${majors}</option>
   				</#list>
 			</select>
-			<select id = "class">
-				<option value="default">Choose your class</option>
-    			<#list classes as classes>
-  					<option value=${classes}>${classes}</option>
-  				</#list>
-			</select>
+			<input type="text" placeholder = "Class Number" id = "input_classNumber"><br><br>
+			<button onclick="addClass()"class="btn btn-primary btn-md">Add Classes</button>
 			<br><br>
 		</div>
 		
@@ -139,10 +151,16 @@
 		<button onclick="changeMajor()" class="btn btn-primary btn-md" input type ="button">Change Major</button><br><br>
     	
     	<button onclick="changePassword()"class="btn btn-primary btn-md">Change Password</button><br><br>
+
+    	<h5> Create group </h5>
+    	<input type="text" placeholder = "Group Name" id = "input_groupId"><br><br>
+		<button onclick="createGroup()" class="btn btn-primary btn-md" input type = "button">Create Group</button><br><br>
+
     	</form>
     	
     </div>
 
+<<<<<<< HEAD
  <table class="table table-hover">
    		<tr class="success">
    			<td>Sent From</td>
@@ -163,6 +181,10 @@
 	      		</#list>
 			</#if> 
   </table>
+=======
+    <div style="background-image:url(http://i.imgur.com/zfC3jXW.jpg); 
+    background-size:cover;width:100%;height:300px;">
+>>>>>>> 89a3e2ce16fdde47fea76aef20abe5fafe49bdfe
         
 </body>
 

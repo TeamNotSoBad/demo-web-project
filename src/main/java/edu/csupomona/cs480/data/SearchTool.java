@@ -106,7 +106,7 @@ public class SearchTool {
 	 * @param course
 	 * @return
 	 */
-	public ArrayList<User> searchByCourse(String course) {
+	/**public ArrayList<User> searchByCourse(String course) {
 		ArrayList<User> searchedUsers = new ArrayList<User>();
 
 		for (User user : listOfUsers) {
@@ -117,7 +117,7 @@ public class SearchTool {
 		}
 
 		return searchedUsers;
-	}
+	}*/
 
 	/**
 	 * Method to find users that share at least one course with the current
@@ -125,7 +125,7 @@ public class SearchTool {
 	 * 
 	 * @return
 	 */
-	public ArrayList<User> searchByCommonCourses(User currentUser) {
+	/**public ArrayList<User> searchByCommonCourses(User currentUser) {
 		ArrayList<User> searchedUsers = new ArrayList<User>();
 		HashSet<String> currentUserCourses = currentUser.getCourses();
 
@@ -148,7 +148,7 @@ public class SearchTool {
 			}
 		}
 		return searchedUsers;
-	}
+	}*/
 	
 	/**
 	 * Retrieves all users from the master groupMap object.
@@ -157,7 +157,7 @@ public class SearchTool {
 	 * @param groupID
 	 * @return
 	 */
-	public ArrayList<User> searchByGroupIDForUsers(String groupID) {
+	/**public ArrayList<User> searchByGroupIDForUsers(String groupID) {
 		ArrayList<User> searchedUsers = new ArrayList<User>();
 		Group result = mapOfGroups.get(groupID);
 		
@@ -175,7 +175,7 @@ public class SearchTool {
 			}
 		}
 		return searchedUsers;
-	}
+	}*/
 	
 	/**
 	 * A list of groups that contain the string in their group name.

@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>CS480 Demo Web Service</title>
+    <title>Group Page</title>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>    
     <script src="/js/user-control.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -105,56 +105,28 @@
     			<td> owner </td>
     		<tr>
     		<tr>
-    			<td>${group.groupOwner.groupName}</td>
+    			<td>${group.owner}</td>
     		</tr>
     	</table>
     </div>
 
-    <div class = "div-admins">
-    	<table class =  "table table-hover">
-    			<tr>
-    				<td> Admins list </td>
-    			<tr>
-    			<tr>
-    				<td>PLACEHOLDER</td>
-    			</tr>
-    			<tr>
-    				<td>PLACEHOLDER</td>
-    			</tr>
-    			<tr>
-    				<td>PLACEHOLDER</td>
-    			</tr>
-    	</table>
-    </div>
     
     <div class = "div-members">
     	<table class =  "table table-hover">
     			<tr>
     				<td> Members list </td>
     			<tr>
+    			<#list group.members as member>
     			<tr>
-    				<td>PLACEHOLDER</td>
+    				<td><a href = "http://broncostudy.com/user/$[member}">${member}</a></td>
     			</tr>
-    			<tr>
-    				<td>PLACEHOLDER</td>
-    			</tr>
-    			<tr>
-    				<td>PLACEHOLDER</td>
-    			</tr>
+    			</#list>
     	</table>
     </div>
 
-	<div class = "div-messages">
-    	<table class =  "table table-hover">
-    			<tr>
-    				<td> Messages </td>
-    			<tr>
-    			<tr>
-    				<td>PLACEHOLDER</td>
-    			</tr>
-    	</table>
-    </div>
-    
+
 </body>
+
+
 
 </html>

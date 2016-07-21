@@ -32,19 +32,19 @@ public class GroupMap extends HashMap<String, Group> {
 	 * @param groupID
 	 * @return
 	 */
-	public Group remove(String groupID) {
+	/**public Group remove(String groupID) {
 		if (containsKey(groupID) == true) {
 			Group group = get(groupID);
 			if (group.isMarkedForDeletion() == true) {
-				User owner = group.getOwner();
-				group.setOwner(null);
-				group.removeAdministrator(owner);
-				group.removeMember(owner);
+				String owner = group.getOwner();
+				//group.setOwner(null);
+				//group.removeAdministrator(owner);
+				//group.removeMember(owner);
 				return super.remove(groupID);
 			}
 		}
 		return null;
-	}
+	}*/
 	
 	/**
 	 * Changing the groupID should be done in this class only.
@@ -52,12 +52,12 @@ public class GroupMap extends HashMap<String, Group> {
 	 * @param newGroupID
 	 * @return
 	 */
-	public boolean changeGroupID(String oldGroupID, String newGroupID) {
-		if (containsKey(oldGroupID) == true) {
-			Group temp = get(oldGroupID);
-			temp.setGroupID(newGroupID);
-			remove(oldGroupID);
-			put(newGroupID, temp);
+	public boolean changeGroupName(String oldGroupName, String newGroupName) {
+		if (containsKey(oldGroupName) == true) {
+			Group temp = get(oldGroupName);
+			temp.setGroupName(newGroupName);
+			remove(oldGroupName);
+			put(newGroupName, temp);
 			return true;
 		} else {
 			return false;

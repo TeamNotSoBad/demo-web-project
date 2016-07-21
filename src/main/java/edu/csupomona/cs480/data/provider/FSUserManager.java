@@ -216,7 +216,7 @@ public class FSUserManager implements UserManager {
 
 		for (User user : listOfUsers) {
 
-			if (user.getCourses().contains(course)) {
+			if (user.getClasses().contains(course)) {
 				searchedUsers.add(user);
 			}
 		}
@@ -224,7 +224,7 @@ public class FSUserManager implements UserManager {
 		return searchedUsers;
 	}
 
-	public List<User> searchByCommonCourses(String userID) {
+	/**public List<User> searchByCommonCourses(String userID) {
 		User currentUser = getUser(userID);
 		ArrayList<User> listOfUsers = new ArrayList<User>(getUserMap().values());
 		ArrayList<User> searchedUsers = new ArrayList<User>();
@@ -249,7 +249,7 @@ public class FSUserManager implements UserManager {
 			}
 		}
 		return searchedUsers;
-	}
+	}*/
 
 	public ArrayList<String> getMajors() {
 		return classMajorTool.getMajors();
@@ -306,11 +306,16 @@ public class FSUserManager implements UserManager {
 		}
 		return groupMap;
 	}
+	
+	public void createGroup(String group, User owner){
+		Group addGroup = new Group(group, owner);
+		updateGroup(addGroup);
+	}
 
 	@Override
 	public void updateGroup(Group group) {
 		GroupMap groupMap = getGroupMap();
-		groupMap.put(group.getGroupID(), group);
+		groupMap.put(group.getGroupName(), group);
 		persistGroupMap(groupMap);
 	}
 
@@ -326,7 +331,7 @@ public class FSUserManager implements UserManager {
 		GroupMap groupMap = getGroupMap();
 		return new ArrayList<Group>(groupMap.values());
 	}
-	@Override
+	/**@Override
 	public List<User> searchByGroupIDForUsers(String groupID) {
 		ArrayList<User> searchedUsers = new ArrayList<User>();
 		Group result = getGroupMap().get(groupID);
@@ -366,7 +371,7 @@ public class FSUserManager implements UserManager {
 			searchedGroups.add(getGroupMap().get(groupID));
 		}
 		return searchedGroups;
-	}
+	}*/
 	
 	@Override
 	public Group getGroup(String groupId) {
@@ -374,7 +379,7 @@ public class FSUserManager implements UserManager {
 		return groupMap.get(groupId);
 	}
 
-	@Override
+	/**@Override
 	public void groupMessage(String userID, String groupID, String msg) {
 		getGroup(groupID).sendGroupMessage(userID, msg);
 	}
@@ -401,5 +406,5 @@ public class FSUserManager implements UserManager {
 	public void setOwner(String groupID, String oldOwner, String newOwner){
 		getGroup(groupID).setOwner(getUser(oldOwner), getUser(newOwner));
 	}
-
+	*/
 }
