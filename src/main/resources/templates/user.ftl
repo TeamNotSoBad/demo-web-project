@@ -6,7 +6,9 @@
     <script src="/js/user-control.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  	
     
 	<style type = "text/css">
 		body {
@@ -124,6 +126,11 @@
 
 <body>    
     
+    <div class = "messages">
+    	<input type="text" placeholder = "Message to" id = "input_receiverId"><br><br>
+    	<input type="text" placeholder = "Send Message" id = "input_message"><br><br>
+		<button onclick="sendMessage()" class="btn btn-primary btn-md" input type ="button">Send Message</button><br><br>
+    </div>
     <div>
             <center><h1>Viewing ${user.firstName} ${user.lastName}'s Profile</h1></center>
     </div>

@@ -265,6 +265,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 		modelAndView.addObject("majors", getMajors());
 		modelAndView.addObject("classes", new ArrayList<String>());
 		modelAndView.addObject("messages", userManager.getUser(userId).getWall());
+		
 		return modelAndView;
 	}
 	
@@ -482,5 +483,12 @@ public class WebController extends WebMvcConfigurerAdapter {
 		return userManager.listAllUsers();
 	}
 	
-
+	@RequestMapping(value = "/messages/send/{userId}", method = RequestMethod.GET)
+	String sendMessage(@PathVariable("userId") String userId,
+						@RequestParam("userMessage") String userMessage,
+						@RequestParam("receiverId") String receiverId){
+		userManager.message(userId, receiverId, userMessage);
+		
+		return userMessage;
+	}
 }
