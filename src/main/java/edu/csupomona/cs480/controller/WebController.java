@@ -410,6 +410,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 		ModelAndView modelAndView = new ModelAndView("user");
 		modelAndView.addObject("user", user);
 		modelAndView.addObject("friends", user.getFriends());
+		modelAndView.addObject("majors", getMajors());
 		return modelAndView;
 	}
 	
@@ -429,7 +430,6 @@ public class WebController extends WebMvcConfigurerAdapter {
 						@RequestParam("userMessage") String userMessage,
 						@RequestParam("receiverId") String receiverId){
 		userManager.message(userId, receiverId, userMessage);
-		
 		return userMessage;
 	}
 }

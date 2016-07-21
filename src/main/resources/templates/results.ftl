@@ -21,7 +21,12 @@
       }
 
       .form-search{
-      	opacity: 0.9;
+      	position: absolute;
+		margin-left: auto;
+		margin-right: auto;
+		left: 0;
+		right: 0;
+		top: 100px;
       	max-width: 300px;
         padding: 19px 29px 29px;
         margin: 0 auto 20px;
@@ -40,6 +45,7 @@
       	max-width: 900px;
         padding: 19px 29px 29px;
         margin: 0 auto 20px;
+        margin-top: 160px;
         background-color: #fff;
         border: 1px solid #e5e5e5;
         -webkit-border-radius: 5px;
@@ -49,9 +55,14 @@
            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
                 box-shadow: 0 1px 2px rgba(0,0,0,.05);
         }
-      }
+      
       .container{
-      opacity: 0.8;
+      	position: absolute;
+		margin-left: auto;
+		margin-right: auto;
+		left: 0;
+		right: 0;
+		top:300px;
       	max-width: 900px;
         padding: 19px 29px 29px;
         margin: 0 auto 20px;
@@ -69,7 +80,7 @@
       </style>
 </head>
 
-<body ng-controller = "ResultsCtrl"> 
+<body> 
 
         
     <div class = "form-search">
@@ -125,8 +136,9 @@
 	        <td>First Name</td>
 	        <td>Last Name</td>
 	        <td>Major</td>
-	        <td>Current Courses/td>
+	        <td>Current Courses</td>
 	     </tr>
+	     
 	     	<#list users as user>
 	     		<#if user??>
 	     			<tr>
@@ -144,9 +156,6 @@
 	        			<td><button onclick="addFriend(${user.id})" class="btn btn-primary btn-md" input type = "button">Add Friend</button></td>
 	        		</tr>
 	        	<#else>
-	        		<tr>
-	        			<td>No Users Found</td>
-	        		</tr>
 	        	</#if>	
 	      	</#list>
  	 </table>

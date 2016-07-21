@@ -11,6 +11,10 @@
   	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   	
 
+	<script>	
+	var userId = ${user.id};
+	</script>
+
 	<style type = "text/css">
 		body {
         padding-top: 10px;
@@ -21,6 +25,7 @@
       .form-search{
       	position: absolute;
       	right: 380px;
+      	top: 100px;
       	width: 500px;
       	max-width: 500px;
         padding: 20px 29px 29px;
@@ -39,6 +44,7 @@
 		.form-edit {
 		position: absolute;
 		left: 300px;
+		top: 200px;
 		width: 500px;
         max-width: 500px;
         padding: 19px 29px 29px;
@@ -62,9 +68,8 @@
       
       .message-container{
       	position: absolute;
-      	right: 80px;
-      	bottom: 50px;
-      	height: 350px;
+      	right: 380px;
+      	bottom: 100px;
       	width:800px;
       	max-width: 1000px;
         padding: 19px 29px 29px;
@@ -82,6 +87,11 @@
       table {
         width: 100%;
     }
+    
+    .profile-picture{
+    	position: absolute;
+    	bottom: 100px;
+    	}
     
     .majors{
     	position: absolute;
@@ -135,6 +145,10 @@ tbody td, thead th {
     		<center><h3># ${user.id}</h3></center>
             <center><h3>Edit Page</h3></center>
     </div>
+    <center><div = "profile-picture">
+    	<h3> Profile Picture </h3>
+    	<img src="https://www.drupal.org/files/profile_default.jpg" alt="ProfPic">
+    </div></center>
         
    <div class = "form-search">
             <form>
@@ -158,12 +172,6 @@ tbody td, thead th {
 			
 			<button onclick="search()" class="btn btn-primary btn-lg" input type ="button">Search</button><br><br>
   			</form>
-    </div>
-    
-    
-    <div>
-    	<h3>
-    	<center><a href=" ">Upload New Picture</a><br></center>
     </div>
     
     

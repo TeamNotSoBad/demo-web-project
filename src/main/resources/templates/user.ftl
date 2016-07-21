@@ -18,9 +18,11 @@
       }
 		
 		.div-major {
-		position: relative;
-		left: 500px;
-      	max-width: 700px;
+		position: absolute;
+		right: 300px;
+		width: 500px;
+      	max-width: 500px;
+      	
         padding: 19px 29px 29px;
         margin: 0 auto 20px;
         background-color: #fff;
@@ -34,9 +36,12 @@
         }
         
         .div-currentclasses {
-        position: relative;
-        left: 500px;
-      	max-width: 700px;
+      	position: relative;
+      	left: 500px;
+      	top: 200px;
+      	width: 500px;
+      	height: 300px;
+      	max-width: 500px;
       	max-height: 300px;
         padding: 19px 29px 29px;
         margin: 0 auto 20px;
@@ -50,12 +55,15 @@
                 box-shadow: 0 1px 2px rgba(0,0,0,.05);
         }
         
-        .div-previousclasses {
-        position: relative;
-        left: 500px;
-      	max-width: 700px;
-        padding: 19px 29px 29px;
+        .form-search{
+      	position: absolute;
+      	right: 300px;
+      	top: -50px;
+      	width: 500px;
+      	max-width: 500px;
+        padding: 20px 29px 29px;
         margin: 0 auto 20px;
+        margin-top: 200px;
         background-color: #fff;
         border: 1px solid #e5e5e5;
         -webkit-border-radius: 5px;
@@ -64,12 +72,16 @@
         -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
                 box-shadow: 0 1px 2px rgba(0,0,0,.05);
-        }
+      }
+        
         
         .div-friends {
-        position: relative;
-        right: 700px;
-        bottom: 350px;
+        position: absolute;
+		margin-left: auto;
+		margin-right: auto;
+		left: 0;
+		right: 0;
+		bottom: 200px;
       	max-width: 400px;
       	height: 300px;
         padding: 19px 29px 29px;
@@ -85,9 +97,10 @@
         }
         
         .div-groups {
-        position: relative;
-        right: 700px;
-        bottom: 350px;
+        position: absolute;
+        left: 300px;
+        bottom: 150px;
+        width: 400px;
       	max-width: 400px;
       	height: 300px;
         padding: 19px 29px 29px;
@@ -102,12 +115,14 @@
                 box-shadow: 0 1px 2px rgba(0,0,0,.05);
         }
         
-        .div-messages {
-        position: relative;
-        bottom: 990px;
-        right: 200px;
-      	max-width: 500px;
-      	height: 600px;
+        .messages{
+        position: absolute;
+        left: 300px;
+        top: 200px;
+        
+        width: 400px;
+      	max-width: 400px;
+      	height: 300px;
         padding: 19px 29px 29px;
         margin: 0 auto 20px;
         background-color: #fff;
@@ -119,7 +134,10 @@
            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
                 box-shadow: 0 1px 2px rgba(0,0,0,.05);
         }
-      
+        .profile-picture{
+    	position: absolute;
+    	bottom: 100px;
+    	}
       
 	</style>
 </head>
@@ -137,14 +155,35 @@
 		<button onclick="sendMessage()" class="btn btn-primary btn-md" input type ="button">Send Message</button><br><br>
     </div>
     <div>
-    
-    </div>
-        
-    <div align = "right">
-    	 	<form>
-  				Search User: <input type="text" name="userid">
-  				<button onclick="search()">Search</button>
+     <div class = "form-search">
+            <form>
+  			Search For: <input type="text" id="input_id"><br><br>
+  			Choose Major:
+    				<select id = "majorType">
+    					<#list majors as majors>
+  							<option value=${majors}>${majors}</option>
+  						</#list>
+					</select>
+					<br><br>
+			Search By:
+  			<select id = "searchType">
+  				<option value="id">User ID</option>
+  				<option value="major">Major</option>
+  				<option value="firstName">First name</option>
+  				<option value="lastName">Last name</option>
+  				<option value="course">Course</option>
+  				<option value="groupName">Group Name</option>
+			</select>
+			
+			<button onclick="search()" class="btn btn-primary btn-lg" input type ="button">Search</button><br><br>
   			</form>
+    </div>
+    
+    <center><div = "profile-picture">
+    	<h3> Profile Picture </h3>
+    	<img src="https://www.drupal.org/files/profile_default.jpg" alt="ProfPic">
+    </div></center>
+    
     </div>
     
     <div class = "div-major">
@@ -171,22 +210,6 @@
     	</table>
     </div>
     
-    <div class = "div-previousclasses">
-    	<table class =  "table table-hover">
-    			<tr>
-    				<td> Completed Classes </td>
-    			<tr>
-    			<tr>
-    				<td>PLACEHOLDER</td>
-    			</tr>
-    			<tr>
-    				<td>PLACEHOLDER</td>
-    			</tr>
-    			<tr>
-    				<td>PLACEHOLDER</td>
-    			</tr>
-    	</table>
-    </div>
     
     <div class = "div-friends">
     	<table class =  "table table-hover">
@@ -218,16 +241,6 @@
     	</table>
     </div>
 	
-	<div class = "div-messages">
-    	<table class =  "table table-hover">
-    			<tr>
-    				<td> Messages </td>
-    			<tr>
-    			<tr>
-    				<td>PLACEHOLDER</td>
-    			</tr>
-    	</table>
-    </div>
     
     <div style="background-image:url(http://i.imgur.com/TAWBsxN.jpg); 
     background-size:cover;width:100%;height:300px;">
