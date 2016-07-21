@@ -75,7 +75,7 @@ function search(){
 				data : {
 				},
 				success : function(result) {
-					window.location.href = "http://broncostudy.com/results/courses/" + userId;
+					window.location.href = "http://broncostudy.com/results/course/" + userId;
 				},
 				error : function(exception){
 					alert("Invalid Input.");
