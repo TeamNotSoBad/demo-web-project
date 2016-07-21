@@ -151,7 +151,10 @@
     
     <div class = "messages">
     	<input type="text" placeholder = "Message to" id = "input_receiverId"><br><br>
-    	<input type="text" placeholder = "Send Message" id = "input_message"><br><br>
+    	<fieldset class="form-group">
+   			<label for="message">Message</label>
+    		<textarea class="form-control" id="input_message" rows="3"></textarea>
+  		</fieldset>
 		<button onclick="sendMessage()" class="btn btn-primary btn-md" input type ="button">Send Message</button><br><br>
     </div>
     <div>
