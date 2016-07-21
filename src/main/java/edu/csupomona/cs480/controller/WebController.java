@@ -85,17 +85,6 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 */
 	@Autowired
 	private UserManager userManager;
-	
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	ModelAndView getTest() {
-		User user = new User("1", "lname", "fname", "CS");
-		ModelAndView modelAndView = new ModelAndView("edit");
-		modelAndView.addObject("user", user);
-		modelAndView.addObject("majors", getMajors());
-		modelAndView.addObject("classes", new ArrayList<String>());
-		modelAndView.addObject("messages", user.getWall());
-		return modelAndView;
-	}                         
 
 	public static void awsTest()throws Exception{
 		AWSCredentials credentials = null;
@@ -178,17 +167,6 @@ public class WebController extends WebMvcConfigurerAdapter {
 	
 	
 	/**
-	 * Uploads the file that contains all the users, but I don't
-	 * know the name of the file that stores all the users, so I'm
-	 * using the resource resolver thing
-	 */
-	@RequestMapping(value = "/cs480/upload", method = RequestMethod.POST)
-	String upload(){
-		userManager.uploadMap();
-		return "redirect:/";
-	}
-	
-	/**
 	 * Downloads the file that contains all users
 	 */
 	@RequestMapping(value = "/cs480/download", method = RequestMethod.GET)
@@ -223,6 +201,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 		modelAndView.addObject("majors", getMajors());
 		modelAndView.addObject("classes", userManager.getUser(userId).getClasses());
 		modelAndView.addObject("messages", userManager.getUser(userId).getWall());
+		
 		return modelAndView;
 	}
 	
@@ -232,7 +211,7 @@ public class WebController extends WebMvcConfigurerAdapter {
 		modelAndView.addObject("group", userManager.getGroup(groupId));
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/group/{groupId}", method = RequestMethod.POST)
 	void createGroup(@PathVariable("groupId") String groupId,
 					@RequestParam("userId") String userId){
@@ -303,22 +282,6 @@ public class WebController extends WebMvcConfigurerAdapter {
 		userManager.updateUser(user);
 	}
 	
-	@RequestMapping(value = "/user/classes/{userId}", method = RequestMethod.GET)
-	void updateUserClass(
-			@PathVariable("userId") String userId,
-			@RequestParam("dep") String dep,
-			@RequestParam("classNum") String classNum) {
-		User user = userManager.getUser(userId);
-		user.addClasses(dep + classNum);
-		userManager.updateUser(user);
-	}
-	
-	@RequestMapping(value = "/list/classes/{userId}", method = RequestMethod.GET)
-	ArrayList<String> getUserClasses(@PathVariable("userId") String userId){
-		return userManager.getUser(userId).getClasses();
-	}
-	
-	
 
 	@RequestMapping(value = "/search/id/{userId}", method = RequestMethod.GET)	
 	List<User> searchById(@PathVariable("userId") String userId){
@@ -360,19 +323,27 @@ public class WebController extends WebMvcConfigurerAdapter {
 		return modelAndView;
 	}
 	
-	
-	@RequestMapping(value = "/search/groupname/{userId}", method = RequestMethod.GET)	
-	Group searchByGroup(@PathVariable("userId") String userId){
-		return userManager.getGroup(userId);
+	@RequestMapping(value = "/search/course/{userId}", method = RequestMethod.GET)	
+	List<User> searchByCourse(@PathVariable("userId") String userId){
+		List<User> results = new ArrayList<User> ();
+		results = userManager.searchByCourse(userId);
+		return results;
 	}
 	
-	@RequestMapping(value = "/results/groupname/{userId}", method = RequestMethod.GET)
-	ModelAndView resultsByGroup(@PathVariable("userId") String userId) {
+	@RequestMapping(value = "/results/course/{userId}", method = RequestMethod.GET)
+	ModelAndView resultsByCourse(@PathVariable("userId") String userId) {
 		ModelAndView modelAndView = new ModelAndView("results");
-		modelAndView.addObject("group", searchByGroup(userId));
+		modelAndView.addObject("users", searchByCourse(userId));
 		return modelAndView;
 	}
 	
+//	@RequestMapping(value = "/results/commoncourses/{userId}", method = RequestMethod.GET)
+//	ModelAndView resultsByCommonCourses(@PathVariable("userId") String userId) {
+//		ModelAndView modelAndView = new ModelAndView("results");
+//		modelAndView.addObject("users", searchByCommonCourses(userId));
+//		return modelAndView;
+//	}
+//	
 	@RequestMapping(value = "/search/major/{userId}", method = RequestMethod.GET)	
 	List<User> searchByMajor(@PathVariable("userId") String userId){
 		List<User> results = new ArrayList<User> ();
@@ -384,20 +355,6 @@ public class WebController extends WebMvcConfigurerAdapter {
 	ModelAndView resultsByMajor(@PathVariable("userId") String userId) {
 		ModelAndView modelAndView = new ModelAndView("results");
 		modelAndView.addObject("users", searchByMajor(userId));
-		return modelAndView;
-	}
-	
-	@RequestMapping(value = "/search/classes/{userId}", method = RequestMethod.GET)	
-	List<User> searchByClasses(@PathVariable("userId") String userId){
-		List<User> results = new ArrayList<User> ();
-		results = userManager.searchByCourse(userId);
-		return results;
-	}
-	
-	@RequestMapping(value = "/results/classes/{userId}", method = RequestMethod.GET)
-	ModelAndView resultsByClasses(@PathVariable("userId") String userId) {
-		ModelAndView modelAndView = new ModelAndView("results");
-		modelAndView.addObject("users", searchByClasses(userId));
 		return modelAndView;
 	}
 	
@@ -418,8 +375,8 @@ public class WebController extends WebMvcConfigurerAdapter {
 	 * use free marker though to create something that accepts a file
 	 * @param image
 	 */
-	@RequestMapping(value = "/uploadImageTest1", method = RequestMethod.POST)
-	void transferImageTest(@PathVariable("file") File file)throws IOException{
+	@RequestMapping(value = "/uploadImageTest", method = RequestMethod.POST)
+	void transferImageTest(File file)throws IOException{
 		int width = 100;
 		int height = 100;
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -427,12 +384,6 @@ public class WebController extends WebMvcConfigurerAdapter {
 		String BASE_DIR = System.getProperty("user.home") + "/images/database";
 		file = new File(BASE_DIR + "/" + "test.jpg");
 		ImageIO.write(image, "jpg", file);
-	}
-	
-	@RequestMapping(value ="/uploadImageTest", method = RequestMethod.GET)
-	ModelAndView xfertest(){
-		ModelAndView modelAndView = new ModelAndView("uploadimage");
-		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/upload/{userId}", method = RequestMethod.POST)
@@ -482,5 +433,14 @@ public class WebController extends WebMvcConfigurerAdapter {
 	@RequestMapping(value = "/users/list", method = RequestMethod.GET)
 	List<User> listAllUsers() {
 		return userManager.listAllUsers();
+	}
+	
+	@RequestMapping(value = "/messages/send/{userId}", method = RequestMethod.GET)
+	String sendMessage(@PathVariable("userId") String userId,
+						@RequestParam("userMessage") String userMessage,
+						@RequestParam("receiverId") String receiverId){
+		userManager.message(userId, receiverId, userMessage);
+		
+		return userMessage;
 	}
 }

@@ -172,7 +172,9 @@ public class FSUserManager implements UserManager {
 
 
 	public void message(String senderID, String recipientID, String msg) {
-		getUser(senderID).writeMail(getUser(recipientID), msg);
+		UserMap usermap = getUserMap();
+		usermap.get(senderID).writeMail(usermap.get(recipientID), msg);
+		persistUserMap(usermap);
 	}
 
 	public List<User> searchByLastName(String name) {

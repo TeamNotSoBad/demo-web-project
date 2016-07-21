@@ -33,8 +33,8 @@ public class MessageTest extends TestCase{
 	
 		user1.writeMail(user2, messageBody1);
 		//ArrayList<Message> conversation = user1.conversation(user2.getId());
-		System.out.println(user1.getWall().get(0).getMsg());
-		assertEquals(user1.getWall().get(0).getMsg(), messageBody1);
+		System.out.println(user1.getWall().get(0));
+		assertEquals(user1.getWall().get(0).getMessage(), messageBody1);
 	}
 
 }

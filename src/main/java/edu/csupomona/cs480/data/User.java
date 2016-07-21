@@ -24,7 +24,7 @@ public class User {
 	private String major;
 	
 	/** The timestamp when the user is being created */
-	private String smorgle = "HI";
+	private String smorgle = "HIPPY";
 
 	private String password;
 
@@ -51,14 +51,14 @@ public class User {
 	 * A conversation is a list of messages sent in chronological order
 	 */
 	private HashMap<String, ArrayList> conversations;
-	private ArrayList<Message> wall;
+	private List<Message> wall = new ArrayList<Message>();;
 	
 	public User() {
 		conversations = new HashMap<String, ArrayList>();
 		myFriends = new ArrayList<String>();
 		classes = new ArrayList<String>();
 		groups = new HashSet<String>();
-		wall = new ArrayList<Message>();
+		
 		blackList = new HashSet<String>();
 	}
 
@@ -66,14 +66,13 @@ public class User {
 	public User(String id, String lastName, String firstName, String major) {
 		conversations = new HashMap<String, ArrayList>();
 		groups = new HashSet<String>();
-		wall = new ArrayList<Message>();
 		blackList = new HashSet<String>();
 		this.id = id;
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.major = major;
 	}
-	public ArrayList<Message> getWall(){
+	public List<Message> getWall(){
 		return wall;
 	}
 	public void addFriend(String id) {
@@ -205,7 +204,7 @@ public class User {
 
 		Message msg = new Message(id, recipient.getId(), messageBody);
 		
-		recipient.sendMail(msg);
+		recipient.wall.add(msg);
 		wall.add(msg);
 		
 //		if (!conversations.containsKey(recipient.id)) {

@@ -181,8 +181,6 @@ function changeMajor(){
 				);
 }
 
-
-
 function createGroup(){
 	var groupId = $('#input_groupId').val();
 	alert("Trying to create " + groupId + " by " + userId);
@@ -208,6 +206,7 @@ function createGroup(){
 		alert("Group name must be between 8 and 20 characters long");
 	}
 }
+<<<<<<< HEAD
 
 function changePassword(){
 	var password= $('#input_PW').val();
@@ -240,3 +239,6 @@ function changePassword(){
 		alert("Passwords need to be at least of length 4");
 	}
 }
+=======
+
+>>>>>>> 2c4952e282235b0b705b9a91c61050418139e2c9

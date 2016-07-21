@@ -158,8 +158,31 @@
     	
     </div>
 
+
+ <table class="table table-hover">
+   		<tr class="success">
+   			<td>Sent From</td>
+   			<td>Sent To</td>	
+   			<td>Time Sent</td>                    
+	        <td>Message</td>
+	     </tr>
+	     	<#if messages??>
+	     		<#list messages as message>
+	     			<#if message??>
+	     			<tr>
+	     				<td>${message.from}</td>
+	     				<td>${message.to}</td>
+	     				<td>${message.time}</td>
+	     				<td>${message.message}</td>
+	     			</tr>
+	     			</#if>
+	      		</#list>
+			</#if> 
+  </table>
+
     <div style="background-image:url(http://i.imgur.com/zfC3jXW.jpg); 
     background-size:cover;width:100%;height:300px;">
+
         
 </body>
 
