@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>CS480 Demo Web Service</title>
+    <title>Results Page</title>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>    
     <script src="/js/results-control.js"></script>
     <meta charset="utf-8">
@@ -34,6 +34,21 @@
         -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
                 box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+      
+      .groupcontainer{
+      	max-width: 900px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+        }
       }
       .container{
       opacity: 0.8;
@@ -74,17 +89,43 @@
 			<button onclick="search()" class="btn btn-primary btn-md" input type ="button">Search</button><br><br>
   			</form>
     </div> 
-    
+    <#if group??>
+    	<div class="groupcontainer">
+  			<h2>Groups Found:</h2>
+  			<table class="table table-hover">
+   			<tr class="success">	                    
+	    	    <td>Group Name</td>
+	    	    <td>Owner</td>
+	        	<td>Members</td>
+	     	</tr>
+	     			<tr>
+	     				<td><a href = "http://localhost:8080/group/${group.groupName}">${group.groupName}</a>
+	     				<button onclick="joinGroup('${group.groupName}')" class="btn btn-primary btn-md" input type = "button">Join Group</button>
+	     	  			</td>
+	     			   	<td><a href = "http://broncostudy.com/group/${group.owner}">${group.owner}</a></td>
+	     			    
+	     						<td>
+	     							 <#list group.members as member>
+	     								<#if member??>
+	     									<a href = "http://broncostudy.com/group/${member}">${member}</a>
+	     								</#if>
+	     							</#list>		
+	     						</td>
+	     						
+	     					</tr>
+ 			 </table>
+	</div>
+    </#if>	
+    <#if users??>
     <div class="container">
-  <h2>Users Found:</h2>
-  <table class="table table-hover">
+  	<h2>Users Found:</h2>
+  	<table class="table table-hover">
    		<tr class="success">	                    
 	        <td>ID</td>
 	        <td>First Name</td>
 	        <td>Last Name</td>
 	        <td>Major</td>
 	        <td>Current Courses/td>
-	        <td>Message This person</td>
 	     </tr>
 	     	<#list users as user>
 	     		<#if user??>
@@ -93,8 +134,13 @@
 	     			   	<td>${user.firstName}</td>
 	     			   	<td>${user.lastName}</td>
 	     	   			<td>${user.major}</td>
-	     	   			<td>Place Holder</td>
-	        			<td>Message placeholder</td>
+	     	   				
+	     	   					<td><#list user.classes as class> 
+	     	   						<#if class??>
+	     	   							<p>${class}</p>
+	     	   						</#if>
+	     	   						</#list>
+	     	   					</td>
 	        			<td><button onclick="addFriend(${user.id})" class="btn btn-primary btn-md" input type = "button">Add Friend</button></td>
 	        		</tr>
 	        	<#else>
@@ -102,9 +148,10 @@
 	        			<td>No Users Found</td>
 	        		</tr>
 	        	</#if>	
-	      	</#list> 
-  </table>
-</div>
+	      	</#list>
+ 	 </table>
+	</div>
+	</#if>
 
         
 </body>

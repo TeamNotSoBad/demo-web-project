@@ -1,20 +1,23 @@
 function uploadImage(){
-
-    var picture = $('#test')
+    
+    var pic = document.getElementsByName("test");
     
     $.ajax(
+        {
         type : "POST",
         url  : "/uploadImageTest1",
         data : {
-                        "picture" : file
-                }
+                 "pic" : file
+                },
         success : function(result) {
                 alert("Did it");
-                    location.reload();
-                }
-        error: function (exception) {
+                    alert("It works");
+                    window.location.href = "http://broncostudy.com";
+                },
+        error : function (jqXHR. exception) {
                 alert("Didn't work");
                 }
+        }
     );
 
 }

@@ -60,11 +60,12 @@ public interface UserManager {
 	
 	public List<User> searchByCourse(String course);
 	
-	public List<User> searchByCommonCourses(String commoncourses);	 	
+	//public List<User> searchByCommonCourses(String commoncourses);	 	
 	
 	public void message(String senderID, String recipientID,String msg);
+
 	
-	public void groupMessage(String userID, String groupID, String msg);
+	//public void groupMessage(String userID, String groupID, String msg);
 	
 	public ArrayList<Boolean> getAvailabilityForDay(String userID, int day);
 	
@@ -81,14 +82,16 @@ public interface UserManager {
 	public List<Group> listAllGroups();
 
 	public void deleteGroup(String groupId);
+	
+	public void createGroup(String groupId, User owner);
 
 	public void updateGroup(Group group);
 
 	public Group getGroup(String groupID);
 
-	public void deleteMember(String groupID, String deleter, String deletee);
+	//public void deleteMember(String groupID, String deleter, String deletee);
 	
-	public void addMember(String groupID, String adder, String addee);
+	/**public void addMember(String groupID, String adder, String addee);
 	
 	public void addAdmin(String groupID, String adder, String addee);
 
@@ -96,5 +99,5 @@ public interface UserManager {
 
 	public void removeAdmin(String groupID, String deleter, String deletee);
 
-	public void setOwner(String groupID, String oldOwner, String newOwner);
+	public void setOwner(String groupID, String oldOwner, String newOwner);*/
 }
