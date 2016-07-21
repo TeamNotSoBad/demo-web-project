@@ -282,6 +282,16 @@ public class WebController extends WebMvcConfigurerAdapter {
 		userManager.updateUser(user);
 	}
 	
+	@RequestMapping(value = "/user/classes/{userId}", method = RequestMethod.GET)
+	void addUserClass(
+			@PathVariable("userId") String userId,
+			@RequestParam("dep") String dep,
+			@RequestParam("classNum") String classNum) {
+		User user = userManager.getUser(userId);
+		user.addClasses(dep + classNum);
+		userManager.updateUser(user);
+	}
+	
 
 	@RequestMapping(value = "/search/id/{userId}", method = RequestMethod.GET)	
 	List<User> searchById(@PathVariable("userId") String userId){
@@ -386,27 +396,6 @@ public class WebController extends WebMvcConfigurerAdapter {
 		ImageIO.write(image, "jpg", file);
 	}
 	
-	@RequestMapping(value = "/upload/{userId}", method = RequestMethod.POST)
-	void uploadUserImage(File file, @PathVariable("userId") String userId)throws IOException{
-		int width = 100;
-		int height = 100;
-		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		image = ImageIO.read(file);
-		String BASE_DIR = System.getProperty("user.home") + "/images/database";
-		file = new File(BASE_DIR + "/" + userId +".jpg");
-		ImageIO.write(image, "jpg", file);
-	}
-	
-	@RequestMapping(value = "/user/profile/{userId}", method = RequestMethod.GET)
-	BufferedImage getUserImage(@PathVariable("userId") String userId) throws IOException{
-		int width = 100;
-		int height = 100;
-		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		File f = ResourceResolver.getUserImage(userId);
-		image = ImageIO.read(f);
-		
-		return image;		
-	}
 	
 	@RequestMapping(value = "/password/{userId}", method = RequestMethod.POST)
 	void changePassword(@PathVariable("userId") String userId,

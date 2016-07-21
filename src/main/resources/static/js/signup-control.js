@@ -25,7 +25,7 @@ function addUser() {
 					success : function(result) {
 					alert("Valid User");
 					document.cookie = "user="+userId+"; expires= Wed, 20 July 2017 00:00:00 GMT";
-					window.location.href = "http://broncostudy.com/edit/" + userId;
+					window.location.href = "http://localhost:8080/edit/" + userId;
 					},
 					error: function (jqXHR, exception) {
 					alert("Invalid Info");
