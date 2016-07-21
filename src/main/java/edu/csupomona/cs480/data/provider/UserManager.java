@@ -94,6 +94,8 @@ public interface UserManager {
 
 	public boolean addMember(String ownerID, String newMemberID, String groupID);
 
+	public List<Group> getGroups(String userID);
+
 
 
 	//public void deleteMember(String groupID, String deleter, String deletee);

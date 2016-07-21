@@ -12,16 +12,16 @@ import java.util.HashMap;
 public class User {
 
 	/** The unique user Id */
-	private String id;
+	private String id = "";
 	
 	/** The unique user Id */
-	private String lastName;
+	private String lastName = "";
 	
 	/** The unique user Id */
-	private String firstName;
+	private String firstName = "";
 	
 	/** The unique user Id */
-	private String major;
+	private String major = "";
 	
 	/** The timestamp when the user is being created */
 	private String smorgle = "HIPPY";
@@ -181,7 +181,11 @@ public class User {
 
 		return true;
 	}
-
+	public ArrayList<String> getGroups(){
+		ArrayList<String> g = new ArrayList<String>(groups);
+		g.sort(null);
+		return g;
+	}
 	public boolean sendMail(Message msg) {
 		if (blackList.contains(msg.getFrom())) {
 			return false;

@@ -239,7 +239,15 @@
     				<td> Groups </td>
     			<tr>
     			<tr>
-    				<td>PLACEHOLDER</td>
+    				<#if groups??>
+    					<#list groups as group>
+    						<#if group??>
+    							<td><a href = "http://broncostudy.com/user/${group}">${group}</a></td>
+    						</#if>	
+    					</#list>
+    					<#else>
+    						<td>No Users</td>
+    				</#if>
     			</tr>
     	</table>
     </div>

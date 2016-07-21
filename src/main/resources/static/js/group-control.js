@@ -1,7 +1,7 @@
 function sendMessage(){
 	var userId = document.cookie.split("user=").pop();
 	var userMessage = $('#input_message').val();
-	var receiverId = $('#input_receiverId').val();
+	var receiverId = $('group.groupName').val();
 	
 	$.ajax(
 			{

@@ -211,6 +211,16 @@ public class FSUserManager implements UserManager {
 		}
 		return searchedUsers;
 	}
+	@Override
+	public List<Group> getGroups(String userID){
+		List<String> s = getUser(userID).getGroups();
+		ArrayList<Group> g = new ArrayList<Group>();
+		for(int i = 0; i < s.size(); i++){
+			g.add(getGroup(s.get(i)));
+		}
+		
+		return g;
+	}
 
 	public List<User> searchByCourse(String course) {
 		ArrayList<User> listOfUsers = new ArrayList<User>(getUserMap().values());
