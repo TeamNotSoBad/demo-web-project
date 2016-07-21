@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>CS480 Demo Web Service</title>
+    <title>User Page</title>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>    
     <script src="/js/user-control.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

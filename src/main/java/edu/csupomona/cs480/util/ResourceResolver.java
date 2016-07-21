@@ -37,7 +37,7 @@ public class ResourceResolver {
 	}
 	
 	public static File getGroupFile() {
-		File file = new File(BASE_DIR + "/" + "group-map.json");
+		File file = new File(GROUP_DIR + "/" + "group-map.json");
 		if (!file.getParentFile().exists()) {
 			file.getParentFile().mkdirs();
 		}

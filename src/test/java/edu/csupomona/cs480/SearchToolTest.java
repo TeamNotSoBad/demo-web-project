@@ -11,7 +11,7 @@ import edu.csupomona.cs480.data.User;
 import edu.csupomona.cs480.data.UserMap;
 import edu.csupomona.cs480.data.SearchTool;
 
-public class SearchToolTest {
+/**public class SearchToolTest {
 
 	private static SearchTool searchToolTester;
 	private static ArrayList<User> listOfResults;
@@ -245,3 +245,4 @@ public class SearchToolTest {
 		}
 	}
 }
+*/

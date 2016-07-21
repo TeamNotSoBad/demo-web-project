@@ -1,6 +1,7 @@
 function search(){
 	var userId = $('#input_id').val(); 
 	var searchType = $('#searchType').val();
+	var userMajor = $('#majorType').val();
 	
 	alert(userId);
 	
@@ -24,11 +25,11 @@ function search(){
 		$.ajax(
 			{
 				type : "GET",
-				url : "/search/major/" + userId,
+				url : "/search/major/" + userMajor,
 				data : {
 				},
 				success : function(result) {
-					window.location.href = "http://broncostudy.com/results/major/" + userId;
+					window.location.href = "http://broncostudy.com/results/major/" + userMajor;
 				},
 				error : function(exception){
 					alert("Invalid Input.");
@@ -72,27 +73,11 @@ function search(){
 		$.ajax(
 			{
 				type : "GET",
-				url : "/search/course/" + userId,
+				url : "/search/classes/" + userId,
 				data : {
 				},
 				success : function(result) {
-					window.location.href = "http://broncostudy.com/results/course/" + userId;
-				},
-				error : function(exception){
-					alert("Invalid Input.");
-				}
-			}
-		);
-	}
-	if(searchType === "commonCourses"){
-		$.ajax(
-			{
-				type : "GET",
-				url : "/search/commoncourses/" + userId,
-				data : {
-				},
-				success : function(result) {
-					window.location.href = "http://broncostudy.com/results/commoncourses/" + userId;
+					window.location.href = "http://broncostudy.com/results/classes/" + userId;
 				},
 				error : function(exception){
 					alert("Invalid Input.");
@@ -115,24 +100,7 @@ function search(){
 				}
 			}
 		);
-	}
-	if(searchType === "groupID"){
-		$.ajax(
-			{
-				type : "GET",
-				url : "/search/groupid/" + userId,
-				data : {
-				},
-				success : function(result) {
-					window.location.href = "http://broncostudy.com/results/groupid/" + userId;
-				},
-				error : function(exception){
-					alert("Invalid Input.");
-				}
-			}
-		);
-	}
-	
+	}	
 }
 
 function changeName(){
@@ -164,8 +132,27 @@ function chooseDepartment(){
 
 
 
-function addClass(){
-
+function addClass(){;
+	var dep = $('#depType').val();
+	var classNum = $('#input_classNumber').val();
+	alert("Adding " + dep + classNum);
+	$.ajax(
+				{
+					type : "GET",
+					url  : "/user/classes/" + userId,
+					data : {
+						"dep" : dep,
+						"classNum" : classNum
+					},
+					success : function(result) {
+					alert("Added Class");
+					location.reload();
+					},
+					error: function (jqXHR, exception) {
+					alert("Invalid Info");
+					}
+				}
+				);
 }
 
 function changeTime(){
@@ -184,6 +171,27 @@ function changeMajor(){
 					success : function(result) {
 					alert("Changed Major");
 					location.reload();
+					},
+					error: function (jqXHR, exception) {
+					alert("Invalid Info");
+					}
+				}
+				);
+}
+
+function createGroup(){
+	var groupId = $('#input_groupId').val();
+	alert("Trying to create " + groupId + " by " + userId);
+	$.ajax(
+				{
+					type : "POST",
+					url  : "/group/" + groupId,
+					data : {
+						"userId" : userId
+					},
+					success : function(result) {
+					alert("Created Group " + groupId);
+					window.location.href = "http://broncostudy.com/group/" + groupId;
 					},
 					error: function (jqXHR, exception) {
 					alert("Invalid Info");
