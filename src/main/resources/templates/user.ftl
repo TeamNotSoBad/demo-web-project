@@ -121,11 +121,16 @@
       
 	</style>
 </head>
+            <center><h1>Viewing ${user.firstName} ${user.lastName}'s Profile</h1></center>
+
+    <div style="background-image:url(http://i.imgur.com/VCpnBOv.jpg); 
+    background-size:cover;">
+
 
 <body>    
     
     <div>
-            <center><h1>Viewing ${user.firstName} ${user.lastName}'s Profile</h1></center>
+    
     </div>
         
     <div align = "right">
@@ -221,7 +226,8 @@
     	</table>
     </div>
     
-
+    <div style="background-image:url(http://i.imgur.com/TAWBsxN.jpg); 
+    background-size:cover;width:100%;height:300px;">
         
 </body>
 
