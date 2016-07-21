@@ -12,7 +12,7 @@
   	
 
 	<script>	
-	var userId = ${user.id};
+	var userId = '${user.id}';
 	</script>
 
 	<style type = "text/css">
